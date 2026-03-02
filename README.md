@@ -100,16 +100,19 @@ Two firmware variants:
 
 ```
 ExoHand/
-├── run_exohand.py               # Main entry: free / exercise / web modes
-├── calibrate_patient.py         # Patient calibration protocol
-├── adapt_model.py               # Fine-tune model for new users
-├── train_hgb_v2.py              # Full training pipeline (GrabMyo)
-├── train_from_session.py        # Retrain from recorded session data
-├── preprocessing_grabmyo.py     # GrabMyo WFDB preprocessing + feature extraction
-├── exercise.py                  # Exercise state machine & rep tracking
-├── assist_profile.py            # 5 graduated assist-as-needed profiles
-├── record_session.py            # Record labeled EMG sessions
-├── label_session.py             # Post-hoc session labeling
+├── runtime/                     # Real-time inference & motor control
+│   ├── run_exohand.py           # Main entry: free / exercise / web modes
+│   ├── calibrate_patient.py     # Patient calibration protocol
+│   ├── exercise.py              # Exercise state machine & rep tracking
+│   └── assist_profile.py        # 5 graduated assist-as-needed profiles
+├── ml/                          # Training & model adaptation
+│   ├── train_hgb_v2.py          # Full training pipeline (GrabMyo)
+│   ├── train_from_session.py    # Retrain from recorded session data
+│   ├── adapt_model.py           # Fine-tune model for new users
+│   └── preprocessing_grabmyo.py # GrabMyo WFDB preprocessing + feature extraction
+├── data/                        # Data collection & labeling
+│   ├── record_session.py        # Record labeled EMG sessions
+│   └── label_session.py         # Post-hoc session labeling
 ├── exohand_model.pkl            # Base pre-trained model (LFS)
 ├── exohand_adapted_model.pkl    # Patient-adapted model (LFS)
 ├── server/                      # Node.js backend

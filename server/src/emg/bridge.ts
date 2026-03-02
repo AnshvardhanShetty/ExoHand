@@ -26,7 +26,7 @@ export class PythonBridge extends EventEmitter {
     this.stop();
 
     const projectRoot = path.resolve(__dirname, "..", "..", "..");
-    const script = path.join(projectRoot, "run_exohand.py");
+    const script = path.join(projectRoot, "runtime", "run_exohand.py");
 
     const args = [
       script,
