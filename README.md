@@ -2,7 +2,9 @@
 
 EMG-controlled hand exoskeleton with real-time intent classification, adaptive motor assistance, and a full-stack rehabilitation platform.
 
-[![ExoHand Demo](https://img.youtube.com/vi/RMq31iIWcPk/maxresdefault.jpg)](https://www.youtube.com/watch?v=RMq31iIWcPk)
+[![Watch the demo](https://img.youtube.com/vi/RMq31iIWcPk/maxresdefault.jpg)](https://www.youtube.com/watch?v=RMq31iIWcPk)
+
+**[Watch the demo on YouTube](https://www.youtube.com/watch?v=RMq31iIWcPk)**
 
 ## Overview
 
