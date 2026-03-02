@@ -52,9 +52,9 @@ Per-class breakdown at 95.9%:
 | Rest | 0.96 | 0.99 | 0.98 |
 
 ### Patient Calibration
-A 30-second protocol collects labeled EMG from a new user and retrains the model with their data weighted 10× against the base training set. This reduces cross-subject variance from ±8.6% to ±1.9%.
+Full initial calibration (6 minutes) runs when a new patient is registered, including rest baseline, familiarization, sustained holds, quick contractions, and variable effort phases with onset trimming and outlier rejection. This reduces cross-subject variance from ±8.6% to ±1.9%.
 
-Full initial calibration (6 minutes) includes rest baseline, familiarization, sustained holds, quick contractions, and variable effort phases with onset trimming and outlier rejection.
+A 30-second recalibration protocol runs at the start of each new session, collecting labeled EMG and retraining the model with patient data weighted 10× against the base training set.
 
 ## Web Platform
 
