@@ -4,14 +4,14 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 
 ## Overview
 
-ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.1 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
+ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
 The system achieves **95.9% three-class accuracy** (close / open / rest) with a 30-second patient calibration protocol, and **98.8% binary movement detection accuracy**.
 
 ## System Architecture
 
 ```
-EMG Sensors → Teensy 4.1 → Serial USB → Python Runtime → Motor Commands → Servo
+EMG Sensors → Teensy 4.0 → Serial USB → Python Runtime → Motor Commands → Servo
                                               ↕
                                         Node.js Server ↔ React Dashboard
                                               ↕
@@ -139,7 +139,7 @@ ExoHand/
 ## Setup
 
 ### Hardware
-Flash `exohand_combined/exohand_combined.ino` to a Teensy 4.1 using the Arduino IDE with Teensyduino.
+Flash `exohand_combined/exohand_combined.ino` to a Teensy 4.0 using the Arduino IDE with Teensyduino.
 
 ### Python Runtime
 ```bash
@@ -160,3 +160,4 @@ cd client && npm install && npm run dev  # localhost:5173
 - **Free mode** (default): Real-time EMG → motor passthrough
 - **Exercise mode** (`--exercise`): Structured reps with state tracking, timeout warnings, and rep counting
 - **Calibrate** (`--calibrate`): Run 30-second calibration for a new patient
+
