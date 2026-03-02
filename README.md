@@ -2,6 +2,8 @@
 
 EMG-controlled hand exoskeleton with real-time intent classification, adaptive motor assistance, and a full-stack rehabilitation platform.
 
+[![ExoHand Demo](https://img.youtube.com/vi/RMq31iIWcPk/maxresdefault.jpg)](https://www.youtube.com/watch?v=RMq31iIWcPk)
+
 ## Overview
 
 ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
@@ -76,10 +78,22 @@ Five graduated profiles for stroke rehabilitation, from maximum assistance (Leve
 
 ## Hardware
 
+### Mechanical Design
+
+The exoskeleton uses a tendon-driven mechanism inspired by the human hand. Each finger has 3D-printed articulated segments that slip over the patient's fingers, connected by two opposing force systems:
+
+- **Flexion (closing):** Elastic bands run along the palmar side of each finger, providing passive pull that curls the fingers closed — mimicking flexor tendons.
+- **Extension (opening):** Fishing line routed along the dorsal side connects to a servo motor. When the motor pulls, the line straightens the fingers against the elastic tension — mimicking extensor tendons.
+
+The balance between these two forces gives smooth, controlled movement. Cable routing channels are built into the 3D-printed finger segments to keep the fishing line aligned through each joint. The entire frame is lightweight and slips on like a glove.
+
+The current prototype prioritises function over form — future revisions will focus on a sleeker form factor, cleaner wire management, and a more polished overall build.
+
+### Electronics
+
 - **Microcontroller**: Teensy 4.0
 - **EMG sensors**: MyoWare 2.0 (4-channel analog, forearm placement)
 - **Actuation**: Servo motor (110° open / 145° rest / 180° closed)
-- **Frame**: 3D-printed exoskeleton hand
 - **Protocol**: 115200 baud serial, tab-separated EMG values in, single-character commands out
 
 Two firmware variants:
