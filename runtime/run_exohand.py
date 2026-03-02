@@ -22,6 +22,9 @@ import sys
 import time
 from collections import deque
 
+# Ensure project root is on sys.path so absolute imports work
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import joblib
 import numpy as np
 import serial
@@ -29,9 +32,9 @@ from scipy.signal import butter, sosfilt, sosfilt_zi
 from scipy.fft import rfft, rfftfreq
 
 # Re-use feature extraction from training script
-from train_from_session import extract_window_features
-from assist_profile import get_profile, print_profile
-from exercise import (
+from ml.train_from_session import extract_window_features
+from runtime.assist_profile import get_profile, print_profile
+from runtime.exercise import (
     Exercise, MotorCommand, ExerciseState, Event,
     ExerciseRunner, SessionRunner, default_programme,
     FINGER_SERIAL_CODES, ACTION_TO_SERIAL, INTENT_TO_ACTION,

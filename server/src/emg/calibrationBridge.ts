@@ -119,7 +119,7 @@ export class CalibrationBridge extends EventEmitter {
     this.stop();
 
     const projectRoot = path.resolve(__dirname, "..", "..", "..");
-    const script = path.join(projectRoot, "calibrate_patient.py");
+    const script = path.join(projectRoot, "runtime", "calibrate_patient.py");
 
     const args = [
       script,

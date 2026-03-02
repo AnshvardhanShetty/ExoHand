@@ -11,6 +11,10 @@ Usage:
 """
 
 import argparse, os, sys, json, time
+
+# Ensure project root is on sys.path so absolute imports work
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import numpy as np
 import pandas as pd
 from scipy.signal import butter, filtfilt
@@ -22,7 +26,7 @@ import joblib
 import warnings
 warnings.filterwarnings("ignore")
 
-from train_hgb_v2 import (
+from ml.train_hgb_v2 import (
     add_temporal_features,
     add_cross_channel_features,
     add_temporal_on_interactions,
@@ -33,7 +37,7 @@ from train_hgb_v2 import (
     META_COLS,
 )
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GRABMYO_DIR = os.path.join(ROOT, "grabmyo")
 GRABMYO_CSV = os.path.join(GRABMYO_DIR, "grabmyo_intent_dataset.csv")
 GRABMYO_META = os.path.join(GRABMYO_DIR, "improved_hgb_meta.json")
