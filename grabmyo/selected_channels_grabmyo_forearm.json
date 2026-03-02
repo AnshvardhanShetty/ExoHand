@@ -1,0 +1,21 @@
+{
+    "forearm_local_indices": [
+        0,
+        4,
+        9,
+        13
+    ],
+    "forearm_labels": [
+        "F1",
+        "F5",
+        "F10",
+        "F14"
+    ],
+    "dataset_channel_indices_0_based": [
+        0,
+        4,
+        9,
+        13
+    ],
+    "note": "FOREARM_CHANNELS = first 16 columns (F1..F16) of the 32-channel GRABMyo signals. F1+F10 = flexor side, F5+F14 = extensor side."
+}

@@ -1,0 +1,59 @@
+{
+    "C": 4,
+    "T": 128,
+    "num_classes": 3,
+    "intent_to_idx": {
+        "rest": 0,
+        "close": 1,
+        "open": 2
+    },
+    "train_participants": [
+        "participant1",
+        "participant10",
+        "participant11",
+        "participant12",
+        "participant13",
+        "participant14",
+        "participant15",
+        "participant16",
+        "participant17",
+        "participant18",
+        "participant19",
+        "participant2",
+        "participant20",
+        "participant21",
+        "participant22",
+        "participant23",
+        "participant24",
+        "participant25",
+        "participant26",
+        "participant27",
+        "participant28",
+        "participant29",
+        "participant3",
+        "participant30",
+        "participant31",
+        "participant32",
+        "participant33",
+        "participant34",
+        "participant35",
+        "participant36",
+        "participant37",
+        "participant38",
+        "participant39",
+        "participant4"
+    ],
+    "val_participants": [
+        "participant40",
+        "participant41",
+        "participant42",
+        "participant43"
+    ],
+    "test_participants": [
+        "participant5",
+        "participant6",
+        "participant7",
+        "participant8",
+        "participant9"
+    ]
+}
