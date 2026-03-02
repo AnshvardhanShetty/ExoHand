@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+dist/
+__pycache__/
+
+# OS
+.DS_Store
+
+# Patient data
+exohand.db*
+sessions/
+calibrations/
+data/
+
+# Media files
+*.mov
+*.MOV
+*.mp3
+*.mp4
+
+# Test/scratch files
+test.txt
+Test.py
+test2.*
+test_plot.png
+cover_block.*
+timer_cover.*
+confusion_matrix.png
+training_report.txt
+
+# Redundant/experimental scripts
+find_best_4channels.py
+find_best_4channels_fast.py
+find_best_4ch_fast.py
+find_best_4ch_v3.py
+train_improved.py
+train_intent_hgb.py.py
+intent_classifier.py
+myoware_classifier.py
+cnn_model.py
+cnn_preprocess.py
+select_channels.py
+verify_channels.py
+build_intent_dataset.py
+cache_rms_data.py
+generate_datasets.py
+run_search.py
+Preprocessing Data.py
+simulate_serial.py
+test_calibration_e2e.py
+server.py
+
+# Old static directory
+static/
+
+# Demo directories
+ExoHand Demo/
+ExoHand Demo Final/
+exohand demo final.
+
+# Research papers / PDFs
+*.pdf
+
+# Report figure PDFs (keep PNGs)
+report_figures/*.pdf
+
+# External data
+Adhi Data/
+
+# Claude
+.claude/
+
+# Misc
+exohand/
