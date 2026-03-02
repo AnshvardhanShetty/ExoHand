@@ -6,7 +6,7 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 
 ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
-The system achieves **95.9% three-class accuracy** (close / open / rest) with a 30-second patient calibration protocol, and **98.8% binary movement detection accuracy**.
+The system achieves **95.9% three-class accuracy** (close / open / rest) with a patient calibration protocol, and **98.8% binary movement detection accuracy**.
 
 ## System Architecture
 
@@ -76,7 +76,7 @@ Five graduated profiles for stroke rehabilitation, from maximum assistance (Leve
 
 ## Hardware
 
-- **Microcontroller**: Teensy 4.1
+- **Microcontroller**: Teensy 4.0
 - **EMG sensors**: MyoWare 2.0 (4-channel analog, forearm placement)
 - **Actuation**: Servo motor (110° open / 145° rest / 180° closed)
 - **Frame**: 3D-printed exoskeleton hand
@@ -93,7 +93,7 @@ Two firmware variants:
 | ML / Signal Processing | Python, scikit-learn, NumPy, SciPy, joblib |
 | Backend | Node.js, Express, TypeScript, WebSocket, better-sqlite3, serialport |
 | Frontend | React 18, Vite, TypeScript, Three.js, React Three Fiber, Recharts, Tailwind CSS |
-| Hardware | Teensy 4.1, MyoWare 2.0, Servo motor |
+| Hardware | Teensy 4.0, MyoWare 2.0, Servo motor |
 | Data | GrabMyo (PhysioNet), SQLite |
 
 ## Project Structure
@@ -160,4 +160,5 @@ cd client && npm install && npm run dev  # localhost:5173
 - **Free mode** (default): Real-time EMG → motor passthrough
 - **Exercise mode** (`--exercise`): Structured reps with state tracking, timeout warnings, and rep counting
 - **Calibrate** (`--calibrate`): Run 30-second calibration for a new patient
+
 
