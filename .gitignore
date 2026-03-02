@@ -64,6 +64,11 @@ exohand demo final.
 # Report figure PDFs (keep PNGs)
 report_figures/*.pdf
 
+# GrabMyo raw sessions (download from PhysioNet)
+grabmyo/Session1/
+grabmyo/Session2/
+grabmyo/Session3/
+
 # External data
 Adhi Data/
 

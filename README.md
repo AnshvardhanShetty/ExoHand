@@ -23,7 +23,7 @@ EMG Sensors → Teensy 4.1 → Serial USB → Python Runtime → Motor Commands 
 ## ML Pipeline
 
 ### Training Data
-Trained on the [GrabMyo dataset](https://physionet.org/content/grabmyo/) — 43 participants, 1.14M samples at 2 kHz, reduced to 4 optimally selected channels targeting flexor and extensor digitorum muscles.
+Trained on the [GrabMyo dataset](https://physionet.org/content/grabmyo/) — 43 participants, 1.14M samples at 2 kHz, reduced to 4 optimally selected channels targeting flexor and extensor digitorum muscles. Raw session data should be downloaded from PhysioNet and placed in `grabmyo/Session1/`, `Session2/`, `Session3/`.
 
 ### Feature Engineering (140 features)
 - **Per-channel features** (6 × 4 channels): RMS, MAV, waveform length, zero crossings, slope sign changes, envelope RMS
@@ -130,7 +130,7 @@ ExoHand/
 │   └── teensy_emg.ino
 ├── exohand_combined/            # Combined EMG + motor firmware
 │   └── exohand_combined.ino
-├── grabmyo/                     # GrabMyo dataset + processed features (LFS)
+├── grabmyo/                     # GrabMyo processed features + models (raw data from PhysioNet)
 ├── datasets/                    # Exercise protocol definitions (JSON)
 ├── REPORT_EMG_Classification.md # Detailed classification report
 └── report_figures/              # Result visualizations
