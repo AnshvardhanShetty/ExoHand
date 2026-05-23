@@ -1,0 +1,31 @@
+Loading + engineering PhysioMio (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  done in 43.8s  shape: (307439, 378)
+  [5/48] patient5 done, elapsed=195s
+  [10/48] patient10 done, elapsed=339s
+  [15/48] patient15 done, elapsed=448s
+  [20/48] patient20 done, elapsed=544s
+  [25/48] patient25 done, elapsed=629s
+  [30/48] patient30 done, elapsed=743s
+  [35/48] patient35 done, elapsed=876s
+  [40/48] patient40 done, elapsed=976s
+  [45/48] patient45 done, elapsed=1059s
+
+======================================================================
+PATIENT-ONLY BASELINE  (n=48 subjects, 329 sessions)
+======================================================================
+  Session-level acc: mean=0.8705  std=0.1043
+  Per arm: healthy=0.9097  impaired=0.8555
+  Per-class F1: rest=0.9704  close=0.8534  open=0.7531
+
+  vs main eval (GrabMyo+cal): 0.871 session mean
+  Δ from GrabMyo transfer: -0.0005
+
+Total wall: 19.0 min
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/patient_only_per_session.csv, /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/patient_only_per_patient.csv

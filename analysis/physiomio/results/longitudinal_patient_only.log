@@ -1,0 +1,469 @@
+======================================================================
+PhysioMio longitudinal eval — cal on impaired_01, test all other sessions
+======================================================================
+
+[1/3] Loading + engineering PhysioMio (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+      done in 39.0s  shape: (307439, 378)
+
+[2/3] Loading GrabMyo cache...
+      shape: (1138683, 378)  features: 370
+
+[3/3] Longitudinal eval on 48 patients...
+
+  [1/48] patient1: cal trained on impaired_01 (432 windows), fit=4s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7521  f1=0.7124
+          impaired_02 (impaired)  dist=+1: acc=0.8120  f1=0.7957
+          impaired_03 (impaired)  dist=+2: acc=0.3248  f1=0.1634
+          impaired_04 (impaired)  dist=+3: acc=0.3846  f1=0.2622
+          impaired_05 (impaired)  dist=+4: acc=0.6581  f1=0.5493
+          impaired_06 (impaired)  dist=+5: acc=0.6667  f1=0.5556
+
+  [2/48] patient2: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.6239  f1=0.5236
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7436  f1=0.7115
+          impaired_02 (impaired)  dist=+1: acc=0.3761  f1=0.3159
+          impaired_03 (impaired)  dist=+2: acc=0.3333  f1=0.1667
+          impaired_04 (impaired)  dist=+3: acc=0.3333  f1=0.1667
+          impaired_05 (impaired)  dist=+4: acc=0.3333  f1=0.1667
+          impaired_06 (impaired)  dist=+5: acc=0.3333  f1=0.2222
+
+  [3/48] patient3: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.4444  f1=0.4286
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.6581  f1=0.5517
+          impaired_02 (impaired)  dist=+1: acc=0.6154  f1=0.5315
+          impaired_03 (impaired)  dist=+2: acc=0.9487  f1=0.9484
+          impaired_04 (impaired)  dist=+3: acc=0.8803  f1=0.8796
+          impaired_05 (impaired)  dist=+4: acc=0.9145  f1=0.9145
+          impaired_06 (impaired)  dist=+5: acc=0.9915  f1=0.9915
+
+  [4/48] patient4: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.8718  f1=0.8716
+           healthy_02 (healthy): acc=0.8120  f1=0.8075
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8974  f1=0.8968
+          impaired_02 (impaired)  dist=+1: acc=0.8803  f1=0.8783
+          impaired_03 (impaired)  dist=+2: acc=0.9744  f1=0.9744
+          impaired_04 (impaired)  dist=+3: acc=0.3846  f1=0.3273
+          impaired_05 (impaired)  dist=+4: acc=0.6923  f1=0.6496
+          impaired_06 (impaired)  dist=+5: acc=0.9145  f1=0.9131
+          impaired_07 (impaired)  dist=+6: acc=0.9231  f1=0.9220
+
+  [5/48] patient5: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8547  f1=0.8475
+          impaired_02 (impaired)  dist=+1: acc=0.5897  f1=0.5185
+          impaired_03 (impaired)  dist=+2: acc=0.5385  f1=0.4902
+
+  [6/48] patient6: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.4530  f1=0.3592
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.6410  f1=0.5439
+          impaired_02 (impaired)  dist=+1: acc=0.6838  f1=0.5919
+          impaired_03 (impaired)  dist=+2: acc=0.3333  f1=0.1667
+          impaired_04 (impaired)  dist=+3: acc=0.3333  f1=0.1667
+
+  [7/48] patient7: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.7607  f1=0.7502
+           healthy_02 (healthy): acc=0.9573  f1=0.9571
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9829  f1=0.9829
+          impaired_02 (impaired)  dist=+1: acc=0.7778  f1=0.7759
+          impaired_03 (impaired)  dist=+2: acc=0.8034  f1=0.8018
+          impaired_04 (impaired)  dist=+3: acc=0.8803  f1=0.8798
+          impaired_05 (impaired)  dist=+4: acc=0.8974  f1=0.8971
+          impaired_06 (impaired)  dist=+5: acc=0.8376  f1=0.8274
+          impaired_07 (impaired)  dist=+6: acc=0.8974  f1=0.8965
+          impaired_08 (impaired)  dist=+7: acc=0.6496  f1=0.6148
+          impaired_09 (impaired)  dist=+8: acc=0.8547  f1=0.8526
+
+  [8/48] patient8: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.2051  f1=0.1135
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9402  f1=0.9409
+          impaired_02 (impaired)  dist=+1: acc=0.7778  f1=0.7754
+
+  [9/48] patient9: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8376  f1=0.8274
+          impaired_02 (impaired)  dist=+1: acc=0.6667  f1=0.5699
+          impaired_03 (impaired)  dist=+2: acc=0.6581  f1=0.5334
+          impaired_04 (impaired)  dist=+3: acc=0.6667  f1=0.5556
+          impaired_05 (impaired)  dist=+4: acc=0.6667  f1=0.5556
+          impaired_06 (impaired)  dist=+5: acc=0.6667  f1=0.5556
+
+  [10/48] patient10: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.6581  f1=0.6688
+           healthy_02 (healthy): acc=0.8034  f1=0.7978
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7607  f1=0.7308
+          impaired_02 (impaired)  dist=+1: acc=0.6667  f1=0.5556
+          impaired_03 (impaired)  dist=+2: acc=0.6667  f1=0.5533
+          impaired_04 (impaired)  dist=+3: acc=0.6667  f1=0.5556
+          impaired_05 (impaired)  dist=+4: acc=0.6667  f1=0.5556
+          impaired_06 (impaired)  dist=+5: acc=0.6581  f1=0.5517
+          impaired_07 (impaired)  dist=+6: acc=0.3590  f1=0.2191
+          impaired_08 (impaired)  dist=+7: acc=0.6752  f1=0.5741
+
+  [11/48] patient11: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.4957  f1=0.3959
+           healthy_02 (healthy): acc=0.5043  f1=0.3951
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7692  f1=0.7473
+          impaired_02 (impaired)  dist=+1: acc=0.5641  f1=0.4735
+          impaired_03 (impaired)  dist=+2: acc=0.4786  f1=0.3925
+          impaired_04 (impaired)  dist=+3: acc=0.4957  f1=0.4126
+
+  [12/48] patient12: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.3248  f1=0.1634
+           healthy_02 (healthy): acc=0.3333  f1=0.1711
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9658  f1=0.9661
+          impaired_02 (impaired)  dist=+1: acc=0.6068  f1=0.5650
+          impaired_03 (impaired)  dist=+2: acc=0.3333  f1=0.1667
+          impaired_04 (impaired)  dist=+3: acc=0.2222  f1=0.2030
+          impaired_05 (impaired)  dist=+4: acc=0.4188  f1=0.3290
+          impaired_06 (impaired)  dist=+5: acc=0.2991  f1=0.1876
+          impaired_07 (impaired)  dist=+6: acc=0.2735  f1=0.1451
+          impaired_08 (impaired)  dist=+7: acc=0.3333  f1=0.1667
+          impaired_09 (impaired)  dist=+8: acc=0.3333  f1=0.1667
+
+  [13/48] patient13: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.6496  f1=0.6441
+           healthy_02 (healthy): acc=0.5385  f1=0.5056
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9744  f1=0.9746
+          impaired_02 (impaired)  dist=+1: acc=0.2821  f1=0.1467
+          impaired_03 (impaired)  dist=+2: acc=0.3077  f1=0.1569
+
+  [14/48] patient14: cal trained on impaired_01 (432 windows), fit=4s
+           healthy_01 (healthy): acc=0.3333  f1=0.1677
+           healthy_02 (healthy): acc=0.4444  f1=0.3852
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.5897  f1=0.5402
+          impaired_02 (impaired)  dist=+1: acc=0.3761  f1=0.2608
+
+  [15/48] patient15: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.5385  f1=0.4762
+           healthy_02 (healthy): acc=0.6239  f1=0.5192
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9829  f1=0.9829
+
+  [16/48] patient16: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.2564  f1=0.1361
+           healthy_02 (healthy): acc=0.3333  f1=0.1667
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9744  f1=0.9743
+          impaired_02 (impaired)  dist=+1: acc=0.9915  f1=0.9915
+
+  [17/48] patient17: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.6239  f1=0.5357
+           healthy_02 (healthy): acc=0.6410  f1=0.5439
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9744  f1=0.9744
+          impaired_02 (impaired)  dist=+1: acc=0.9060  f1=0.9044
+          impaired_03 (impaired)  dist=+2: acc=0.9145  f1=0.9129
+          impaired_04 (impaired)  dist=+3: acc=0.7863  f1=0.7796
+          impaired_05 (impaired)  dist=+4: acc=0.4103  f1=0.3365
+          impaired_06 (impaired)  dist=+5: acc=0.7607  f1=0.7331
+          impaired_07 (impaired)  dist=+6: acc=0.7436  f1=0.7057
+          impaired_08 (impaired)  dist=+7: acc=0.8974  f1=0.8966
+          impaired_09 (impaired)  dist=+8: acc=0.6239  f1=0.5357
+          impaired_10 (impaired)  dist=+9: acc=0.7521  f1=0.7328
+          impaired_11 (impaired)  dist=+10: acc=0.6838  f1=0.6148
+          impaired_12 (impaired)  dist=+11: acc=0.6410  f1=0.5568
+
+  [18/48] patient18: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.1709  f1=0.0973
+           healthy_02 (healthy): acc=0.1966  f1=0.1861
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8718  f1=0.8679
+          impaired_02 (impaired)  dist=+1: acc=0.6325  f1=0.5302
+
+  [19/48] patient19: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.4151  f1=0.3605
+           healthy_02 (healthy): acc=0.5000  f1=0.4892
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9658  f1=0.9658
+          impaired_02 (impaired)  dist=+1: acc=0.4188  f1=0.3871
+          impaired_03 (impaired)  dist=+2: acc=0.6325  f1=0.6195
+          impaired_04 (impaired)  dist=+3: acc=0.5556  f1=0.5290
+          impaired_05 (impaired)  dist=+4: acc=0.6239  f1=0.6156
+
+  [20/48] patient20: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.5726  f1=0.4817
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9145  f1=0.9131
+          impaired_02 (impaired)  dist=+1: acc=0.6752  f1=0.5990
+
+  [21/48] patient21: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.7863  f1=0.7778
+           healthy_02 (healthy): acc=0.8211  f1=0.7532
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9658  f1=0.9658
+          impaired_02 (impaired)  dist=+1: acc=0.6154  f1=0.5877
+          impaired_03 (impaired)  dist=+2: acc=0.6239  f1=0.5512
+
+  [22/48] patient22: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.9145  f1=0.9131
+           healthy_02 (healthy): acc=0.9231  f1=0.9220
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8462  f1=0.8375
+          impaired_02 (impaired)  dist=+1: acc=0.9915  f1=0.9915
+          impaired_03 (impaired)  dist=+2: acc=0.6496  f1=0.5478
+          impaired_04 (impaired)  dist=+3: acc=0.6325  f1=0.5329
+
+  [23/48] patient23: cal trained on impaired_01 (432 windows), fit=4s
+           healthy_01 (healthy): acc=0.6581  f1=0.5493
+           healthy_02 (healthy): acc=0.6581  f1=0.5493
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9145  f1=0.9140
+          impaired_02 (impaired)  dist=+1: acc=0.6838  f1=0.5919
+
+  [24/48] patient24: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.3333  f1=0.1667
+           healthy_02 (healthy): acc=0.3333  f1=0.1667
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9060  f1=0.9041
+          impaired_02 (impaired)  dist=+1: acc=0.3333  f1=0.1667
+          impaired_03 (impaired)  dist=+2: acc=0.3333  f1=0.1667
+
+  [25/48] patient25: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.6581  f1=0.5475
+           healthy_02 (healthy): acc=0.6325  f1=0.5275
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7265  f1=0.6827
+          impaired_02 (impaired)  dist=+1: acc=0.7778  f1=0.7536
+          impaired_03 (impaired)  dist=+2: acc=0.6496  f1=0.5395
+          impaired_04 (impaired)  dist=+3: acc=0.6581  f1=0.5517
+          impaired_05 (impaired)  dist=+4: acc=0.6667  f1=0.5556
+          impaired_06 (impaired)  dist=+5: acc=0.6667  f1=0.5556
+          impaired_07 (impaired)  dist=+6: acc=0.7179  f1=0.6690
+          impaired_08 (impaired)  dist=+7: acc=0.6581  f1=0.5267
+
+  [26/48] patient26: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.3077  f1=0.2405
+           healthy_02 (healthy): acc=0.2821  f1=0.2379
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9316  f1=0.9309
+          impaired_02 (impaired)  dist=+1: acc=0.3504  f1=0.2489
+          impaired_03 (impaired)  dist=+2: acc=0.5214  f1=0.4335
+          impaired_04 (impaired)  dist=+3: acc=0.3846  f1=0.3029
+          impaired_05 (impaired)  dist=+4: acc=0.4957  f1=0.4586
+          impaired_06 (impaired)  dist=+5: acc=0.7607  f1=0.7361
+          impaired_07 (impaired)  dist=+6: acc=0.6496  f1=0.5732
+
+  [27/48] patient27: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.7094  f1=0.6664
+           healthy_02 (healthy): acc=0.8803  f1=0.8796
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9573  f1=0.9567
+          impaired_02 (impaired)  dist=+1: acc=0.8120  f1=0.8092
+          impaired_03 (impaired)  dist=+2: acc=0.9145  f1=0.9112
+          impaired_04 (impaired)  dist=+3: acc=0.8974  f1=0.8921
+          impaired_05 (impaired)  dist=+4: acc=0.8205  f1=0.8036
+          impaired_06 (impaired)  dist=+5: acc=0.8803  f1=0.8772
+
+  [28/48] patient28: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.9316  f1=0.9309
+           healthy_02 (healthy): acc=0.7094  f1=0.7024
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9915  f1=0.9915
+          impaired_02 (impaired)  dist=+1: acc=0.6581  f1=0.5678
+          impaired_03 (impaired)  dist=+2: acc=0.5470  f1=0.4463
+          impaired_04 (impaired)  dist=+3: acc=0.5470  f1=0.4332
+          impaired_05 (impaired)  dist=+4: acc=0.6154  f1=0.5011
+          impaired_06 (impaired)  dist=+5: acc=0.6239  f1=0.5236
+          impaired_07 (impaired)  dist=+6: acc=0.5897  f1=0.4962
+
+  [29/48] patient29: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.8889  f1=0.8857
+           healthy_02 (healthy): acc=0.8462  f1=0.8412
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9487  f1=0.9486
+          impaired_02 (impaired)  dist=+1: acc=0.8376  f1=0.8274
+          impaired_03 (impaired)  dist=+2: acc=0.9487  f1=0.9484
+          impaired_04 (impaired)  dist=+3: acc=0.7607  f1=0.7296
+
+  [30/48] patient30: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9829  f1=0.9828
+          impaired_02 (impaired)  dist=+1: acc=0.8291  f1=0.8247
+
+  [31/48] patient31: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.6410  f1=0.5367
+           healthy_02 (healthy): acc=0.4017  f1=0.3049
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9060  f1=0.9055
+          impaired_02 (impaired)  dist=+1: acc=0.8120  f1=0.8093
+          impaired_03 (impaired)  dist=+2: acc=0.5641  f1=0.4929
+          impaired_04 (impaired)  dist=+3: acc=0.6838  f1=0.5841
+          impaired_05 (impaired)  dist=+4: acc=0.6923  f1=0.5965
+          impaired_06 (impaired)  dist=+5: acc=0.6667  f1=0.5335
+
+  [32/48] patient32: cal trained on impaired_01 (432 windows), fit=5s
+           healthy_01 (healthy): acc=0.6838  f1=0.6148
+           healthy_02 (healthy): acc=0.6581  f1=0.6075
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.7179  f1=0.6727
+          impaired_02 (impaired)  dist=+1: acc=0.8034  f1=0.7881
+          impaired_03 (impaired)  dist=+2: acc=0.6838  f1=0.6148
+          impaired_04 (impaired)  dist=+3: acc=0.8120  f1=0.7987
+          impaired_05 (impaired)  dist=+4: acc=0.9402  f1=0.9399
+          impaired_06 (impaired)  dist=+5: acc=0.8632  f1=0.8618
+          impaired_07 (impaired)  dist=+6: acc=0.6581  f1=0.5779
+          impaired_08 (impaired)  dist=+7: acc=0.8462  f1=0.8410
+          impaired_09 (impaired)  dist=+8: acc=0.8462  f1=0.8410
+          impaired_10 (impaired)  dist=+9: acc=0.9829  f1=0.9829
+          impaired_11 (impaired)  dist=+10: acc=0.8376  f1=0.8354
+          impaired_12 (impaired)  dist=+11: acc=0.8889  f1=0.8880
+
+  [33/48] patient33: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.6581  f1=0.5512
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9573  f1=0.9571
+          impaired_02 (impaired)  dist=+1: acc=0.7863  f1=0.7807
+          impaired_03 (impaired)  dist=+2: acc=0.6667  f1=0.5556
+          impaired_04 (impaired)  dist=+3: acc=0.6667  f1=0.5556
+          impaired_05 (impaired)  dist=+4: acc=0.6325  f1=0.6078
+          impaired_06 (impaired)  dist=+5: acc=0.6581  f1=0.5517
+
+  [34/48] patient34: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.7692  f1=0.7473
+           healthy_02 (healthy): acc=0.8803  f1=0.8764
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8803  f1=0.8764
+          impaired_02 (impaired)  dist=+1: acc=0.8034  f1=0.7985
+          impaired_03 (impaired)  dist=+2: acc=0.7094  f1=0.7022
+          impaired_04 (impaired)  dist=+3: acc=0.7350  f1=0.7098
+          impaired_05 (impaired)  dist=+4: acc=0.9145  f1=0.9133
+          impaired_06 (impaired)  dist=+5: acc=0.6752  f1=0.6095
+
+  [35/48] patient35: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.3333  f1=0.1667
+           healthy_02 (healthy): acc=0.5214  f1=0.4553
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.6581  f1=0.6075
+          impaired_02 (impaired)  dist=+1: acc=0.7863  f1=0.7735
+          impaired_03 (impaired)  dist=+2: acc=0.4274  f1=0.3628
+          impaired_04 (impaired)  dist=+3: acc=0.4530  f1=0.3983
+          impaired_05 (impaired)  dist=+4: acc=0.4615  f1=0.3852
+          impaired_06 (impaired)  dist=+5: acc=0.5897  f1=0.5121
+
+  [36/48] patient36: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.3333  f1=0.1667
+           healthy_02 (healthy): acc=0.3333  f1=0.1831
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9744  f1=0.9744
+          impaired_02 (impaired)  dist=+1: acc=0.8718  f1=0.8669
+          impaired_03 (impaired)  dist=+2: acc=0.6239  f1=0.5315
+          impaired_04 (impaired)  dist=+3: acc=0.5897  f1=0.5062
+
+  [37/48] patient37: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.8462  f1=0.8375
+           healthy_02 (healthy): acc=0.7949  f1=0.7854
+          impaired_01 (SAME) (impaired)  dist=+0: acc=1.0000  f1=1.0000
+          impaired_02 (impaired)  dist=+1: acc=0.9915  f1=0.9915
+          impaired_03 (impaired)  dist=+2: acc=0.9060  f1=0.9041
+          impaired_04 (impaired)  dist=+3: acc=0.9658  f1=0.9657
+
+  [38/48] patient38: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.7436  f1=0.7429
+           healthy_02 (healthy): acc=0.7692  f1=0.7674
+          impaired_01 (SAME) (impaired)  dist=+0: acc=1.0000  f1=1.0000
+          impaired_02 (impaired)  dist=+1: acc=0.9744  f1=0.9743
+          impaired_03 (impaired)  dist=+2: acc=0.6410  f1=0.5787
+          impaired_04 (impaired)  dist=+3: acc=0.5897  f1=0.5185
+
+  [39/48] patient39: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.5726  f1=0.4817
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8462  f1=0.8436
+          impaired_02 (impaired)  dist=+1: acc=0.8291  f1=0.8216
+          impaired_03 (impaired)  dist=+2: acc=0.5470  f1=0.4589
+          impaired_04 (impaired)  dist=+3: acc=0.6667  f1=0.5556
+
+  [40/48] patient40: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.3419  f1=0.2326
+           healthy_02 (healthy): acc=0.3419  f1=0.1844
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9316  f1=0.9309
+          impaired_02 (impaired)  dist=+1: acc=0.9658  f1=0.9657
+          impaired_03 (impaired)  dist=+2: acc=0.6923  f1=0.6389
+          impaired_04 (impaired)  dist=+3: acc=0.6667  f1=0.5556
+          impaired_05 (impaired)  dist=+4: acc=0.6667  f1=0.5556
+          impaired_06 (impaired)  dist=+5: acc=0.6667  f1=0.5556
+          impaired_07 (impaired)  dist=+6: acc=0.6239  f1=0.5207
+          impaired_08 (impaired)  dist=+7: acc=0.6581  f1=0.5475
+          impaired_09 (impaired)  dist=+8: acc=0.3504  f1=0.2014
+          impaired_10 (impaired)  dist=+9: acc=0.6581  f1=0.5493
+          impaired_11 (impaired)  dist=+10: acc=0.6581  f1=0.5493
+
+  [41/48] patient41: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.1624  f1=0.0982
+           healthy_02 (healthy): acc=0.1282  f1=0.0758
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.5470  f1=0.5367
+          impaired_02 (impaired)  dist=+1: acc=0.5897  f1=0.5246
+          impaired_03 (impaired)  dist=+2: acc=0.5556  f1=0.4697
+
+  [42/48] patient42: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+           healthy_02 (healthy): acc=0.6410  f1=0.5387
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9658  f1=0.9656
+          impaired_02 (impaired)  dist=+1: acc=0.6496  f1=0.6043
+          impaired_03 (impaired)  dist=+2: acc=0.6496  f1=0.6013
+
+  [43/48] patient43: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.3419  f1=0.2222
+           healthy_02 (healthy): acc=0.3333  f1=0.2131
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9060  f1=0.9041
+          impaired_02 (impaired)  dist=+1: acc=0.9487  f1=0.9486
+
+  [44/48] patient44: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=1.0000  f1=1.0000
+           healthy_02 (healthy): acc=0.9487  f1=0.9484
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9145  f1=0.9129
+          impaired_02 (impaired)  dist=+1: acc=0.9658  f1=0.9657
+          impaired_03 (impaired)  dist=+2: acc=0.8205  f1=0.8065
+          impaired_04 (impaired)  dist=+3: acc=0.8718  f1=0.8669
+
+  [45/48] patient45: cal trained on impaired_01 (432 windows), fit=3s
+           healthy_01 (healthy): acc=0.3333  f1=0.1688
+           healthy_02 (healthy): acc=0.3333  f1=0.1667
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8974  f1=0.8957
+          impaired_02 (impaired)  dist=+1: acc=0.7265  f1=0.7174
+
+  [46/48] patient46: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.6667  f1=0.5556
+           healthy_02 (healthy): acc=0.6667  f1=0.5556
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9487  f1=0.9486
+          impaired_02 (impaired)  dist=+1: acc=0.9573  f1=0.9572
+          impaired_03 (impaired)  dist=+2: acc=0.8803  f1=0.8795
+          impaired_04 (impaired)  dist=+3: acc=0.9487  f1=0.9479
+          impaired_05 (impaired)  dist=+4: acc=0.8376  f1=0.8343
+          impaired_06 (impaired)  dist=+5: acc=0.6923  f1=0.6683
+          impaired_07 (impaired)  dist=+6: acc=0.8974  f1=0.8974
+          impaired_08 (impaired)  dist=+7: acc=0.7350  f1=0.7115
+          impaired_09 (impaired)  dist=+8: acc=0.8462  f1=0.8438
+          impaired_10 (impaired)  dist=+9: acc=0.7521  f1=0.7569
+
+  [47/48] patient47: cal trained on impaired_01 (432 windows), fit=2s
+           healthy_01 (healthy): acc=0.5043  f1=0.4004
+           healthy_02 (healthy): acc=0.4957  f1=0.3850
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.9487  f1=0.9487
+          impaired_02 (impaired)  dist=+1: acc=0.5897  f1=0.4954
+          impaired_03 (impaired)  dist=+2: acc=0.5812  f1=0.4769
+          impaired_04 (impaired)  dist=+3: acc=0.5641  f1=0.4581
+          impaired_05 (impaired)  dist=+4: acc=0.6068  f1=0.4892
+
+  [48/48] patient48: cal trained on impaired_01 (432 windows), fit=1s
+           healthy_01 (healthy): acc=0.5983  f1=0.4955
+           healthy_02 (healthy): acc=0.3248  f1=0.2165
+          impaired_01 (SAME) (impaired)  dist=+0: acc=0.8547  f1=0.8562
+
+======================================================================
+AGGREGATE (329 test-session evals from 48 patients)
+======================================================================
+
+Impaired-arm accuracy vs session distance from cal (impaired_01):
+                            n  acc_mean  acc_std
+impaired_session_distance                       
+0.0                        48    0.8766   0.1173
+1.0                        46    0.7226   0.1907
+2.0                        37    0.6320   0.1948
+3.0                        31    0.6350   0.1964
+4.0                        22    0.6651   0.1724
+5.0                        20    0.6936   0.1683
+6.0                        11    0.6667   0.2093
+7.0                         8    0.6816   0.1690
+8.0                         6    0.6425   0.2487
+9.0                         4    0.7863   0.1383
+10.0                        3    0.7265   0.0971
+11.0                        2    0.7650   0.1753
+
+Healthy-arm sessions (cross-arm from impaired_01 cal):
+  healthy_01: n=48  acc=0.5719  std=0.2128
+  healthy_02: n=43  acc=0.5895  std=0.2172
+
+Total wall: 3.4 min

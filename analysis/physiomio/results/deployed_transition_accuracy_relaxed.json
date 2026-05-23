@@ -1,0 +1,71 @@
+{
+  "label": "relaxed (10% maint error tolerance)",
+  "params": {
+    "max_maint_error": 0.1,
+    "reaction_buffer": 10,
+    "maint_cap": 110,
+    "min_hold": 5
+  },
+  "rows": [
+    {
+      "N": 1,
+      "profile": "Max / High Assist (Levels 1-2)",
+      "patient_transition_acc": 0.5719828204203204,
+      "patient_ci_lo": 0.5238714331097144,
+      "patient_ci_hi": 0.6189619682979058,
+      "session_transition_acc": 0.5699088145896657,
+      "session_ci_lo": 0.5349164133738602,
+      "session_ci_hi": 0.6063829787234043,
+      "raw_full_stream_acc": 0.9091688917348283,
+      "added_latency_ms": 0
+    },
+    {
+      "N": 2,
+      "profile": "Moderate Assist (Level 3)",
+      "patient_transition_acc": 0.6041216595904096,
+      "patient_ci_lo": 0.555029125243969,
+      "patient_ci_hi": 0.6514120840097403,
+      "session_transition_acc": 0.6033434650455927,
+      "session_ci_lo": 0.5683890577507599,
+      "session_ci_hi": 0.6398176291793313,
+      "raw_full_stream_acc": 0.9138808007829018,
+      "added_latency_ms": 50
+    },
+    {
+      "N": 3,
+      "profile": "Light / Minimal Assist (Levels 4-5) \u2014 deployed default",
+      "patient_transition_acc": 0.6262116066803567,
+      "patient_ci_lo": 0.5764348563762626,
+      "patient_ci_hi": 0.6733582498230936,
+      "session_transition_acc": 0.6246200607902735,
+      "session_ci_lo": 0.5911854103343465,
+      "session_ci_hi": 0.6610942249240122,
+      "raw_full_stream_acc": 0.9172697507520932,
+      "added_latency_ms": 100
+    },
+    {
+      "N": 5,
+      "profile": "(sensitivity only \u2014 not in any profile)",
+      "patient_transition_acc": 0.678426319051319,
+      "patient_ci_lo": 0.6320320203523327,
+      "patient_ci_hi": 0.7237977979774854,
+      "session_transition_acc": 0.6747720364741642,
+      "session_ci_lo": 0.6398176291793313,
+      "session_ci_hi": 0.709726443768997,
+      "raw_full_stream_acc": 0.9243436552332395,
+      "added_latency_ms": 200
+    },
+    {
+      "N": 10,
+      "profile": "(sensitivity only \u2014 not in any profile)",
+      "patient_transition_acc": 0.7032627095127095,
+      "patient_ci_lo": 0.6596438153860029,
+      "patient_ci_hi": 0.7447529597138971,
+      "session_transition_acc": 0.6884498480243161,
+      "session_ci_lo": 0.6550151975683891,
+      "session_ci_hi": 0.723404255319149,
+      "raw_full_stream_acc": 0.9252558324976743,
+      "added_latency_ms": 450
+    }
+  ]
+}

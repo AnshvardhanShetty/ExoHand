@@ -1,0 +1,462 @@
+======================================================================
+PhysioMio per-session eval — single-tier per-session calibration
+======================================================================
+  Protocol: per session, balanced test 39/class, all-leftover cal with weight 100.0x
+
+[1/4] Loading + engineering PhysioMio (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+      done in 36.5s  shape: (307439, 378)
+
+[2/4] Loading GrabMyo cache (already engineered)...
+      shape: (1138683, 378)
+      base training set: 1,138,683 windows × 370 features
+
+[3/4] Per-session eval on 48 of 48 patients...
+
+  [1/48] patient1  (8 sessions)
+    [1/8] healthy_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=216s
+    [2/8] healthy_02: acc=0.9487  f1=0.9484  (rest=1.000, close=0.917, open=0.929)  fit=214s
+    [3/8] impaired_01: acc=0.8291  f1=0.8216  (rest=1.000, close=0.787, open=0.677)  fit=214s
+    [4/8] impaired_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=198s
+    [5/8] impaired_03: acc=0.9658  f1=0.9657  (rest=1.000, close=0.946, open=0.951)  fit=197s
+    [6/8] impaired_04: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=207s
+    [7/8] impaired_05: acc=0.8291  f1=0.8249  (rest=1.000, close=0.778, open=0.697)  fit=221s
+    [8/8] impaired_06: acc=0.9573  f1=0.9573  (rest=1.000, close=0.935, open=0.937)  fit=220s
+
+  [2/48] patient2  (8 sessions)
+    [1/8] healthy_01: acc=0.7692  f1=0.7378  (rest=1.000, close=0.743, open=0.471)  fit=209s
+    [2/8] healthy_02: acc=0.8120  f1=0.7957  (rest=1.000, close=0.780, open=0.607)  fit=208s
+    [3/8] impaired_01: acc=0.7778  f1=0.7680  (rest=1.000, close=0.723, open=0.581)  fit=210s
+    [4/8] impaired_02: acc=0.6325  f1=0.5524  (rest=1.000, close=0.613, open=0.044)  fit=207s
+    [5/8] impaired_03: acc=0.9573  f1=0.9572  (rest=1.000, close=0.933, open=0.938)  fit=209s
+    [6/8] impaired_04: acc=0.8120  f1=0.8014  (rest=1.000, close=0.771, open=0.633)  fit=216s
+    [7/8] impaired_05: acc=0.9829  f1=0.9829  (rest=1.000, close=0.975, open=0.974)  fit=218s
+    [8/8] impaired_06: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.974)  fit=229s
+
+  [3/48] patient3  (8 sessions)
+    [1/8] healthy_01: acc=0.9744  f1=0.9744  (rest=1.000, close=0.961, open=0.962)  fit=251s
+    [2/8] healthy_02: acc=0.7179  f1=0.6796  (rest=1.000, close=0.686, open=0.353)  fit=282s
+    [3/8] impaired_01: acc=0.7521  f1=0.7471  (rest=1.000, close=0.674, open=0.567)  fit=281s
+    [4/8] impaired_02: acc=0.7949  f1=0.7992  (rest=0.818, close=0.733, open=0.846)  fit=278s
+    [5/8] impaired_03: acc=0.9231  f1=0.9225  (rest=1.000, close=0.894, open=0.873)  fit=223s
+    [6/8] impaired_04: acc=0.9487  f1=0.9487  (rest=1.000, close=0.923, open=0.923)  fit=176s
+    [7/8] impaired_05: acc=0.9829  f1=0.9829  (rest=1.000, close=0.975, open=0.974)  fit=181s
+    [8/8] impaired_06: acc=0.9573  f1=0.9572  (rest=1.000, close=0.938, open=0.933)  fit=176s
+
+  [4/48] patient4  (9 sessions)
+    [1/9] healthy_01: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=182s
+    [2/9] healthy_02: acc=0.7692  f1=0.7473  (rest=1.000, close=0.733, open=0.509)  fit=186s
+    [3/9] impaired_01: acc=0.8718  f1=0.8708  (rest=1.000, close=0.824, open=0.789)  fit=184s
+    [4/9] impaired_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=179s
+    [5/9] impaired_03: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=178s
+    [6/9] impaired_04: acc=0.8034  f1=0.7936  (rest=1.000, close=0.758, open=0.623)  fit=185s
+    [7/9] impaired_05: acc=0.8291  f1=0.8207  (rest=0.975, close=0.787, open=0.700)  fit=178s
+    [8/9] impaired_06: acc=0.8120  f1=0.7957  (rest=1.000, close=0.780, open=0.607)  fit=179s
+    [9/9] impaired_07: acc=0.7521  f1=0.7124  (rest=1.000, close=0.729, open=0.408)  fit=183s
+
+  [5/48] patient5  (5 sessions)
+    [1/5] healthy_01: acc=0.8034  f1=0.7994  (rest=1.000, close=0.742, open=0.657)  fit=187s
+    [2/5] healthy_02: acc=0.9060  f1=0.9052  (rest=1.000, close=0.871, open=0.845)  fit=177s
+    [3/5] impaired_01: acc=0.8205  f1=0.8065  (rest=1.000, close=0.788, open=0.632)  fit=178s
+    [4/5] impaired_02: acc=0.8376  f1=0.8295  (rest=1.000, close=0.800, open=0.689)  fit=181s
+    [5/5] impaired_03: acc=0.8803  f1=0.8774  (rest=1.000, close=0.844, open=0.788)  fit=187s
+
+  [6/48] patient6  (5 sessions)
+    [1/5] healthy_01: acc=0.9744  f1=0.9744  (rest=1.000, close=0.961, open=0.962)  fit=179s
+    [2/5] impaired_01: acc=0.8803  f1=0.8796  (rest=1.000, close=0.806, open=0.833)  fit=177s
+    [3/5] impaired_02: acc=0.8889  f1=0.8889  (rest=1.000, close=0.835, open=0.831)  fit=193s
+    [4/5] impaired_03: acc=0.8803  f1=0.8783  (rest=1.000, close=0.841, open=0.794)  fit=215s
+    [5/5] impaired_04: acc=0.7778  f1=0.7653  (rest=1.000, close=0.729, open=0.567)  fit=211s
+
+  [7/48] patient7  (11 sessions)
+    [1/11] healthy_01: acc=0.9316  f1=0.9312  (rest=1.000, close=0.889, open=0.905)  fit=204s
+    [2/11] healthy_02: acc=0.9487  f1=0.9484  (rest=1.000, close=0.917, open=0.929)  fit=199s
+    [3/11] impaired_01: acc=0.9145  f1=0.9140  (rest=1.000, close=0.881, open=0.861)  fit=209s
+    [4/11] impaired_02: acc=0.8291  f1=0.8281  (rest=0.987, close=0.773, open=0.725)  fit=204s
+    [5/11] impaired_03: acc=0.9573  f1=0.9572  (rest=0.987, close=0.933, open=0.951)  fit=204s
+    [6/11] impaired_04: acc=0.8803  f1=0.8783  (rest=1.000, close=0.841, open=0.794)  fit=197s
+    [7/11] impaired_05: acc=0.8803  f1=0.8803  (rest=1.000, close=0.816, open=0.825)  fit=184s
+    [8/11] impaired_06: acc=0.8718  f1=0.8716  (rest=1.000, close=0.800, open=0.815)  fit=194s
+    [9/11] impaired_07: acc=0.9402  f1=0.9397  (rest=1.000, close=0.901, open=0.918)  fit=203s
+    [10/11] impaired_08: acc=0.8034  f1=0.8008  (rest=1.000, close=0.736, open=0.667)  fit=232s
+    [11/11] impaired_09: acc=0.9487  f1=0.9487  (rest=1.000, close=0.921, open=0.925)  fit=207s
+
+  [8/48] patient8  (3 sessions)
+    [1/3] healthy_01: acc=0.9402  f1=0.9397  (rest=1.000, close=0.918, open=0.901)  fit=200s
+    [2/3] impaired_01: acc=0.9573  f1=0.9571  (rest=1.000, close=0.940, open=0.932)  fit=198s
+    [3/3] impaired_02: acc=0.9231  f1=0.9225  (rest=1.000, close=0.894, open=0.873)  fit=211s
+
+  [9/48] patient9  (7 sessions)
+    [1/7] healthy_01: acc=0.9744  f1=0.9744  (rest=1.000, close=0.962, open=0.961)  fit=205s
+    [2/7] impaired_01: acc=0.8632  f1=0.8599  (rest=1.000, close=0.822, open=0.758)  fit=204s
+    [3/7] impaired_02: acc=0.8462  f1=0.8424  (rest=1.000, close=0.800, open=0.727)  fit=215s
+    [4/7] impaired_03: acc=0.8547  f1=0.8541  (rest=1.000, close=0.795, open=0.767)  fit=216s
+    [5/7] impaired_04: acc=0.8034  f1=0.7910  (rest=1.000, close=0.763, open=0.610)  fit=214s
+    [6/7] impaired_05: acc=0.8376  f1=0.8314  (rest=1.000, close=0.796, open=0.698)  fit=209s
+    [7/7] impaired_06: acc=0.7863  f1=0.7834  (rest=1.000, close=0.713, open=0.638)  fit=206s
+
+  [10/48] patient10  (10 sessions)
+    [1/10] healthy_01: acc=0.9145  f1=0.9140  (rest=1.000, close=0.881, open=0.861)  fit=206s
+    [2/10] healthy_02: acc=0.9060  f1=0.9052  (rest=1.000, close=0.871, open=0.845)  fit=212s
+    [3/10] impaired_01: acc=0.7009  f1=0.6356  (rest=1.000, close=0.685, open=0.222)  fit=208s
+    [4/10] impaired_02: acc=0.6752  f1=0.5873  (rest=1.000, close=0.667, open=0.095)  fit=215s
+    [5/10] impaired_03: acc=0.8462  f1=0.8452  (rest=1.000, close=0.786, open=0.750)  fit=216s
+    [6/10] impaired_04: acc=0.7179  f1=0.6565  (rest=1.000, close=0.703, open=0.267)  fit=221s
+    [7/10] impaired_05: acc=0.7607  f1=0.7357  (rest=1.000, close=0.725, open=0.481)  fit=217s
+    [8/10] impaired_06: acc=0.7607  f1=0.7308  (rest=1.000, close=0.731, open=0.462)  fit=213s
+    [9/10] impaired_07: acc=0.8547  f1=0.8519  (rest=0.975, close=0.805, open=0.776)  fit=216s
+    [10/10] impaired_08: acc=0.8547  f1=0.8523  (rest=0.975, close=0.815, open=0.767)  fit=208s
+
+  [11/48] patient11  (6 sessions)
+    [1/6] healthy_01: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=208s
+    [2/6] healthy_02: acc=0.9316  f1=0.9316  (rest=1.000, close=0.900, open=0.895)  fit=216s
+    [3/6] impaired_01: acc=0.6667  f1=0.5940  (rest=1.000, close=0.649, open=0.133)  fit=219s
+    [4/6] impaired_02: acc=0.9487  f1=0.9484  (rest=1.000, close=0.929, open=0.917)  fit=209s
+    [5/6] impaired_03: acc=0.7949  f1=0.7924  (rest=0.776, close=0.817, open=0.784)  fit=205s
+    [6/6] impaired_04: acc=0.9145  f1=0.9140  (rest=1.000, close=0.881, open=0.861)  fit=208s
+
+  [12/48] patient12  (11 sessions)
+    [1/11] healthy_01: acc=0.7179  f1=0.6565  (rest=1.000, close=0.703, open=0.267)  fit=214s
+    [2/11] healthy_02: acc=0.6752  f1=0.5741  (rest=1.000, close=0.672, open=0.050)  fit=217s
+    [3/11] impaired_01: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=212s
+    [4/11] impaired_02: acc=0.7265  f1=0.6711  (rest=1.000, close=0.709, open=0.304)  fit=209s
+    [5/11] impaired_03: acc=0.9744  f1=0.9743  (rest=1.000, close=0.963, open=0.960)  fit=205s
+    [6/11] impaired_04: acc=0.8376  f1=0.8274  (rest=1.000, close=0.804, open=0.678)  fit=220s
+    [7/11] impaired_05: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=221s
+    [8/11] impaired_06: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=212s
+    [9/11] impaired_07: acc=0.9915  f1=0.9915  (rest=0.987, close=0.987, open=1.000)  fit=224s
+    [10/11] impaired_08: acc=0.8205  f1=0.8099  (rest=0.963, close=0.800, open=0.667)  fit=211s
+    [11/11] impaired_09: acc=0.8462  f1=0.8466  (rest=0.946, close=0.837, open=0.757)  fit=196s
+
+  [13/48] patient13  (5 sessions)
+    [1/5] healthy_01: acc=0.9487  f1=0.9483  (rest=0.932, close=0.951, open=0.962)  fit=195s
+    [2/5] healthy_02: acc=0.8974  f1=0.8957  (rest=1.000, close=0.864, open=0.824)  fit=267s
+    [3/5] impaired_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=267s
+    [4/5] impaired_02: acc=0.9402  f1=0.9398  (rest=0.932, close=0.925, open=0.963)  fit=269s
+    [5/5] impaired_03: acc=0.8718  f1=0.8716  (rest=0.974, close=0.835, open=0.806)  fit=275s
+
+  [14/48] patient14  (4 sessions)
+    [1/4] healthy_01: acc=0.9487  f1=0.9486  (rest=1.000, close=0.927, open=0.919)  fit=274s
+    [2/4] healthy_02: acc=0.8034  f1=0.7936  (rest=1.000, close=0.758, open=0.623)  fit=203s
+    [3/4] impaired_01: acc=0.6838  f1=0.6224  (rest=0.940, close=0.667, open=0.261)  fit=204s
+    [4/4] impaired_02: acc=0.8291  f1=0.8170  (rest=1.000, close=0.796, open=0.655)  fit=266s
+
+  [15/48] patient15  (3 sessions)
+    [1/3] healthy_01: acc=0.9060  f1=0.9052  (rest=1.000, close=0.871, open=0.845)  fit=266s
+    [2/3] healthy_02: acc=0.9402  f1=0.9402  (rest=1.000, close=0.909, open=0.911)  fit=263s
+    [3/3] impaired_01: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=267s
+
+  [16/48] patient16  (4 sessions)
+    [1/4] healthy_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.963, open=0.960)  fit=257s
+    [2/4] healthy_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=260s
+    [3/4] impaired_01: acc=0.9231  f1=0.9220  (rest=1.000, close=0.897, open=0.870)  fit=253s
+    [4/4] impaired_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=249s
+
+  [17/48] patient17  (14 sessions)
+    [1/14] healthy_01: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=258s
+    [2/14] healthy_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=259s
+    [3/14] impaired_01: acc=0.9487  f1=0.9486  (rest=1.000, close=0.919, open=0.927)  fit=253s
+    [4/14] impaired_02: acc=0.8803  f1=0.8774  (rest=1.000, close=0.844, open=0.788)  fit=264s
+    [5/14] impaired_03: acc=0.8376  f1=0.8363  (rest=1.000, close=0.776, open=0.732)  fit=256s
+    [6/14] impaired_04: acc=0.9145  f1=0.9136  (rest=1.000, close=0.857, open=0.884)  fit=288s
+    [7/14] impaired_05: acc=0.7949  f1=0.7771  (rest=1.000, close=0.760, open=0.571)  fit=223s
+    [8/14] impaired_06: acc=0.9060  f1=0.9056  (rest=1.000, close=0.867, open=0.849)  fit=225s
+    [9/14] impaired_07: acc=0.7350  f1=0.7249  (rest=1.000, close=0.667, open=0.508)  fit=226s
+    [10/14] impaired_08: acc=0.7350  f1=0.7098  (rest=1.000, close=0.693, open=0.436)  fit=227s
+    [11/14] impaired_09: acc=0.8291  f1=0.8249  (rest=1.000, close=0.778, open=0.697)  fit=207s
+    [12/14] impaired_10: acc=0.7265  f1=0.7145  (rest=1.000, close=0.660, open=0.484)  fit=196s
+    [13/14] impaired_11: acc=0.7778  f1=0.7680  (rest=1.000, close=0.723, open=0.581)  fit=178s
+    [14/14] impaired_12: acc=0.8803  f1=0.8810  (rest=0.974, close=0.854, open=0.816)  fit=182s
+
+  [18/48] patient18  (4 sessions)
+    [1/4] healthy_01: acc=0.9316  f1=0.9316  (rest=1.000, close=0.900, open=0.895)  fit=184s
+    [2/4] healthy_02: acc=0.9487  f1=0.9484  (rest=1.000, close=0.929, open=0.917)  fit=197s
+    [3/4] impaired_01: acc=0.8034  f1=0.8024  (rest=0.946, close=0.763, open=0.698)  fit=191s
+    [4/4] impaired_02: acc=0.8803  f1=0.8791  (rest=1.000, close=0.837, open=0.800)  fit=218s
+
+  [19/48] patient19  (7 sessions)
+    [1/7] healthy_01: acc=0.9906  f1=0.9897  (rest=1.000, close=0.987, open=0.982)  fit=203s
+    [2/7] healthy_02: acc=0.8585  f1=0.8718  (rest=1.000, close=0.805, open=0.810)  fit=210s
+    [3/7] impaired_01: acc=0.8803  f1=0.8783  (rest=1.000, close=0.841, open=0.794)  fit=229s
+    [4/7] impaired_02: acc=0.7863  f1=0.7795  (rest=0.740, close=0.886, open=0.712)  fit=212s
+    [5/7] impaired_03: acc=0.7607  f1=0.7289  (rest=0.987, close=0.738, open=0.462)  fit=207s
+    [6/7] impaired_04: acc=0.5726  f1=0.5555  (rest=0.716, close=0.611, open=0.339)  fit=213s
+    [7/7] impaired_05: acc=0.4957  f1=0.4422  (rest=0.582, close=0.563, open=0.182)  fit=213s
+
+  [20/48] patient20  (3 sessions)
+    [1/3] healthy_01: acc=0.9573  f1=0.9573  (rest=1.000, close=0.937, open=0.935)  fit=221s
+    [2/3] impaired_01: acc=0.9829  f1=0.9829  (rest=0.987, close=0.974, open=0.987)  fit=217s
+    [3/3] impaired_02: acc=0.7179  f1=0.7039  (rest=1.000, close=0.653, open=0.459)  fit=212s
+
+  [21/48] patient21  (5 sessions)
+    [1/5] healthy_01: acc=0.7607  f1=0.7438  (rest=1.000, close=0.714, open=0.517)  fit=215s
+    [2/5] healthy_02: acc=0.7895  f1=0.6432  (rest=0.975, close=0.773, open=0.182)  fit=217s
+    [3/5] impaired_01: acc=0.9744  f1=0.9744  (rest=1.000, close=0.962, open=0.961)  fit=212s
+    [4/5] impaired_02: acc=0.7607  f1=0.7527  (rest=1.000, close=0.696, open=0.562)  fit=213s
+    [5/5] impaired_03: acc=0.6838  f1=0.6454  (rest=0.987, close=0.647, open=0.302)  fit=215s
+
+  [22/48] patient22  (6 sessions)
+    [1/6] healthy_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=201s
+    [2/6] healthy_02: acc=0.9487  f1=0.9484  (rest=1.000, close=0.917, open=0.929)  fit=214s
+    [3/6] impaired_01: acc=0.9744  f1=0.9744  (rest=1.000, close=0.961, open=0.962)  fit=212s
+    [4/6] impaired_02: acc=0.9316  f1=0.9309  (rest=1.000, close=0.886, open=0.907)  fit=209s
+    [5/6] impaired_03: acc=0.7179  f1=0.7122  (rest=1.000, close=0.629, open=0.507)  fit=197s
+    [6/6] impaired_04: acc=0.8632  f1=0.8618  (rest=1.000, close=0.814, open=0.771)  fit=207s
+
+  [23/48] patient23  (4 sessions)
+    [1/4] healthy_01: acc=0.8632  f1=0.8599  (rest=1.000, close=0.822, open=0.758)  fit=211s
+    [2/4] healthy_02: acc=0.8889  f1=0.8887  (rest=1.000, close=0.827, open=0.840)  fit=206s
+    [3/4] impaired_01: acc=0.8974  f1=0.8968  (rest=1.000, close=0.857, open=0.833)  fit=213s
+    [4/4] impaired_02: acc=0.7607  f1=0.7388  (rest=0.987, close=0.720, open=0.509)  fit=203s
+
+  [24/48] patient24  (5 sessions)
+    [1/5] healthy_01: acc=0.9573  f1=0.9571  (rest=1.000, close=0.932, open=0.940)  fit=201s
+    [2/5] healthy_02: acc=0.9060  f1=0.9041  (rest=0.963, close=0.900, open=0.849)  fit=196s
+    [3/5] impaired_01: acc=0.8376  f1=0.8393  (rest=0.946, close=0.796, open=0.776)  fit=209s
+    [4/5] impaired_02: acc=0.7094  f1=0.6506  (rest=1.000, close=0.691, open=0.261)  fit=209s
+    [5/5] impaired_03: acc=0.7778  f1=0.7545  (rest=1.000, close=0.745, open=0.519)  fit=194s
+
+  [25/48] patient25  (10 sessions)
+    [1/10] healthy_01: acc=0.9573  f1=0.9571  (rest=1.000, close=0.932, open=0.940)  fit=209s
+    [2/10] healthy_02: acc=0.8974  f1=0.8974  (rest=1.000, close=0.846, open=0.846)  fit=204s
+    [3/10] impaired_01: acc=0.7009  f1=0.6724  (rest=1.000, close=0.653, open=0.364)  fit=208s
+    [4/10] impaired_02: acc=0.8120  f1=0.8074  (rest=1.000, close=0.756, open=0.667)  fit=205s
+    [5/10] impaired_03: acc=0.7265  f1=0.7029  (rest=1.000, close=0.680, open=0.429)  fit=198s
+    [6/10] impaired_04: acc=0.7436  f1=0.7351  (rest=1.000, close=0.674, open=0.531)  fit=206s
+    [7/10] impaired_05: acc=0.6154  f1=0.5853  (rest=1.000, close=0.545, open=0.211)  fit=203s
+    [8/10] impaired_06: acc=0.6667  f1=0.6406  (rest=1.000, close=0.606, open=0.316)  fit=189s
+    [9/10] impaired_07: acc=0.8205  f1=0.8185  (rest=0.975, close=0.727, open=0.753)  fit=190s
+    [10/10] impaired_08: acc=0.8718  f1=0.8716  (rest=1.000, close=0.815, open=0.800)  fit=199s
+
+  [26/48] patient26  (9 sessions)
+    [1/9] healthy_01: acc=0.9145  f1=0.9131  (rest=1.000, close=0.886, open=0.853)  fit=193s
+    [2/9] healthy_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.974)  fit=198s
+    [3/9] impaired_01: acc=0.8889  f1=0.8883  (rest=0.987, close=0.835, open=0.842)  fit=197s
+    [4/9] impaired_02: acc=0.7179  f1=0.6565  (rest=1.000, close=0.703, open=0.267)  fit=198s
+    [5/9] impaired_03: acc=0.9402  f1=0.9399  (rest=1.000, close=0.916, open=0.904)  fit=188s
+    [6/9] impaired_04: acc=0.8291  f1=0.8262  (rest=1.000, close=0.773, open=0.706)  fit=185s
+    [7/9] impaired_05: acc=0.7778  f1=0.7777  (rest=0.974, close=0.683, open=0.676)  fit=191s
+    [8/9] impaired_06: acc=0.6581  f1=0.5889  (rest=1.000, close=0.636, open=0.130)  fit=209s
+    [9/9] impaired_07: acc=0.8205  f1=0.8194  (rest=0.987, close=0.744, open=0.727)  fit=215s
+
+  [27/48] patient27  (8 sessions)
+    [1/8] healthy_01: acc=0.8632  f1=0.8599  (rest=1.000, close=0.822, open=0.758)  fit=188s
+    [2/8] healthy_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=178s
+    [3/8] impaired_01: acc=0.9744  f1=0.9741  (rest=0.975, close=0.960, open=0.987)  fit=178s
+    [4/8] impaired_02: acc=0.9487  f1=0.9487  (rest=1.000, close=0.925, open=0.921)  fit=188s
+    [5/8] impaired_03: acc=0.8974  f1=0.8949  (rest=1.000, close=0.818, open=0.867)  fit=185s
+    [6/8] impaired_04: acc=0.7949  f1=0.7970  (rest=0.974, close=0.716, open=0.701)  fit=185s
+    [7/8] impaired_05: acc=0.7009  f1=0.6601  (rest=1.000, close=0.667, open=0.314)  fit=178s
+    [8/8] impaired_06: acc=0.7778  f1=0.7724  (rest=1.000, close=0.711, open=0.606)  fit=187s
+
+  [28/48] patient28  (9 sessions)
+    [1/9] healthy_01: acc=0.6667  f1=0.5556  (rest=1.000, close=0.667, open=0.000)  fit=177s
+    [2/9] healthy_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=180s
+    [3/9] impaired_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=179s
+    [4/9] impaired_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=193s
+    [5/9] impaired_03: acc=0.7094  f1=0.6664  (rest=1.000, close=0.679, open=0.320)  fit=181s
+    [6/9] impaired_04: acc=0.8547  f1=0.8535  (rest=1.000, close=0.800, open=0.761)  fit=207s
+    [7/9] impaired_05: acc=0.7949  f1=0.7952  (rest=0.960, close=0.739, open=0.687)  fit=177s
+    [8/9] impaired_06: acc=0.9487  f1=0.9486  (rest=1.000, close=0.927, open=0.919)  fit=182s
+    [9/9] impaired_07: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=191s
+
+  [29/48] patient29  (6 sessions)
+    [1/6] healthy_01: acc=0.9573  f1=0.9571  (rest=1.000, close=0.932, open=0.940)  fit=183s
+    [2/6] healthy_02: acc=0.8718  f1=0.8698  (rest=0.987, close=0.789, open=0.833)  fit=192s
+    [3/6] impaired_01: acc=0.9487  f1=0.9487  (rest=1.000, close=0.925, open=0.921)  fit=192s
+    [4/6] impaired_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=197s
+    [5/6] impaired_03: acc=0.9573  f1=0.9572  (rest=1.000, close=0.933, open=0.938)  fit=184s
+    [6/6] impaired_04: acc=0.9658  f1=0.9658  (rest=1.000, close=0.949, open=0.949)  fit=181s
+
+  [30/48] patient30  (4 sessions)
+    [1/4] healthy_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=189s
+    [2/4] healthy_02: acc=0.7863  f1=0.7728  (rest=1.000, close=0.742, open=0.576)  fit=182s
+    [3/4] impaired_01: acc=0.9402  f1=0.9397  (rest=1.000, close=0.901, open=0.918)  fit=182s
+    [4/4] impaired_02: acc=0.8291  f1=0.8272  (rest=1.000, close=0.767, open=0.714)  fit=186s
+
+  [31/48] patient31  (8 sessions)
+    [1/8] healthy_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=192s
+    [2/8] healthy_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=178s
+    [3/8] impaired_01: acc=0.8803  f1=0.8827  (rest=0.861, close=0.946, open=0.841)  fit=181s
+    [4/8] impaired_02: acc=0.7521  f1=0.7315  (rest=0.757, close=0.946, open=0.491)  fit=177s
+    [5/8] impaired_03: acc=0.8120  f1=0.7957  (rest=1.000, close=0.780, open=0.607)  fit=186s
+    [6/8] impaired_04: acc=0.9658  f1=0.9657  (rest=0.951, close=1.000, open=0.946)  fit=181s
+    [7/8] impaired_05: acc=0.9573  f1=0.9571  (rest=1.000, close=0.940, open=0.932)  fit=180s
+    [8/8] impaired_06: acc=0.7863  f1=0.7528  (rest=0.918, close=0.813, open=0.528)  fit=181s
+
+  [32/48] patient32  (14 sessions)
+    [1/14] healthy_01: acc=0.7521  f1=0.7124  (rest=1.000, close=0.729, open=0.408)  fit=190s
+    [2/14] healthy_02: acc=0.9658  f1=0.9657  (rest=1.000, close=0.951, open=0.946)  fit=187s
+    [3/14] impaired_01: acc=0.7350  f1=0.6853  (rest=1.000, close=0.716, open=0.340)  fit=193s
+    [4/14] impaired_02: acc=0.9402  f1=0.9395  (rest=0.975, close=0.907, open=0.937)  fit=179s
+    [5/14] impaired_03: acc=0.9402  f1=0.9401  (rest=1.000, close=0.914, open=0.907)  fit=184s
+    [6/14] impaired_04: acc=0.8974  f1=0.8949  (rest=1.000, close=0.867, open=0.818)  fit=186s
+    [7/14] impaired_05: acc=0.8376  f1=0.8274  (rest=1.000, close=0.804, open=0.678)  fit=187s
+    [8/14] impaired_06: acc=0.9402  f1=0.9399  (rest=1.000, close=0.916, open=0.904)  fit=238s
+    [9/14] impaired_07: acc=0.9658  f1=0.9657  (rest=1.000, close=0.951, open=0.946)  fit=257s
+    [10/14] impaired_08: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=262s
+    [11/14] impaired_09: acc=0.8974  f1=0.8953  (rest=0.918, close=0.833, open=0.935)  fit=263s
+    [12/14] impaired_10: acc=0.8974  f1=0.8963  (rest=0.975, close=0.842, open=0.872)  fit=256s
+    [13/14] impaired_11: acc=0.7778  f1=0.7629  (rest=0.963, close=0.729, open=0.596)  fit=254s
+    [14/14] impaired_12: acc=0.9316  f1=0.9298  (rest=0.975, close=0.886, open=0.929)  fit=262s
+
+  [33/48] patient33  (8 sessions)
+    [1/8] healthy_01: acc=0.9145  f1=0.9143  (rest=1.000, close=0.865, open=0.878)  fit=264s
+    [2/8] healthy_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=260s
+    [3/8] impaired_01: acc=0.8205  f1=0.8116  (rest=1.000, close=0.779, open=0.656)  fit=256s
+    [4/8] impaired_02: acc=0.6838  f1=0.6590  (rest=1.000, close=0.626, open=0.351)  fit=265s
+    [5/8] impaired_03: acc=0.7949  f1=0.7926  (rest=0.975, close=0.700, open=0.703)  fit=266s
+    [6/8] impaired_04: acc=0.6496  f1=0.5838  (rest=1.000, close=0.624, open=0.128)  fit=259s
+    [7/8] impaired_05: acc=0.8547  f1=0.8535  (rest=1.000, close=0.800, open=0.761)  fit=264s
+    [8/8] impaired_06: acc=0.9402  f1=0.9397  (rest=1.000, close=0.901, open=0.918)  fit=181s
+
+  [34/48] patient34  (8 sessions)
+    [1/8] healthy_01: acc=0.9658  f1=0.9658  (rest=1.000, close=0.949, open=0.949)  fit=204s
+    [2/8] healthy_02: acc=0.9573  f1=0.9572  (rest=1.000, close=0.933, open=0.938)  fit=183s
+    [3/8] impaired_01: acc=0.9060  f1=0.9060  (rest=1.000, close=0.857, open=0.861)  fit=182s
+    [4/8] impaired_02: acc=0.9145  f1=0.9141  (rest=0.987, close=0.880, open=0.875)  fit=180s
+    [5/8] impaired_03: acc=0.7265  f1=0.6860  (rest=1.000, close=0.698, open=0.360)  fit=206s
+    [6/8] impaired_04: acc=0.9487  f1=0.9487  (rest=1.000, close=0.921, open=0.925)  fit=182s
+    [7/8] impaired_05: acc=0.7350  f1=0.7192  (rest=0.929, close=0.698, open=0.531)  fit=179s
+    [8/8] impaired_06: acc=0.9487  f1=0.9484  (rest=1.000, close=0.917, open=0.929)  fit=181s
+
+  [35/48] patient35  (8 sessions)
+    [1/8] healthy_01: acc=0.9231  f1=0.9220  (rest=1.000, close=0.870, open=0.897)  fit=177s
+    [2/8] healthy_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=183s
+    [3/8] impaired_01: acc=0.6581  f1=0.6155  (rest=0.629, close=0.987, open=0.231)  fit=179s
+    [4/8] impaired_02: acc=0.7949  f1=0.7890  (rest=0.742, close=0.916, open=0.710)  fit=188s
+    [5/8] impaired_03: acc=0.7607  f1=0.7482  (rest=0.963, close=0.719, open=0.562)  fit=181s
+    [6/8] impaired_04: acc=0.9573  f1=0.9572  (rest=1.000, close=0.933, open=0.938)  fit=185s
+    [7/8] impaired_05: acc=0.6410  f1=0.6440  (rest=0.762, close=0.641, open=0.529)  fit=185s
+    [8/8] impaired_06: acc=0.7607  f1=0.7527  (rest=1.000, close=0.696, open=0.562)  fit=192s
+
+  [36/48] patient36  (6 sessions)
+    [1/6] healthy_01: acc=0.8205  f1=0.8136  (rest=1.000, close=0.774, open=0.667)  fit=186s
+    [2/6] healthy_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.975, open=0.974)  fit=180s
+    [3/6] impaired_01: acc=0.9487  f1=0.9484  (rest=1.000, close=0.929, open=0.917)  fit=190s
+    [4/6] impaired_02: acc=0.9744  f1=0.9744  (rest=1.000, close=0.962, open=0.961)  fit=178s
+    [5/6] impaired_03: acc=0.9060  f1=0.9052  (rest=1.000, close=0.871, open=0.845)  fit=177s
+    [6/6] impaired_04: acc=0.9487  f1=0.9487  (rest=1.000, close=0.923, open=0.923)  fit=189s
+
+  [37/48] patient37  (6 sessions)
+    [1/6] healthy_01: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=192s
+    [2/6] healthy_02: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=193s
+    [3/6] impaired_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=196s
+    [4/6] impaired_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=182s
+    [5/6] impaired_03: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=208s
+    [6/6] impaired_04: acc=0.9915  f1=0.9915  (rest=1.000, close=0.987, open=0.987)  fit=200s
+
+  [38/48] patient38  (6 sessions)
+    [1/6] healthy_01: acc=0.9231  f1=0.9231  (rest=1.000, close=0.886, open=0.883)  fit=204s
+    [2/6] healthy_02: acc=0.9744  f1=0.9743  (rest=1.000, close=0.963, open=0.960)  fit=196s
+    [3/6] impaired_01: acc=0.8205  f1=0.8191  (rest=1.000, close=0.753, open=0.704)  fit=190s
+    [4/6] impaired_02: acc=0.8376  f1=0.8363  (rest=1.000, close=0.776, open=0.732)  fit=193s
+    [5/6] impaired_03: acc=0.6325  f1=0.5635  (rest=1.000, close=0.606, open=0.085)  fit=188s
+    [6/6] impaired_04: acc=0.8205  f1=0.8191  (rest=0.987, close=0.720, open=0.750)  fit=221s
+
+  [39/48] patient39  (5 sessions)
+    [1/5] healthy_01: acc=0.8376  f1=0.8314  (rest=1.000, close=0.796, open=0.698)  fit=195s
+    [2/5] impaired_01: acc=0.8462  f1=0.8462  (rest=1.000, close=0.769, open=0.769)  fit=179s
+    [3/5] impaired_02: acc=0.8120  f1=0.7987  (rest=1.000, close=0.776, open=0.621)  fit=179s
+    [4/5] impaired_03: acc=0.8205  f1=0.8130  (rest=0.987, close=0.774, open=0.677)  fit=178s
+    [5/5] impaired_04: acc=0.6496  f1=0.5574  (rest=0.987, close=0.637, open=0.048)  fit=181s
+
+  [40/48] patient40  (13 sessions)
+    [1/13] healthy_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=182s
+    [2/13] healthy_02: acc=0.8974  f1=0.8957  (rest=1.000, close=0.864, open=0.824)  fit=179s
+    [3/13] impaired_01: acc=0.9487  f1=0.9486  (rest=1.000, close=0.927, open=0.919)  fit=187s
+    [4/13] impaired_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.975, open=0.974)  fit=181s
+    [5/13] impaired_03: acc=0.9487  f1=0.9486  (rest=1.000, close=0.927, open=0.919)  fit=178s
+    [6/13] impaired_04: acc=0.9573  f1=0.9572  (rest=1.000, close=0.938, open=0.933)  fit=184s
+    [7/13] impaired_05: acc=0.8803  f1=0.8791  (rest=1.000, close=0.837, open=0.800)  fit=183s
+    [8/13] impaired_06: acc=0.7436  f1=0.7057  (rest=1.000, close=0.717, open=0.400)  fit=204s
+    [9/13] impaired_07: acc=0.7692  f1=0.7378  (rest=1.000, close=0.743, open=0.471)  fit=202s
+    [10/13] impaired_08: acc=0.8718  f1=0.8669  (rest=1.000, close=0.839, open=0.762)  fit=176s
+    [11/13] impaired_09: acc=0.9316  f1=0.9318  (rest=0.987, close=0.907, open=0.901)  fit=177s
+    [12/13] impaired_10: acc=0.8974  f1=0.8949  (rest=1.000, close=0.867, open=0.818)  fit=186s
+    [13/13] impaired_11: acc=0.9316  f1=0.9316  (rest=1.000, close=0.897, open=0.897)  fit=177s
+
+  [41/48] patient41  (5 sessions)
+    [1/5] healthy_01: acc=0.8803  f1=0.8803  (rest=1.000, close=0.825, open=0.816)  fit=183s
+    [2/5] healthy_02: acc=0.7521  f1=0.7238  (rest=1.000, close=0.718, open=0.453)  fit=177s
+    [3/5] impaired_01: acc=0.6923  f1=0.6977  (rest=0.645, close=0.654, open=0.794)  fit=176s
+    [4/5] impaired_02: acc=0.7094  f1=0.7066  (rest=0.714, close=0.729, open=0.676)  fit=191s
+    [5/5] impaired_03: acc=0.8376  f1=0.8364  (rest=0.783, close=0.776, open=0.950)  fit=187s
+
+  [42/48] patient42  (5 sessions)
+    [1/5] healthy_01: acc=0.9316  f1=0.9316  (rest=1.000, close=0.895, open=0.900)  fit=178s
+    [2/5] healthy_02: acc=0.8205  f1=0.8181  (rest=1.000, close=0.759, open=0.696)  fit=184s
+    [3/5] impaired_01: acc=0.9487  f1=0.9486  (rest=1.000, close=0.919, open=0.927)  fit=177s
+    [4/5] impaired_02: acc=0.9316  f1=0.9309  (rest=1.000, close=0.886, open=0.907)  fit=182s
+    [5/5] impaired_03: acc=0.8889  f1=0.8884  (rest=1.000, close=0.843, open=0.822)  fit=177s
+
+  [43/48] patient43  (4 sessions)
+    [1/4] healthy_01: acc=0.9316  f1=0.9312  (rest=0.933, close=0.897, open=0.963)  fit=189s
+    [2/4] healthy_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=191s
+    [3/4] impaired_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=190s
+    [4/4] impaired_02: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=187s
+
+  [44/48] patient44  (6 sessions)
+    [1/6] healthy_01: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=181s
+    [2/6] healthy_02: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=199s
+    [3/6] impaired_01: acc=0.8889  f1=0.8889  (rest=1.000, close=0.835, open=0.831)  fit=251s
+    [4/6] impaired_02: acc=0.8547  f1=0.8525  (rest=0.987, close=0.761, open=0.810)  fit=264s
+    [5/6] impaired_03: acc=0.9744  f1=0.9743  (rest=1.000, close=0.960, open=0.963)  fit=264s
+    [6/6] impaired_04: acc=0.8120  f1=0.8037  (rest=1.000, close=0.766, open=0.645)  fit=264s
+
+  [45/48] patient45  (4 sessions)
+    [1/4] healthy_01: acc=0.9658  f1=0.9657  (rest=1.000, close=0.946, open=0.951)  fit=264s
+    [2/4] healthy_02: acc=0.8462  f1=0.8491  (rest=0.932, close=0.835, open=0.780)  fit=267s
+    [3/4] impaired_01: acc=0.8889  f1=0.8880  (rest=1.000, close=0.847, open=0.817)  fit=256s
+    [4/4] impaired_02: acc=0.8376  f1=0.8274  (rest=1.000, close=0.804, open=0.678)  fit=259s
+
+  [46/48] patient46  (12 sessions)
+    [1/12] healthy_01: acc=0.9829  f1=0.9829  (rest=1.000, close=0.974, open=0.975)  fit=262s
+    [2/12] healthy_02: acc=0.8547  f1=0.8535  (rest=1.000, close=0.800, open=0.761)  fit=271s
+    [3/12] impaired_01: acc=0.8547  f1=0.8547  (rest=1.000, close=0.779, open=0.785)  fit=264s
+    [4/12] impaired_02: acc=0.7863  f1=0.7846  (rest=1.000, close=0.706, open=0.648)  fit=269s
+    [5/12] impaired_03: acc=0.8803  f1=0.8800  (rest=1.000, close=0.829, open=0.811)  fit=262s
+    [6/12] impaired_04: acc=0.9402  f1=0.9401  (rest=1.000, close=0.907, open=0.914)  fit=237s
+    [7/12] impaired_05: acc=0.9658  f1=0.9657  (rest=1.000, close=0.946, open=0.951)  fit=203s
+    [8/12] impaired_06: acc=0.9060  f1=0.9058  (rest=1.000, close=0.853, open=0.864)  fit=188s
+    [9/12] impaired_07: acc=0.7009  f1=0.6809  (rest=0.963, close=0.632, open=0.448)  fit=183s
+    [10/12] impaired_08: acc=0.6923  f1=0.6769  (rest=0.987, close=0.617, open=0.426)  fit=182s
+    [11/12] impaired_09: acc=0.8718  f1=0.8657  (rest=0.987, close=0.762, open=0.848)  fit=179s
+    [12/12] impaired_10: acc=0.8291  f1=0.8280  (rest=1.000, close=0.722, open=0.762)  fit=184s
+
+  [47/48] patient47  (7 sessions)
+    [1/7] healthy_01: acc=0.9573  f1=0.9571  (rest=1.000, close=0.932, open=0.940)  fit=184s
+    [2/7] healthy_02: acc=0.9658  f1=0.9657  (rest=1.000, close=0.946, open=0.951)  fit=178s
+    [3/7] impaired_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=1.000)  fit=188s
+    [4/7] impaired_02: acc=0.9487  f1=0.9489  (rest=0.974, close=0.923, open=0.950)  fit=177s
+    [5/7] impaired_03: acc=0.9231  f1=0.9225  (rest=1.000, close=0.894, open=0.873)  fit=191s
+    [6/7] impaired_04: acc=0.6410  f1=0.5998  (rest=0.327, close=0.758, open=0.714)  fit=179s
+    [7/7] impaired_05: acc=0.8632  f1=0.8656  (rest=0.946, close=0.822, open=0.829)  fit=190s
+
+  [48/48] patient48  (3 sessions)
+    [1/3] healthy_01: acc=0.8547  f1=0.8541  (rest=1.000, close=0.795, open=0.767)  fit=189s
+    [2/3] healthy_02: acc=0.9658  f1=0.9657  (rest=1.000, close=0.946, open=0.951)  fit=191s
+    [3/3] impaired_01: acc=0.8889  f1=0.8894  (rest=0.841, close=0.974, open=0.854)  fit=181s
+
+======================================================================
+AGGREGATE (n=48 patients, 329 sessions)
+======================================================================
+  Session-level:
+    acc:  mean=0.8710  std=0.1014  range=[0.4957, 1.0000]
+    f1:   mean=0.8621  std=0.1155
+    per-class F1: rest=0.9818  close=0.8423  open=0.7622
+  Per-arm:
+    healthy arm: mean=0.9135  std=0.0825  n=91
+    impaired arm: mean=0.8547  std=0.1033  n=238
+
+  Patient-level acc mean: 0.8754  std=0.0534
+
+[4/4] Total wall: 1154.9 min
+Session CSV: /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/per_session_results.csv
+Patient CSV: /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/per_patient_results.csv

@@ -1,0 +1,97 @@
+======================================================================
+Lucchetti per-session eval — single-tier per-session calibration
+======================================================================
+Loading Lucchetti features + engineering 60 → 370...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  done in 745.5s  shape: (192439, 378)
+Loading GrabMyo cache...
+  GrabMyo: 1,138,683 windows × 370 features
+
+Per-session eval on 20 subjects...
+
+  [1/20] HS_01  (1 arms)
+    [1/1] healthy_01: acc=0.8333  f1=0.5556  (rest=0.867, close=0.800, open=0.000)  fit=114s
+
+  [2/20] HS_02  (1 arms)
+    [1/1] healthy_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=0.000)  fit=143s
+
+  [3/20] HS_03  (1 arms)
+    [1/1] healthy_01: acc=0.7800  f1=0.4382  (rest=0.876, close=0.000, open=0.000)  fit=144s
+
+  [4/20] HS_04  (1 arms)
+    [1/1] healthy_01: acc=0.8704  f1=0.6889  (rest=1.000, close=0.533, open=0.533)  fit=180s
+
+  [5/20] HS_05  (1 arms)
+    [1/1] healthy_01: acc=0.8718  f1=0.6014  (rest=0.951, close=0.000, open=0.853)  fit=209s
+
+  [6/20] HS_06  (1 arms)
+    [1/1] healthy_01: acc=0.7692  f1=0.5532  (rest=0.938, close=0.721, open=0.000)  fit=171s
+
+  [7/20] HS_07  (1 arms)
+    [1/1] healthy_01: acc=0.7143  f1=0.4635  (rest=0.867, close=0.524, open=0.000)  fit=216s
+
+  [8/20] HS_08  (1 arms)
+    [1/1] healthy_01: acc=0.9783  f1=0.8963  (rest=1.000, close=0.889, open=0.800)  fit=206s
+
+  [9/20] HS_09  (1 arms)
+    [1/1] healthy_01: acc=0.8974  f1=0.6011  (rest=0.918, close=0.000, open=0.886)  fit=143s
+
+  [10/20] HS_10  (1 arms)
+    [1/1] healthy_01: acc=1.0000  f1=1.0000  (rest=1.000, close=0.000, open=0.000)  fit=206s
+
+  [11/20] ST_01  (2 arms)
+    [1/2] healthy_01: acc=0.7397  f1=0.7082  (rest=0.804, close=0.612, open=0.000)  fit=173s
+    [2/2] impaired_01: acc=1.0000  f1=1.0000  (rest=1.000, close=0.000, open=1.000)  fit=215s
+
+  [12/20] ST_02  (2 arms)
+    [1/2] healthy_01: acc=0.8333  f1=0.5588  (rest=0.876, close=0.000, open=0.800)  fit=151s
+    [2/2] impaired_01: acc=0.7805  f1=0.6736  (rest=0.940, close=0.381, open=0.700)  fit=193s
+
+  [13/20] ST_03  (2 arms)
+    [1/2] healthy_01: acc=0.8600  f1=0.5111  (rest=1.000, close=0.000, open=0.533)  fit=135s
+    [2/2] impaired_01: acc=0.9153  f1=0.6068  (rest=0.949, close=0.872, open=0.000)  fit=193s
+
+  [14/20] ST_04  (2 arms)
+    [1/2] healthy_01: acc=0.8667  f1=0.4643  (rest=0.929, close=0.000, open=0.000)  fit=148s
+    [2/2] impaired_01: acc=0.8864  f1=0.4699  (rest=0.940, close=0.000, open=0.000)  fit=168s
+
+  [15/20] ST_05  (2 arms)
+    [1/2] healthy_01: acc=1.0000  f1=1.0000  (rest=1.000, close=1.000, open=0.000)  fit=190s
+    [2/2] impaired_01: acc=0.7500  f1=0.4286  (rest=0.857, close=0.000, open=0.000)  fit=182s
+
+  [16/20] ST_06  (2 arms)
+    [1/2] healthy_01: acc=0.8372  f1=0.4557  (rest=0.911, close=0.000, open=0.000)  fit=184s
+    [2/2] impaired_01: acc=0.5972  f1=0.4726  (rest=0.729, close=0.216, open=0.000)  fit=144s
+
+  [17/20] ST_07  (2 arms)
+    [1/2] healthy_01: acc=0.7013  f1=0.4624  (rest=0.821, close=0.000, open=0.566)  fit=159s
+    [2/2] impaired_01: acc=0.8846  f1=0.8831  (rest=0.897, close=0.000, open=0.870)  fit=160s
+
+  [18/20] ST_08  (2 arms)
+    [1/2] healthy_01: acc=0.9744  f1=0.4935  (rest=0.987, close=0.000, open=0.000)  fit=219s
+    [2/2] impaired_01: acc=0.6026  f1=0.3930  (rest=0.839, close=0.000, open=0.340)  fit=204s
+
+  [19/20] ST_09  (2 arms)
+    [1/2] healthy_01: acc=0.5000  f1=0.3333  (rest=0.667, close=0.000, open=0.000)  fit=176s
+    [2/2] impaired_01: acc=0.6349  f1=0.4261  (rest=0.772, close=0.080, open=0.000)  fit=211s
+
+  [20/20] ST_10  (2 arms)
+    [1/2] healthy_01: acc=0.8571  f1=0.6896  (rest=0.918, close=0.000, open=0.462)  fit=188s
+    [2/2] impaired_01: acc=0.8974  f1=0.8972  (rest=0.902, close=0.000, open=0.892)  fit=210s
+
+======================================================================
+AGGREGATE (n=20 subjects, 30 sessions)
+======================================================================
+  session mean acc: 0.8278  std=0.1304
+  per arm: healthy=0.8442 (n=20)  impaired=0.7949 (n=10)
+  per-class F1: rest=0.9051  close=0.2543  open=0.3078
+
+Total wall: 105.2 min
+Session CSV: /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/lucchetti/results/per_session_results.csv
+Patient CSV: /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/lucchetti/results/per_patient_results.csv

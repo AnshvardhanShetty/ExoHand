@@ -1,0 +1,43 @@
+{
+  "n_subjects": 10,
+  "L_CA_distribution": {
+    "3": 4,
+    "4": 2,
+    "5": 4
+  },
+  "by_level": {
+    "3": {
+      "n_subjects": 4,
+      "zs_acc_mean": 0.19158595685265467,
+      "zs_acc_std": 0.06103917603738822,
+      "cal_acc_mean": 0.8542429792429792,
+      "cal_acc_std": 0.1550650519503964,
+      "delta_mean": 0.6626570223903245
+    },
+    "4": {
+      "n_subjects": 2,
+      "zs_acc_mean": 0.1811525860137351,
+      "zs_acc_std": 0.026873356555961455,
+      "cal_acc_mean": 0.7444638694638694,
+      "cal_acc_std": 0.20067657484723117,
+      "delta_mean": 0.5633112834501344
+    },
+    "5": {
+      "n_subjects": 4,
+      "zs_acc_mean": 0.20352024130429316,
+      "zs_acc_std": 0.05039933487103083,
+      "cal_acc_mean": 0.7607410660971017,
+      "cal_acc_std": 0.13053484409289884,
+      "delta_mean": 0.5572208247928084
+    }
+  },
+  "spearman_L_CA_vs_cal_benefit": {
+    "rho": -0.3503245248726853,
+    "p": 0.32099214866588327
+  },
+  "spearman_L_CA_vs_calibrated_acc": {
+    "rho": -0.31139957766460913,
+    "p": 0.38111344254489044
+  },
+  "scale_meaning": "L_CA = Fugl-Meyer UE level: 1 = 0-22 (severe), 2 = 23-31, 3 = 32-42, 4 = 43-52, 5 = 53-66 (mild)"
+}

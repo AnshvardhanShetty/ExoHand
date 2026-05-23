@@ -1,0 +1,41 @@
+Loading + engineering PhysioMio...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+Running cal-size ablation on 12 patients × 6 sizes
+
+=== cal_per_gesture = 12 (600 ms × 12 gestures = 7.2 s total) ===
+  patient 10/12 done, elapsed=295s
+
+=== cal_per_gesture = 24 (1200 ms × 12 gestures = 14.4 s total) ===
+  patient 10/12 done, elapsed=537s
+
+=== cal_per_gesture = 36 (1800 ms × 12 gestures = 21.6 s total) ===
+  patient 10/12 done, elapsed=878s
+
+=== cal_per_gesture = 60 (3000 ms × 12 gestures = 36.0 s total) ===
+  patient 10/12 done, elapsed=1396s
+
+=== cal_per_gesture = 90 (4500 ms × 12 gestures = 54.0 s total) ===
+  patient 10/12 done, elapsed=1921s
+
+=== cal_per_gesture = 120 (6000 ms × 12 gestures = 72.0 s total) ===
+  patient 10/12 done, elapsed=2263s
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/cal_size_ablation.csv
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/cal_size_ablation_summary.md
+
+Sweep summary:
+ cal_per_gesture  n_sessions  acc_mean  acc_std  f1_macro_mean  f1_rest_mean  f1_close_mean  f1_open_mean  cal_total_s
+              12          91  0.836480 0.097369       0.820417      0.949421       0.816744      0.695088          7.2
+              24          91  0.843242 0.101899       0.822738      0.981632       0.821692      0.664890         14.4
+              36          91  0.868038 0.097702       0.852887      0.986258       0.845815      0.726586         21.6
+              60          91  0.869447 0.098849       0.854444      0.987297       0.848077      0.727957         36.0
+              90          91  0.868695 0.099033       0.853808      0.986885       0.846965      0.727575         54.0
+             120          91  0.868601 0.099875       0.853762      0.988220       0.846820      0.726245         72.0
+
+Total wall: 38.5 min

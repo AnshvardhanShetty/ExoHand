@@ -1,0 +1,71 @@
+{
+  "label": "strict (ReactEMG-faithful, 0% maint error)",
+  "params": {
+    "max_maint_error": 0.0,
+    "reaction_buffer": 10,
+    "maint_cap": 110,
+    "min_hold": 5
+  },
+  "rows": [
+    {
+      "N": 1,
+      "profile": "Max / High Assist (Levels 1-2)",
+      "patient_transition_acc": 0.2770919184981685,
+      "patient_ci_lo": 0.22298339608886486,
+      "patient_ci_hi": 0.33289571539571533,
+      "session_transition_acc": 0.26443768996960487,
+      "session_ci_lo": 0.23252279635258358,
+      "session_ci_hi": 0.2978723404255319,
+      "raw_full_stream_acc": 0.9091688917348283,
+      "added_latency_ms": 0
+    },
+    {
+      "N": 2,
+      "profile": "Moderate Assist (Level 3)",
+      "patient_transition_acc": 0.38905489764864765,
+      "patient_ci_lo": 0.34094199781699774,
+      "patient_ci_hi": 0.4425756166576479,
+      "session_transition_acc": 0.378419452887538,
+      "session_ci_lo": 0.3419072948328267,
+      "session_ci_hi": 0.41641337386018235,
+      "raw_full_stream_acc": 0.9138808007829018,
+      "added_latency_ms": 50
+    },
+    {
+      "N": 3,
+      "profile": "Light / Minimal Assist (Levels 4-5) \u2014 deployed default",
+      "patient_transition_acc": 0.46354753464128473,
+      "patient_ci_lo": 0.40806204718314093,
+      "patient_ci_hi": 0.5233632195350946,
+      "session_transition_acc": 0.46048632218844987,
+      "session_ci_lo": 0.42401215805471126,
+      "session_ci_hi": 0.49848024316109424,
+      "raw_full_stream_acc": 0.9172697507520932,
+      "added_latency_ms": 100
+    },
+    {
+      "N": 5,
+      "profile": "(sensitivity only \u2014 not in any profile)",
+      "patient_transition_acc": 0.5747678536741037,
+      "patient_ci_lo": 0.5202391185203685,
+      "patient_ci_hi": 0.6287371764520202,
+      "session_transition_acc": 0.5699088145896657,
+      "session_ci_lo": 0.5334346504559271,
+      "session_ci_hi": 0.60790273556231,
+      "raw_full_stream_acc": 0.9243436552332395,
+      "added_latency_ms": 200
+    },
+    {
+      "N": 10,
+      "profile": "(sensitivity only \u2014 not in any profile)",
+      "patient_transition_acc": 0.6862198854386353,
+      "patient_ci_lo": 0.6408242206289081,
+      "patient_ci_hi": 0.7287743455907518,
+      "session_transition_acc": 0.6717325227963525,
+      "session_ci_lo": 0.6382978723404256,
+      "session_ci_hi": 0.7051671732522796,
+      "raw_full_stream_acc": 0.9252558324976743,
+      "added_latency_ms": 450
+    }
+  ]
+}

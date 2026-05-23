@@ -1,0 +1,10 @@
+context,gt,pred,count,row_pct
+severity:more_impaired,rest,rest,13556,98.18208155283553
+severity:more_impaired,rest,close,169,1.2240168030709062
+severity:more_impaired,rest,open,82,0.5939016440935757
+severity:more_impaired,close,rest,627,0.45452568396328996
+severity:more_impaired,close,close,126904,91.99541849709306
+severity:more_impaired,close,open,10415,7.550055818943645
+severity:more_impaired,open,rest,136,0.9865796155241204
+severity:more_impaired,open,close,3607,26.166122597025755
+severity:more_impaired,open,open,10042,72.84729778745013

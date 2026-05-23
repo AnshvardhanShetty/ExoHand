@@ -1,0 +1,114 @@
+{
+  "n_patients": 48,
+  "severity_distribution": {
+    "healthy_fma_mean_across_patients": 1.9437500000000003,
+    "healthy_fma_std_across_patients": 0.09203664857463609,
+    "impaired_fma_mean_across_patients": 1.3897376543209876,
+    "impaired_fma_std_across_patients": 0.5466971291846039,
+    "impaired_fma_min": 0.0,
+    "impaired_fma_max": 2.0
+  },
+  "correlations": [
+    {
+      "name_x": "impaired_fma_mean",
+      "name_y": "acc_with_cal",
+      "n": 48,
+      "spearman_rho": -0.10928339019885604,
+      "spearman_p": 0.4596650872550345,
+      "spearman_ci_lo": -0.38051366012320953,
+      "spearman_ci_hi": 0.1755173971439427,
+      "pearson_r": -0.10510946197250295,
+      "pearson_p": 0.4770859540529092
+    },
+    {
+      "name_x": "impaired_fma_mean",
+      "name_y": "acc_with_cal_impaired",
+      "n": 48,
+      "spearman_rho": -0.031244062563561804,
+      "spearman_p": 0.8330350342693282,
+      "spearman_ci_lo": -0.3278589102997632,
+      "spearman_ci_hi": 0.267509903081898,
+      "pearson_r": -0.014793656998511096,
+      "pearson_p": 0.9205053672689252
+    },
+    {
+      "name_x": "impaired_fma_mean",
+      "name_y": "acc_zero_shot",
+      "n": 48,
+      "spearman_rho": 0.01226927281914628,
+      "spearman_p": 0.9340372956523202,
+      "spearman_ci_lo": -0.29388683653239417,
+      "spearman_ci_hi": 0.33216417099534395,
+      "pearson_r": -0.08370805468483015,
+      "pearson_p": 0.5716293653259616
+    },
+    {
+      "name_x": "impaired_fma_mean",
+      "name_y": "delta_acc",
+      "n": 48,
+      "spearman_rho": -0.13203398810526898,
+      "spearman_p": 0.37101658876545895,
+      "spearman_ci_lo": -0.3772906728946741,
+      "spearman_ci_hi": 0.14449480900862552,
+      "pearson_r": 0.000497739138485255,
+      "pearson_p": 0.9973210792276661
+    },
+    {
+      "name_x": "impaired_worst_session_fma",
+      "name_y": "acc_with_cal_impaired",
+      "n": 48,
+      "spearman_rho": -0.014062704983408655,
+      "spearman_p": 0.9244215065285646,
+      "spearman_ci_lo": -0.32891737862970877,
+      "spearman_ci_hi": 0.28546644655582637,
+      "pearson_r": 0.023179853512319465,
+      "pearson_p": 0.8757315877524685
+    },
+    {
+      "name_x": "healthy_fma_mean",
+      "name_y": "acc_with_cal_healthy",
+      "n": 48,
+      "spearman_rho": -0.24196460328687308,
+      "spearman_p": 0.09753681630448345,
+      "spearman_ci_lo": -0.5206027827542993,
+      "spearman_ci_hi": 0.05722060187528221,
+      "pearson_r": -0.21850405766592468,
+      "pearson_p": 0.13569092033408786
+    }
+  ],
+  "stratified": [
+    {
+      "severity_tertile": "severe",
+      "n": 16,
+      "acc_with_cal": 0.8787,
+      "acc_with_cal_std": 0.0638,
+      "acc_zero_shot": 0.2209,
+      "delta": 0.6578,
+      "delta_std": 0.0655,
+      "fma_range_lo": 0.0,
+      "fma_range_hi": 1.1714
+    },
+    {
+      "severity_tertile": "moderate",
+      "n": 17,
+      "acc_with_cal": 0.8848,
+      "acc_with_cal_std": 0.0514,
+      "acc_zero_shot": 0.207,
+      "delta": 0.6778,
+      "delta_std": 0.0918,
+      "fma_range_lo": 1.1867,
+      "fma_range_hi": 1.8222
+    },
+    {
+      "severity_tertile": "mild",
+      "n": 15,
+      "acc_with_cal": 0.8612,
+      "acc_with_cal_std": 0.043,
+      "acc_zero_shot": 0.2156,
+      "delta": 0.6456,
+      "delta_std": 0.0469,
+      "fma_range_lo": 1.8333,
+      "fma_range_hi": 2.0
+    }
+  ]
+}

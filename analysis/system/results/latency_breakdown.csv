@@ -1,0 +1,9 @@
+stage,description,n,mean_ms,std_ms,p50_ms,p95_ms,p99_ms,max_ms
+A_bandpass_envelope_filter,Notch (50 Hz) + 4th-order Butterworth 20-450 Hz bandpass + 50 ms envelope smoothing on 4 channels of 200 ms window (400 samples each),1200,0.39477904500000005,0.01791638514522023,0.39164599999999994,0.4200934,0.45627042,0.638625
+B_60_feature_extraction,"15 features × 4 channels = 60-dim base feature vector (RMS, MAV, VAR, WL, MAXAMP, ZC, SSC, WAMP, IEMG, mean/median freq, envelope stats)",1200,0.40999817499999996,0.016398919770289812,0.40852099999999997,0.4336292,0.47300542,0.563666
+C_scaler_transform,StandardScaler.transform on one 370-feature row,1200,0.030382362500000006,0.0017538471653272762,0.030458,0.03175,0.03812791,0.047917
+D_hgb_predict_heavy,"HGB.predict · HEAVY shipped GrabMyo model (6090 trees, max_depth=18)",1200,124.16823609833335,61.95858537400132,105.8389375,209.44935385,379.80935416999995,867.320417
+D_hgb_predict_fast,"HGB.predict · FAST per-session model (900 trees, max_depth=10) — config used by PhysioMio per_session_eval and longitudinal_eval",1200,15.94748953833333,6.460004307976983,13.852042,33.603881249999965,41.83013417,61.78575
+E_motor_command_serialize,intent (0/1/2) → 'A###\n' ASCII bytes,1200,0.0005436875,0.0001109903699828989,0.0005420000000000001,0.000583,0.000584,0.004208
+TOTAL_software_heavy,A+B+C+D_heavy+E (worst-case software cost — heavy shipped model),1200,125.00393936833335,61.95856477324939,106.6682085,210.27942439999998,380.63815659,868.155834
+TOTAL_software_fast,A+B+C+D_fast+E (per-session deployment software cost),1200,16.783192808333332,6.460700683748153,14.691874499999997,34.44069169999996,42.70367685,62.624207999999996

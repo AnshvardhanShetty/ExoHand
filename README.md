@@ -10,7 +10,7 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 
 ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
-The system achieves **95.9% three-class accuracy** (close / open / rest) with a patient calibration protocol, and **98.8% binary movement detection accuracy**.
+The system achieves **97.3% three-class accuracy** (close / open / rest) with a per-user calibration protocol, measured over 43 leave-one-subject-out folds on the GrabMyo dataset (95% bootstrap CI: [96.7%, 97.9%]).
 
 ## System Architecture
 
@@ -22,14 +22,14 @@ EMG Sensors → Teensy 4.0 → Serial USB → Python Runtime → Motor Commands 
                                         SQLite Database
 ```
 
-**Real-time loop:** Read 4-channel EMG at 20 Hz → extract 140 features per window → classify intent → send single-character motor command (`c`/`o`/`r`) — all within 50ms.
+**Real-time loop:** Read 4-channel EMG at 20 Hz → extract 370 features per window → classify intent → send single-character motor command (`c`/`o`/`r`) — all within 50ms.
 
 ## ML Pipeline
 
 ### Training Data
 Trained on the [GrabMyo dataset](https://physionet.org/content/grabmyo/) — 43 participants, 1.14M samples at 2 kHz, reduced to 4 optimally selected channels targeting flexor and extensor digitorum muscles. Raw session data should be downloaded from PhysioNet and placed in `grabmyo/Session1/`, `Session2/`, `Session3/`.
 
-### Feature Engineering (140 features)
+### Feature Engineering (370 features)
 - **Per-channel features** (6 × 4 channels): RMS, MAV, waveform length, zero crossings, slope sign changes, envelope RMS
 - **Temporal features**: Lag values, deltas (velocity), acceleration, rolling means — captures how EMG signals evolve over time
 - **Cross-channel interactions**: Flexor/extensor ratios, pairwise differences, and their temporal derivatives
@@ -40,25 +40,24 @@ HistGradientBoostingClassifier (scikit-learn) with class balancing, participant-
 
 ### Accuracy
 
-| Configuration | Accuracy |
-|---|---|
-| Baseline (instantaneous features only) | 70.2% |
-| + Temporal features | 85.6% |
-| + 30-second patient calibration | **95.9%** |
-| Binary (movement vs rest) | **98.8%** |
+Full results from leave-one-subject-out evaluation (n=43, seed=42, 2000 bootstrap resamples):
 
-Per-class breakdown at 95.9%:
+| Configuration | Accuracy (mean, 95% CI) | Macro-F1 (mean, 95% CI) |
+|---|---|---|
+| Cross-subject baseline (no calibration) | 94.6% [93.3%, 95.8%] | 0.946 [0.932, 0.958] |
+| + Per-user calibration (60 s, 1200 windows, 100× weight) | **97.3% [96.7%, 97.9%]** | **0.972 [0.965, 0.979]** |
+| Δ from calibration (paired) | **+2.7% [+2.0%, +3.6%]** | — |
 
-| Intent | Precision | Recall | F1 |
-|---|---|---|---|
-| Close | 0.94 | 0.96 | 0.95 |
-| Open | 0.97 | 0.95 | 0.96 |
-| Rest | 0.96 | 0.99 | 0.98 |
+Cross-subject standard deviation reduces from **±4.2% [2.7%, 5.9%]** to **±2.1% [1.4%, 2.6%]** — a 2.05× collapse [1.58×, 2.51×]. Paired Wilcoxon signed-rank: **p ≈ 10⁻¹³**, Cliff's δ = +1.0 (every fold improves with calibration).
+
+The mean improvement of +2.7% is distribution-dependent: easy subjects (no-cal > 97%) get near-zero improvement (already at ceiling), while the hardest fold (participant2, no-cal 77.4%) gains +13.7%. **Calibration consistently helps the subjects who need it most**, even when the average effect is modest.
+
+Additional configurations not yet reproduced under this LOSO protocol: instantaneous-features-only baseline, temporal-features-only baseline, binary (movement vs rest) classifier, per-class precision/recall breakdown. Ablations are tracked under Stream 3 of the paper plan.
 
 ### Patient Calibration
-Full initial calibration (6 minutes) runs when a new patient is registered, including rest baseline, familiarization, sustained holds, quick contractions, and variable effort phases with onset trimming and outlier rejection. This reduces cross-subject variance from ±8.6% to ±1.9%.
+Full initial calibration (6 minutes) runs when a new patient is registered, including rest baseline, familiarization, sustained holds, quick contractions, and variable effort phases with onset trimming and outlier rejection.
 
-A 30-second recalibration protocol runs at the start of each new session, collecting labeled EMG and retraining the model with patient data weighted 10× against the base training set.
+For LOSO evaluation, a 60-second adaptation protocol (1200 windows at 200 ms windows / 50 ms stride) is applied with patient data weighted 100× against the base training set. This protocol reproduces the variance-collapse outcome: cross-subject standard deviation drops from ±4.2% to ±2.1% (2.05×) and mean accuracy rises from 94.6% to 97.3%. The deployed `runtime/calibrate_patient.py` exposes both a full initial protocol and a shorter recalibration mode; the exact production-time defaults are being aligned with the validated evaluation protocol.
 
 ## Web Platform
 

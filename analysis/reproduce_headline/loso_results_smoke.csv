@@ -1,0 +1,2 @@
+participant,n_train_windows,n_calib_windows,n_eval_windows,acc_no_cal,f1_no_cal,acc_with_cal,f1_with_cal,delta_acc,fit_time_s_no_cal,fit_time_s_with_cal,calib_weight,calib_n_windows_target,seed,fast
+participant1,1112202,600,25881,0.9842741779683938,0.9793887668322094,0.9853174143193849,0.9811312959235332,0.001043236350991128,204.0325677394867,201.01865005493164,10.0,600,42,True

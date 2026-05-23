@@ -1,0 +1,2 @@
+participant,n_calib_windows,n_test_windows,n_test_healthy,n_test_impaired,acc_with_cal,f1_with_cal,acc_healthy_arm_cal,acc_impaired_arm_cal,f1_rest_cal,f1_close_cal,f1_open_cal,fit_time_s
+patient1,468,6552,936,5616,0.42765567765567764,0.5493995924630052,0.5427350427350427,0.40847578347578345,0.9746478873239436,0.5057745917960972,0.16777629826897472,223.43334221839905

@@ -1,0 +1,87 @@
+{
+  "label": "relaxed",
+  "n_sessions": 28,
+  "n_patients": 19,
+  "n_transitions": 67,
+  "session_transition_acc": {
+    "mean": 0.6309523809523808,
+    "ci": [
+      0.5416666666666666,
+      0.7232142857142857
+    ]
+  },
+  "patient_transition_acc": {
+    "mean": 0.6271929824561403,
+    "ci": [
+      0.5438048245614034,
+      0.712719298245614
+    ]
+  },
+  "raw_full_stream_acc": {
+    "mean": 0.9593017837278365,
+    "ci": [
+      0.9424528264898925,
+      0.9731492406439258
+    ]
+  },
+  "by_arm": {
+    "healthy": {
+      "n_sessions": 18,
+      "mean": 0.6481481481481481,
+      "ci": [
+        0.5555555555555556,
+        0.75
+      ]
+    },
+    "impaired": {
+      "n_sessions": 10,
+      "mean": 0.6,
+      "ci": [
+        0.425,
+        0.775
+      ]
+    }
+  },
+  "per_transition_type": [
+    {
+      "from_class": 0,
+      "to_class": 1,
+      "n": 16,
+      "acc": 0.3125,
+      "buffer_acc": 0.8125,
+      "maint_acc": 0.375
+    },
+    {
+      "from_class": 0,
+      "to_class": 2,
+      "n": 17,
+      "acc": 0.35294117647058826,
+      "buffer_acc": 0.9411764705882353,
+      "maint_acc": 0.4117647058823529
+    },
+    {
+      "from_class": 1,
+      "to_class": 0,
+      "n": 15,
+      "acc": 1.0,
+      "buffer_acc": 1.0,
+      "maint_acc": 1.0
+    },
+    {
+      "from_class": 1,
+      "to_class": 2,
+      "n": 1,
+      "acc": 0.0,
+      "buffer_acc": 1.0,
+      "maint_acc": 0.0
+    },
+    {
+      "from_class": 2,
+      "to_class": 0,
+      "n": 18,
+      "acc": 0.9444444444444444,
+      "buffer_acc": 0.9444444444444444,
+      "maint_acc": 0.9444444444444444
+    }
+  ]
+}

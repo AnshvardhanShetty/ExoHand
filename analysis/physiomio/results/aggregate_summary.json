@@ -1,0 +1,81 @@
+{
+  "n_patients": 48,
+  "n_sessions": 329,
+  "seed": 42,
+  "n_bootstrap": 2000,
+  "headline": {
+    "patient_mean_acc": {
+      "value": 0.8753925396657841,
+      "ci_lo": 0.8602928425142432,
+      "ci_hi": 0.8907529919876341
+    },
+    "session_mean_acc": {
+      "value": 0.870955967154915,
+      "ci_lo": 0.8600090545744901,
+      "ci_hi": 0.8819146985184192
+    },
+    "session_mean_f1": {
+      "value": 0.8621259251117421,
+      "ci_lo": 0.8504692828544601,
+      "ci_hi": 0.8745800788052072
+    },
+    "patient_std": {
+      "value": 0.0533828191064112,
+      "ci_lo": 0.042550736289277864,
+      "ci_hi": 0.06243531398821773
+    },
+    "session_std": {
+      "value": 0.10138924548614145,
+      "ci_lo": 0.0935804347355556,
+      "ci_hi": 0.10846183122356477
+    }
+  },
+  "per_class_f1": {
+    "rest": {
+      "value": 0.9818353875874757,
+      "ci_lo": 0.974221278890153,
+      "ci_hi": 0.9883166877846832
+    },
+    "close": {
+      "value": 0.8423259609438053,
+      "ci_lo": 0.8309565718822514,
+      "ci_hi": 0.8540287386791674
+    },
+    "open": {
+      "value": 0.7622164268039453,
+      "ci_lo": 0.7373432953244731,
+      "ci_hi": 0.7858003215937636
+    }
+  },
+  "paired_zero_vs_cal": {
+    "zero_shot_mean": 0.2143133479033789,
+    "with_cal_mean": 0.8753925396657841,
+    "delta": {
+      "value": 0.6610791917624051,
+      "ci_lo": 0.6396389141502842,
+      "ci_hi": 0.6808406801412635
+    },
+    "wilcoxon_statistic": 1176.0,
+    "wilcoxon_p_value": 3.552713678800501e-15,
+    "wilcoxon_alternative": "greater (cal > zero-shot)",
+    "cliffs_delta": 1.0,
+    "variance_ratio_no_over_with": {
+      "value": 1.2636042178088047,
+      "ci_lo": 0.950023144814012,
+      "ci_hi": 1.5746122285411999
+    }
+  },
+  "per_arm_paired": {
+    "healthy_mean": 0.9146819839471281,
+    "impaired_mean": 0.8602732208634988,
+    "healthy_std": 0.062261346031525965,
+    "impaired_std": 0.06960880658963116,
+    "delta_healthy_minus_impaired": {
+      "value": 0.05440876308362932,
+      "ci_lo": 0.02826840677969153,
+      "ci_hi": 0.07944969866728491
+    },
+    "wilcoxon_statistic": 885.5,
+    "wilcoxon_p_value": 8.184045609163286e-05
+  }
+}

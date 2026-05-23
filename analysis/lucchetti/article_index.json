@@ -1,0 +1,32 @@
+{
+  "collection_id": 7720187,
+  "collection_doi": "10.6084/m9.figshare.c.7720187.v1",
+  "paper_doi": "10.1038/s41597-025-06174-3",
+  "license": "CC BY 4.0",
+  "source": "https://api.figshare.com/v2/collections/7720187/articles",
+  "enumerated_at": "2026-05-15",
+  "articles": [
+    {"id": 28596026, "code": "HS_01", "kind": "healthy",  "title": "HS 01", "doi": "10.6084/m9.figshare.28596026.v1"},
+    {"id": 28596038, "code": "HS_02", "kind": "healthy",  "title": "HS 02", "doi": "10.6084/m9.figshare.28596038.v1"},
+    {"id": 28596041, "code": "HS_03", "kind": "healthy",  "title": "HS 03", "doi": "10.6084/m9.figshare.28596041.v1"},
+    {"id": 28596044, "code": "HS_04", "kind": "healthy",  "title": "HS 04", "doi": "10.6084/m9.figshare.28596044.v1"},
+    {"id": 28596050, "code": "HS_05", "kind": "healthy",  "title": "HS 05", "doi": "10.6084/m9.figshare.28596050.v1"},
+    {"id": 28596056, "code": "HS_06", "kind": "healthy",  "title": "HS 06", "doi": "10.6084/m9.figshare.28596056.v1"},
+    {"id": 28596059, "code": "HS_07", "kind": "healthy",  "title": "HS 07", "doi": "10.6084/m9.figshare.28596059.v1"},
+    {"id": 28596062, "code": "HS_08", "kind": "healthy",  "title": "HS 08", "doi": "10.6084/m9.figshare.28596062.v1"},
+    {"id": 28596065, "code": "HS_09", "kind": "healthy",  "title": "HS 09", "doi": "10.6084/m9.figshare.28596065.v1"},
+    {"id": 28596071, "code": "HS_10", "kind": "healthy",  "title": "HS 10", "doi": "10.6084/m9.figshare.28596071.v1"},
+    {"id": 28596077, "code": "ST_01", "kind": "stroke",   "title": "ST 01", "doi": "10.6084/m9.figshare.28596077.v1"},
+    {"id": 28596083, "code": "ST_02", "kind": "stroke",   "title": "ST 02", "doi": "10.6084/m9.figshare.28596083.v1"},
+    {"id": 28596086, "code": "ST_03", "kind": "stroke",   "title": "ST 03", "doi": "10.6084/m9.figshare.28596086.v1"},
+    {"id": 28596092, "code": "ST_04", "kind": "stroke",   "title": "ST 04", "doi": "10.6084/m9.figshare.28596092.v1"},
+    {"id": 28596095, "code": "ST_05", "kind": "stroke",   "title": "ST 05", "doi": "10.6084/m9.figshare.28596095.v1"},
+    {"id": 28596104, "code": "ST_06", "kind": "stroke",   "title": "ST 06", "doi": "10.6084/m9.figshare.28596104.v1"},
+    {"id": 28596110, "code": "ST_07", "kind": "stroke",   "title": "ST 07", "doi": "10.6084/m9.figshare.28596110.v1"},
+    {"id": 28596113, "code": "ST_08", "kind": "stroke",   "title": "ST 08", "doi": "10.6084/m9.figshare.28596113.v1"},
+    {"id": 28596116, "code": "ST_09", "kind": "stroke",   "title": "ST 09", "doi": "10.6084/m9.figshare.28596116.v1"},
+    {"id": 28596119, "code": "ST_10", "kind": "stroke",   "title": "ST 10", "doi": "10.6084/m9.figshare.28596119.v1"},
+    {"id": 28596122, "code": "CalcAng",     "kind": "code", "title": "Matlab Function CalcAng.m",  "doi": "10.6084/m9.figshare.28596122.v1"},
+    {"id": 28596131, "code": "upperlimb_fig","kind": "code", "title": "Matlab Code upperlimb_fig.m", "doi": "10.6084/m9.figshare.28596131.v1"}
+  ]
+}

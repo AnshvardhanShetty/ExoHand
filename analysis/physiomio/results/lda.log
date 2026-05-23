@@ -1,0 +1,32 @@
+Loading + engineering PhysioMio (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  done in 43.7s
+Loading GrabMyo cache...
+  GrabMyo: 1,138,683 windows × 370 features
+  [5/48] patient5 done, elapsed=1541s
+  [10/48] patient10 done, elapsed=2968s
+  [15/48] patient15 done, elapsed=4071s
+  [20/48] patient20 done, elapsed=5272s
+  [25/48] patient25 done, elapsed=6321s
+  [30/48] patient30 done, elapsed=7611s
+  [35/48] patient35 done, elapsed=9277s
+  [40/48] patient40 done, elapsed=10555s
+  [45/48] patient45 done, elapsed=11477s
+
+======================================================================
+LDA BASELINE (GrabMyo+cal weighted)  (n=48 subjects, 329 sessions)
+======================================================================
+  Session-level acc: mean=0.7265  std=0.1651
+  Per arm: healthy=0.8085  impaired=0.6951
+  Per-class F1: rest=0.8223  close=0.7286  open=0.5355
+
+  vs HGB+GrabMyo+cal: 0.871 session mean
+  Δ HGB-LDA: +0.1445
+
+Total wall: 204.9 min

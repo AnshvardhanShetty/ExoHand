@@ -1,0 +1,4 @@
+.cache/
+*.parquet
+*.pkl
+*.npz
