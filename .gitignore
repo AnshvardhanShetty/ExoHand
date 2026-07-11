@@ -3,6 +3,14 @@ node_modules/
 dist/
 __pycache__/
 
+# Local env overrides (per-machine, never committed)
+.env.local
+.env.*.local
+client/.env.local
+client/.env.*.local
+server/.env.local
+server/.env.*.local
+
 # OS
 .DS_Store
 
