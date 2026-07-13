@@ -77,6 +77,16 @@ grabmyo/Session1/
 grabmyo/Session2/
 grabmyo/Session3/
 
+# GrabMyo derived training data + intermediate model checkpoints
+# (not needed to run the deployed system — the shipped exohand_model.pkl
+# already embeds the trained classifier; regenerate these locally with
+# ml/train_hgb_v2.py + ml/preprocessing_grabmyo.py if needed)
+grabmyo/*.csv
+grabmyo/*.pkl
+grabmyo/*.npz
+grabmyo/*.pt
+grabmyo/models/
+
 # External data
 Adhi Data/
 
