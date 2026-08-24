@@ -244,21 +244,46 @@ Connected. Streaming.
 If you get a serial-port error, either the port name is wrong (redo step
 7) or another process is using it (unplug/replug the Teensy).
 
+You may see a few `InconsistentVersionWarning` messages from sklearn as the model loads (the model was pickled with an older sklearn version than you have installed). These are cosmetic — ignore them.
+
 **Keep this terminal open.**
 
 ### Terminal 2 · Backend server
 
+The backend needs to know which serial port the Teensy is on, so it can spawn calibration processes with the right port. **Set the `SERIAL_PORT` env var before running the server**, using the same port name from step 7.
+
+**macOS / Linux:**
+
 ```bash
 cd server
+SERIAL_PORT=<YOUR_PORT> npm run dev
+```
+
+**Windows PowerShell:**
+
+```powershell
+cd server
+$env:SERIAL_PORT="<YOUR_PORT>"
+npm run dev
+```
+
+**Windows cmd:**
+
+```cmd
+cd server
+set SERIAL_PORT=<YOUR_PORT>
 npm run dev
 ```
 
 Wait until you see:
 
 ```
-Server listening on port 3001
-WebSocket ready
+[SERIAL] Using port <YOUR_PORT>
+ExoHand server running on http://localhost:3001
+WebSocket available on ws://localhost:3001
 ```
+
+If you see `[SERIAL] No SERIAL_PORT set — running without hardware (simulation mode)`, the env var wasn't picked up. Login and dashboard will still load, but **calibration will fail** because the Node server won't know which port to hand to the Python calibration script. Kill the server (Ctrl+C), set the env var, restart.
 
 **Keep this terminal open.**
 
@@ -296,10 +321,36 @@ The default PINs are:
 
 (If you added a real patient earlier those PINs also work.)
 
-Log in, work through the calibration flow, then start a session.
+### Fastest way to test the setup end-to-end (recommended for first run)
 
-**If everything is wired correctly, moving your hand should move the
-exoskeleton.** Rest = stay still, close = squeeze, open = extend fingers.
+Use **`0000` (patient mode)** — it drops you straight into the calibration flow with no navigation needed.
+
+1. Enter PIN `0000` and press Enter
+2. You'll land on a "Session Calibration" screen with a single **Start Calibration** button
+3. Click it and follow the cues (rest → close → open, ~90 seconds)
+4. Once calibration finishes, you'll be taken to the session screen
+5. Move your hand — the classifier prediction should update in the top bar and the exoskeleton should follow. **Rest = stay still, close = squeeze, open = extend fingers.**
+
+If this works, the whole pipeline is wired correctly.
+
+### If you logged in as therapist (`9999`) instead
+
+Therapist mode lands you on a dashboard with a sidebar (Dashboard / Patients / Add Patient), not directly on calibration. To get to a calibration screen from there:
+
+1. Sidebar → **Patients**
+2. If the list is empty, sidebar → **Add Patient** and create one (any name works — e.g., "Test Patient")
+3. Click on the patient you just created (or an existing one) to open their detail page
+4. On the patient detail page, find and click the **Calibrate** action
+5. You'll now see the calibration mode chooser with three stacked buttons: **Start Full Calibration**, **Start Quick Calibration**, **Start 22s Test (Beta)**
+6. Click whichever mode you want to test
+
+Therapist mode gives you access to Full and the 22s Beta protocols; patient mode only ever runs Quick.
+
+### If nothing shows up
+
+- Check terminal 1 (Python): should say `Starting web server at http://localhost:8000` or similar. If it errored, you'll see a traceback.
+- Check terminal 2 (Node server): should say `ExoHand server running on http://localhost:3001`. If it says `[SERIAL] No SERIAL_PORT set — running without hardware (simulation mode)`, set the env var before starting Node (see Step 8).
+- Check terminal 3 (Vite / client): should say `Local: http://localhost:5173/`. If it's not running, `cd client && npm run dev`.
 
 ---
 
