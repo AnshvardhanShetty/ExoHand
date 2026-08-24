@@ -368,18 +368,29 @@ That's it.
 
 The shipped system uses a 6-minute initial patient calibration + 30-second per-session re-cal (see the README for why). Our research paper reports numbers on a shorter protocol — a 22-second cued calibration on 4 reps × 3 classes (close/open/rest), matching the PhysioMio dataset's 432-window balanced cal budget.
 
-If you want to try the paper's exact calibration protocol on the live system (useful for validating that the reported protocol works end-to-end on real hardware, or as a shorter alternative for a quick session), you can run the calibration script with `--mode paper22s`.
+If you want to try the paper's exact calibration protocol on the live system (useful for validating that the reported protocol works end-to-end on real hardware, or as a shorter alternative for a quick session), you can run it in one of two ways.
 
 ### What the paper22s protocol runs
 
 - 12 cued gestures total (4 reps × [close, open, rest], interleaved)
 - 1.8 seconds hold + 0.2 seconds transition per gesture
-- ~24 seconds total wall-clock
+- ~24 seconds total wall-clock (~34 s with the rest baseline at the start)
 - 432 balanced training windows at 20 Hz stride (exact match to the paper)
 
-### How to run it
+### Option A · From the web UI (easiest)
 
-Same command you use for a normal calibration, just swap the mode:
+**Do this the same way you'd start any calibration through the browser:**
+
+1. Follow Step 8 to start the three services (Python runtime, backend, frontend).
+2. Open <http://localhost:5173> and log in as the therapist role (the button only appears in therapist mode — patient-facing landing pages still show only the standard session cal).
+3. Navigate to the calibration screen for a patient.
+4. You'll see three stacked buttons: **Start Full Calibration**, **Start Quick Calibration**, and **Start 22s Test (Beta)**.
+5. Click **Start 22s Test (Beta)**. The countdown, cued gestures, progress bar, and completion flow all work identically to the other two modes — only the protocol underneath is different.
+6. When it finishes, the trained model is saved to the standard location and the exoskeleton is immediately usable in a session.
+
+### Option B · From the command line (headless)
+
+If you want to run it without the web UI at all — e.g., for scripted testing or on a machine without a browser — use the CLI directly:
 
 ```bash
 python3 runtime/calibrate_patient.py \
@@ -392,10 +403,10 @@ python3 runtime/calibrate_patient.py \
 
 Replace `<YOUR_PORT>` with your Teensy's port (see Step 7) and `<YOUR_NAME>` with any patient identifier string.
 
-### What it produces
+### What it produces (either option)
 
 - A trained model saved to the same location as any other calibration mode
-- JSON progress events on stdout (the web UI reads these normally, so the browser UI works unchanged)
+- JSON progress events on stdout (Option B) or via the web UI (Option A)
 - A standard calibration report on completion
 
 After calibration, launch `runtime/run_exohand.py` pointing at the saved model — same as after any other calibration mode — and the exoskeleton runs with the paper's classifier configuration.
