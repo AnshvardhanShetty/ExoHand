@@ -8,7 +8,11 @@ const router = Router();
 /* ── Routes ── */
 
 router.post("/start", (req: Request, res: Response) => {
-  const mode = req.body.mode === "full" ? "full" : "quick" as const;
+  const rawMode = req.body.mode;
+  const mode: "full" | "quick" | "paper22s" =
+    rawMode === "full" ? "full" :
+    rawMode === "paper22s" ? "paper22s" :
+    "quick";
   const patientId = req.body.patient_id || "default";
 
   // Look up patient assist_level if we have a patient_id

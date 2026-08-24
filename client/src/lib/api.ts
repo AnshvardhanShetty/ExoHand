@@ -1,3 +1,6 @@
+import { DEMO_MODE } from "./demoMode";
+import { mockApi } from "./mockApi";
+
 const BASE = "/api";
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
@@ -12,7 +15,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return res.json();
 }
 
-export const api = {
+const realApi = {
   // Auth
   login: (pin: string) =>
     request<{ role: string; id: number; name: string }>("/auth/login", {
@@ -95,7 +98,7 @@ export const api = {
     request<any>(`/therapist/patients/${id}`, { method: "DELETE" }),
 
   // Calibration
-  startCalibration: (mode: "full" | "quick", patientId?: number) =>
+  startCalibration: (mode: "full" | "quick" | "paper22s", patientId?: number) =>
     request<any>("/calibration/start", {
       method: "POST",
       body: JSON.stringify({ mode, patient_id: patientId }),
@@ -111,3 +114,7 @@ export const api = {
   getBridgeStatus: () =>
     request<{ running: boolean; ready: boolean; error: string | null }>("/sessions/bridge-status"),
 };
+
+// In demo mode, all calls route through mockApi (no backend required).
+// Otherwise use the real HTTP client.
+export const api = DEMO_MODE ? (mockApi as unknown as typeof realApi) : realApi;

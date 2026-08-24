@@ -182,7 +182,7 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
     }
   }, [step, lastPhase]);
 
-  const handleStart = async (mode: "full" | "quick") => {
+  const handleStart = async (mode: "full" | "quick" | "paper22s") => {
     setStep("loading_model");
     if (!therapistMode) {
       // Signal layout to hide sidebar during active calibration
@@ -260,6 +260,17 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
               className="w-full px-8 py-3 rounded-lg border border-white/10 text-muted font-mono text-body tracking-wide hover:bg-white/[0.06] transition-colors disabled:opacity-40"
             >
               Start Quick Calibration
+            </button>
+          )}
+
+          {therapistMode && (
+            <button
+              onClick={() => handleStart("paper22s")}
+              disabled={!connected}
+              className="w-full px-8 py-3 rounded-lg border border-white/10 text-muted font-mono text-body tracking-wide hover:bg-white/[0.06] transition-colors disabled:opacity-40"
+              title="24-second cued protocol matching the PhysioMio paper's calibration budget (432 windows)."
+            >
+              Start 22s Test <span className="text-warn">(Beta)</span>
             </button>
           )}
 

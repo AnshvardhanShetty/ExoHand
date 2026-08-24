@@ -20,7 +20,7 @@ export interface CalibrationProgress {
 export interface CalibrationStatus {
   active: boolean;
   completed: boolean;
-  mode: "full" | "quick";
+  mode: "full" | "quick" | "paper22s";
   modelLoaded: boolean;
   phaseIndex: number;
   trialIndex: number;
@@ -113,7 +113,7 @@ export class CalibrationBridge extends EventEmitter {
     port: string;
     model: string;
     patientId: string;
-    mode: "full" | "quick";
+    mode: "full" | "quick" | "paper22s";
     assistLevel: number;
   }) {
     this.stop();
@@ -132,6 +132,10 @@ export class CalibrationBridge extends EventEmitter {
     ];
 
     const totalPhases = options.mode === "full" ? 6 : 3;
+    const remainingSec =
+      options.mode === "full" ? 360 :
+      options.mode === "paper22s" ? 34 :
+      90;
 
     this.status = {
       ...this.defaultStatus(),
@@ -140,7 +144,7 @@ export class CalibrationBridge extends EventEmitter {
       totalPhases,
       phaseName: "STARTING",
       phaseInstruction: "Loading model...",
-      remainingSec: options.mode === "full" ? 360 : 90,
+      remainingSec,
       modelLoaded: false,
       phaseWaiting: false, // Will become true once Python reports first real progress
     };
