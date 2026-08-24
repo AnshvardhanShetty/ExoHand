@@ -1,221 +1,275 @@
-# Adhi — Hardware Handoff for NeurIPS Submissions
+# Adhi — Hardware Handoff
 
-**Two submission deadlines:**
-- **ICBINB** — Aug 29 (6 days)
-- **TS-LIMITS** — Sep 5 (13 days)
+Six things to do, in this order. Do the earlier ones first — they matter most. If you run out of time, just skip the later ones.
 
-Both are being submitted. Full deployment work in scope. Six tasks below, prioritised. Read the "What you're doing and why" bit for each before touching anything.
+Before you start each task, read the "Why" and "What you make" bits so you know what "done" looks like.
 
 ---
 
-## Priority order
+## Save everything, always
 
-1. **A1** — new hardware photos + BOM (must-have for ICBINB)
-2. **A2** — demo video trim (must-have for ICBINB)
-3. **A3** — measured end-to-end latency (must-have for TS-LIMITS, nice-to-have for ICBINB)
-4. **A6/T1** — hardware-in-the-loop stroke replay (the big TS-LIMITS artifact)
-5. **A4** — live closed-loop on n=3 healthy
-6. **A5** — Teensy resource census
+**The single most important rule across all six tasks: save every single measurement, every raw file, and every intermediate result. Nothing gets thrown away.**
 
-Any item that doesn't ship by its deadline just gets dropped or downgraded. Don't skip 1-3 to spend all your time on 4-6.
+For every task you do, we need enough saved that someone else — or us in a month — could re-run the whole experiment from scratch and reproduce exactly what you got.
 
----
+That means:
 
-## A1 — New hardware photos + BOM update
+- Every individual measurement, not just the summary numbers (all 20 latency trials, not just the mean; every person's raw recording, not just the aggregated result)
+- Every raw file the measurement came from (raw video files, raw sensor recordings, logic analyzer captures, power meter logs, photos before any editing)
+- Every intermediate file (edited videos, processed data, trained models, calibration files)
+- Every setup detail (which sensor was on which pin, room lighting, subject position, any weird thing that happened during a run — write it down in a `notes.md` next to the data)
+- The exact version of any code or firmware you used (commit it to git, or save the `.ino` file alongside the data)
 
-**Deadline:** Aug 26
-**Effort:** ~2 hours
-**Why:** ICBINB reviewers judge deployment claims on visible evidence. The paper says "£180 embedded system on real hardware" — we need photos and an itemised BOM to back that.
+**Rule of thumb: if it took you time to produce it, save it. Don't ever throw a measurement away because "we already computed the average."** Averages hide bugs and outliers; the raw data is where the truth lives.
 
-**What you deliver:**
-- 2-3 paper-quality photos of the new hardware:
-  - Front view worn on a person (arm-only frame — anonymised)
-  - Top-down showing the sensor placement
-  - Optional: close-up showing the Teensy + wiring
-- Well-lit, plain background, sharp focus. Phone camera is fine if lighting is good
-- Updated BOM if any parts changed (new servo, different 3D-printed parts, etc.). If unchanged, confirm the £180 line items are still accurate
-
-**Where to put it:** `report_figures/hardware_v2/` — create folder, drop photos as `.png`. BOM update as `analysis/system/cost_itemization.md` (edit existing file).
+Every task below has a "Where it goes" line. That's the location for the finished artifact. Alongside it, always save a `raw/` subfolder with everything you started from, and a `notes.md` describing what you did.
 
 ---
 
-## A2 — Demo video trim
+## Order to do things in
 
-**Deadline:** Aug 26
-**Effort:** ~2 hours
-**Why:** Existing demo video (`ExoHand Demo Final/`) is a product-style pitch that will read as "startup demo" to academic reviewers. Needs to be trimmed to a scientific artifact.
-
-**What you deliver:**
-- Cut to 60-90 seconds max
-- Arm-only framing — no faces (anonymisation for double-blind review)
-- Remove UI/login screens; go straight to the closed-loop demo (hand gestures + exoskeleton actuation)
-- Silent or with plain instrumental (no voiceover selling the product)
-- Add one text card at start: *"End-to-end closed-loop demonstration. Healthy adult wearing the exoskeleton; classifier output drives actuation during cued gestures."*
-- Export as `.mp4`, keep it under 25 MB (OpenReview supplementary limit)
-
-**Where to put it:** `report_figures/hardware_v2/demo_trimmed.mp4`.
-
-**Tool:** iMovie or Final Cut on Mac. Free.
+1. **A1** — take new photos of the hardware and check the parts list
+2. **A2** — cut down the demo video
+3. **A3** — actually measure how long the system takes to react
+4. **A6/T1** — set up the Teensy so we can feed it recorded data instead of live signals
+5. **A4** — record three healthy people using the exoskeleton
+6. **A5** — write down what the Teensy uses (memory, power, etc.)
 
 ---
 
-## A3 — Measured end-to-end latency
+## A1 — New hardware photos + parts list check
 
-**Deadline:** Aug 28 (soft) / Sep 3 (hard, for TS-LIMITS)
-**Effort:** ~3-5 hours
-**Why:** The paper currently reports ~275 ms end-to-end latency as a *component-sum estimate* (Teensy sample window + software prediction + servo slew, added together). That's the weakest sentence in the deployment section — a TS-LIMITS reviewer will ask "did you actually measure it?" We need a real stopwatch number.
+**Why:** The paper says we built a working device for £180. The people reading it will want to see it. Right now we only have old pictures.
 
-**What you deliver:**
-- 20-50 trials, each measuring: **time from EMG stimulus onset → visible motor motion**
-- Report as: mean, median, 5th percentile, 95th percentile, max
-- Break down per stage if possible
+**What you make:**
 
-**Two implementation options (pick the one you can do):**
+- Two or three sharp photos of the current hardware:
+  - One with someone wearing it (just their arm in the frame — no face)
+  - One from above showing where the sensors sit on the arm
+  - Optional: a close-up of the Teensy and its wires
+- Use good light and a plain background. A phone camera is fine if the room is bright.
+- Look at the parts list (`analysis/system/cost_itemization.md`). If anything on it has changed — new servo, different 3D prints, whatever — update it. If nothing has changed, just tell me it's still right.
 
-### Option A3a — Phone at 240 fps
-Cheapest. Point a phone camera (iPhone slo-mo at 240 fps) at the setup. Have the subject do a sudden gesture with a visible cue (finger tap, or the classifier's "close" indicator light if you add one). Frame-by-frame in the video app, count frames from cue → exoskeleton visibly starts moving. Multiply by 4.17 ms per frame at 240 fps.
+**Where it goes:**
 
-- Trials: 20 gestures, log each
-- Precision: ~4 ms per measurement (limited by frame rate)
-- Total effort: 1 hour recording + 1 hour frame counting
-
-### Option A3b — Logic analyser tap
-Cleaner if you have one. Tap two signals: (i) EMG input crossing a threshold, (ii) servo PWM changing. Difference = end-to-end latency. Automated, precise to microseconds.
-
-- If you own a Saleae Logic or similar, use this
-- If not, skip to A3a
-
-**Where to put it:** `analysis/system/results/latency_measured.md` — table of measurements + summary stats. Update `analysis/system/HARDWARE_LATENCY.md` to reference the measured number (keep the old component-sum for comparison).
+- Final photos → `report_figures/hardware_v2/`, save as `.png`
+- **Raw photos (straight out of the camera, before any cropping/editing)** → `report_figures/hardware_v2/raw/`
+- Parts list → edit `analysis/system/cost_itemization.md` in place
+- `notes.md` alongside the photos → what setup, what light source, which parts version, anything about the current build that's different from the old one
 
 ---
 
-## A6/T1 — Hardware-in-the-loop stroke replay
+## A2 — Cut the demo video down
 
-**Deadline:** Aug 30 - Sep 2 (for TS-LIMITS)
-**Effort:** ~6-10 hours (spread over 2 days)
-**Why:** Converts "we simulated deployment on stroke data" into "we replayed real stroke data through the actual deployed Teensy hardware and got X accuracy on 58 patients." That's the highest-value TS-LIMITS artifact. Also unlocks stream metrics (event F1, transition latency, false-activation rate) on stroke data.
+**Why:** The current demo video (`ExoHand Demo Final/`) is styled like a startup product pitch. That looks wrong in an academic paper. It needs to be short and plain so people take the science seriously.
 
-**What you deliver:**
-- Modified Teensy firmware with a `TEST_MODE` flag
-- Verified that the firmware works: send known test samples in, verify P-P output matches expected
-- Physical Teensy plugged into laptop, ready for the injection script to run against it
+**What you make:**
 
-**I'll write the host-side injection scripts (`inject_and_capture.py`, `run_T1_all_patients.py`). You just need to get the firmware working.**
+- A shorter video, no longer than about a minute and a half
+- Only the arm should be visible — no faces (the review process is anonymous)
+- Cut out any login screens or app interface. Just show the hand doing gestures and the exoskeleton moving in response
+- No voiceover. Silent, or with quiet instrumental music
+- Add one text card at the very start that says:
+  > *"End-to-end closed-loop demonstration. Healthy adult wearing the exoskeleton; classifier output drives actuation during cued gestures."*
+- Save it as an `.mp4`, keep the file size under 25 MB (there's an upload limit)
 
-### Firmware modification
+**Where it goes:**
 
-The current `teensy_emg/teensy_emg.ino` reads samples from `analogRead()`. Add a compile-time flag that switches to reading samples from serial instead.
+- Trimmed video → `report_figures/hardware_v2/demo_trimmed.mp4`
+- **Raw uncut video (the original, untouched)** → `report_figures/hardware_v2/raw/demo_original.mov`
+- Editing project file (iMovie project or whatever you used) → `report_figures/hardware_v2/raw/demo_edit_project/`
+- `notes.md` — what you cut out, what you kept, why
 
-I've drafted the modified firmware — see `teensy_emg/teensy_emg.ino` (I've committed the diff). The change is:
+**Tool:** iMovie on a Mac. Free.
 
-1. Add `#define TEST_MODE 0` at top (keep at 0 for production; set to 1 when running T1)
-2. Inside `loop()`, wrap the sampling code in `#if TEST_MODE / #else / #endif`
-3. In test mode: read 100 samples × 4 channels × 2 bytes each from serial per 50 ms window; compute P-P as normal; emit as normal
+---
 
-### Interface contract (this is the API between your firmware and my host script — don't change without telling me)
+## A3 — Measure how long the system takes to react
 
-**Host → Teensy per 50 ms window:**
+**Why:** Right now the paper says the system takes about 275 milliseconds from muscle signal to motor moving. But that number was worked out on paper — we added up the estimated time for each step. Someone reading the paper will ask "did you actually measure it?" and we need a real number.
+
+**What you make:**
+
+Between 20 and 50 attempts, each one measuring:
+- Time from when the muscle signal starts → when the exoskeleton visibly starts moving
+
+Then write down the average, the middle value (median), the fastest 5%, the slowest 5%, and the slowest single one.
+
+**Two ways to measure this — pick whichever you can do:**
+
+### Option A3a — Slow-motion phone video
+
+Cheapest and easiest.
+
+- Set an iPhone to record in slow-motion at 240 frames per second
+- Point it at the person and the exoskeleton
+- Person does a sudden gesture with a clear signal (like tapping their finger, or flashing a light when the classifier fires)
+- Play the video back frame-by-frame
+- Count the frames from the cue to when the exoskeleton starts moving
+- Each frame is about 4 milliseconds. Multiply frames × 4.
+
+### Option A3b — Logic analyzer
+
+Cleaner and more precise, but only if you have one.
+
+- Tap two signals: (1) EMG going over a threshold, (2) servo motor changing position
+- The gap between them is your latency
+- Automatic and precise
+
+If you don't already have a logic analyzer (a Saleae or similar), just do A3a. Don't buy one.
+
+**Where it goes:**
+
+- Summary + full trial-by-trial table → `analysis/system/results/latency_measured.md`
+  - **Every single trial listed as its own row**, not just the summary stats. If you did 30 trials, the table has 30 rows.
+- **Raw slow-motion video files (A3a) or raw logic analyzer captures (A3b)** → `analysis/system/results/latency_raw/`
+  - For A3a: the actual `.mov` slow-mo files, plus a `frame_counts.csv` showing what frame you counted for each trial
+  - For A3b: the `.sal` or `.csv` capture files from the logic analyzer, one per trial
+- `notes.md` alongside — describe the setup (which cue you used, how you triggered the gesture, anything that went sideways during a trial)
+- Also update `analysis/system/HARDWARE_LATENCY.md` to point at the new measured number (keep the old component-sum estimate there too, so people can compare the two)
+
+---
+
+## A6/T1 — Firmware switch so we can replay recorded data
+
+**Why:** Right now the Teensy only reads real live signals from the sensors. We want to feed it recorded stroke patient data (from a computer, over USB) so we can measure how the deployed system would perform on those patients. That turns "we simulated the deployment" into "we actually ran the deployed hardware on the recorded data."
+
+**What you make:**
+
+- The Teensy firmware, updated with a little switch that lets it read data from USB instead of from the sensors when we tell it to
+- A verified working Teensy — meaning you've sent it some known test data and confirmed it responds correctly
+- The Teensy plugged into a laptop, ready for me to run my scripts against
+
+**I'll write all the computer-side scripts. You just need to get the Teensy behaving.**
+
+### What actually happens once your firmware is ready
+
+Once your firmware is verified, I'll run a script that streams the recorded EMG from 48 stroke patients through your Teensy — one patient after another, one 50 ms window at a time — catches what the Teensy outputs for every window, and computes how well the deployed system would have performed on each patient's real recorded session.
+
+That takes a few hours to run end-to-end. The Teensy just needs to be plugged in and left alone during the run. No one wears it; no exoskeleton actuates; the sensors don't need to be connected. Just Teensy + laptop + USB cable, sitting on a desk.
+
+Every window's output from the Teensy gets saved (raw per-patient traces + per-window predictions). If the run gets interrupted, we can resume from wherever it stopped — nothing has to be re-done.
+
+### The firmware change
+
+The current file is `teensy_emg/teensy_emg.ino`. I've already made the change — you just need to look at it, understand it, and flash it.
+
+Here's what the change does:
+
+1. At the top there's a line that says `#define TEST_MODE 0`.
+2. When it's `0`, everything works normally — sensors → Teensy → output.
+3. When it's `1`, the Teensy stops listening to the sensors and instead reads data coming in over the USB cable. It still processes that data the same way (calculates peak-to-peak) and sends the answer back.
+
+Keep it at `0` for normal use. Set it to `1` only when we're doing the replay run.
+
+### The rules for how the two sides talk to each other
+
+**This is the important bit. Don't change these numbers without telling me — my computer scripts assume them exactly.**
+
+**Every 50 milliseconds, the computer sends the Teensy:**
+
 - Exactly **800 bytes**
-- 100 samples × 4 channels × 2 bytes per sample
-- Order: `[sample0_ch0, sample0_ch1, sample0_ch2, sample0_ch3, sample1_ch0, sample1_ch1, ...]`
-- Endianness: **little-endian int16**
-- Value range: 0-4095 (12-bit ADC range, matches Teensy 4.0 analogRead default)
+- That's 100 samples × 4 channels × 2 bytes per sample
+- The order is: `[sample 0 channel 0, sample 0 channel 1, sample 0 channel 2, sample 0 channel 3, sample 1 channel 0, ...]`
+- Byte order is little-endian, and each value is a 16-bit signed integer
+- Values range from 0 to 4095 (this matches what the Teensy's ADC normally produces)
 
-**Teensy → Host per 50 ms window:**
-- One text line: `pp_ch0\tpp_ch1\tpp_ch2\tpp_ch3\n`
-- Values: unsigned ints, 0-4095
+**Every 50 milliseconds, the Teensy sends the computer back one line of text:**
 
-### Verification steps
+```
+pp_ch0<TAB>pp_ch1<TAB>pp_ch2<TAB>pp_ch3<newline>
+```
 
-Before we run the full 58-patient replay:
+Each value is a whole number between 0 and 4095.
 
-1. Compile firmware with `TEST_MODE 1`, upload to Teensy
-2. Manually send 800 zero-bytes (or use a quick Python script). Teensy should reply `0\t0\t0\t0\n`
-3. Send 800 bytes representing a known ~2 kHz sinewave of amplitude 500. Teensy should reply `1000\t1000\t1000\t1000\n` (peak-to-peak of a sinewave of amplitude 500 is 1000)
-4. If both check out, we're go for the full run
+### How to check it's working before the big run
 
-**After T1 runs:** flash the production firmware back (with `TEST_MODE 0`) before any real patient contact. Non-negotiable.
+1. Compile the firmware with `TEST_MODE 1` and upload it to the Teensy
+2. Send 800 bytes of all zeros. The Teensy should reply `0 0 0 0` (all zeros, tab-separated)
+3. Send 800 bytes that look like a 2 kHz sine wave with amplitude 500. The Teensy should reply `1000 1000 1000 1000` (peak-to-peak of a ±500 wave is 1000)
+4. If both work, we're ready
 
----
+**Save everything from the verification too:**
 
-## A4 — Live closed-loop on n=3 healthy
+- The exact `.ino` firmware file you flashed (with a git commit hash if you can) → `analysis/revision/T1_hardware_replay/raw/teensy_emg_TEST_MODE.ino`
+- The three verification test replies (screenshot or copy the terminal output) → `analysis/revision/T1_hardware_replay/raw/verification_log.txt`
+- `notes.md` — Teensy model, Arduino IDE version, which USB port, any weird behaviour
 
-**Deadline:** Sep 1
-**Effort:** ~4 hours (1 hour per subject + processing)
-**Why:** Current live-deployment claim uses n=1 (you). Upgrading to n=3 (you + Ansh + Yash) doesn't validate on stroke patients but honestly upgrades the demo evidence and preempts "your live number is n=1" reviewer comments.
-
-**What you deliver:**
-- Run the same 12-minute cued session protocol on 3 healthy subjects (you + Ansh + Yash)
-- Save the recordings + trained models + evaluation to `analysis/system/results/live_deployment_n3/`
-- Update `analysis/system/live_deployment_eval.py` to iterate over 3 subjects and aggregate
-- Report: mean within-session accuracy across 3 subjects, per-subject numbers
-
-**Same protocol as before:**
-- 12-minute cued session, 3-class (rest / close / open)
-- Same MyoWare placement, same Teensy, same calibration protocol
-- Same held-out evaluation
+**When we're done with the replay, flash the normal firmware back (with `TEST_MODE 0`) before anyone puts the exoskeleton on. This is non-negotiable — see the safety note at the very bottom.**
 
 ---
 
-## A5 — Teensy resource census
+## A4 — Record three healthy people using the system
 
-**Deadline:** Sep 1
-**Effort:** ~2-3 hours
-**Why:** TS-LIMITS is a "tight settings" workshop. Reviewers want raw resource numbers to prove the deployment claim.
+**Why:** Right now we have live-deployment data from just one person (you). Getting three people (you + Ansh + Yash) makes the demo evidence stronger and stops reviewers from saying "your live number is based on one person."
 
-**What you deliver:**
-Report the following in `analysis/system/results/teensy_resource_census.md`:
+**What you make:**
 
-- **Model flash size (KB)**: how big is the pickled HGB when serialised for the deployed pipeline?
-- **Inference time on-device (ms)**: if we ran the model ON the Teensy (we don't currently — inference is on host), what would inference take? If we can't measure this because HGB doesn't fit in Teensy RAM, state that with the memory budget.
-- **RAM peak (KB)**: measure Teensy free memory during operation
-- **Current draw (mA)**: use a USB power meter (~£10 on Amazon if we don't have one) — measure current during sustained inference vs idle
-- **Estimated battery life**: given current draw and a battery capacity (assume a standard 3000 mAh LiPo), how many hours of continuous operation?
+- Run the same 12-minute recording protocol we've been using, on all three people
+- Update `analysis/system/live_deployment_eval.py` so it loops over all three and reports the combined result
+- Report: average accuracy across the three people, plus each person's individual number
 
-Some of these you can look up (flash size from datasheet), some you need to measure (current draw). Do what you can, note what you couldn't.
+**Use the exact same setup as before:**
 
----
+- 12-minute cued session with three gestures (rest, close, open)
+- Same MyoWare sensor positions on the forearm
+- Same Teensy
+- Same calibration steps
 
-## Overall time budget
+**Where it goes:**
 
-If you work concentrated for the next 12 days:
-
-| Item | Deadline | Hours |
-|---|---|---:|
-| A1 photos + BOM | Aug 26 | 2 |
-| A2 video trim | Aug 26 | 2 |
-| A3 latency | Aug 28 | 3-5 |
-| A6/T1 firmware | Aug 30 | 2 |
-| A6/T1 run + support | Aug 30 - Sep 2 | 3-5 |
-| A4 n=3 live | Sep 1 | 4 |
-| A5 resource census | Sep 1 | 2-3 |
-| **Total** | | **~18-23 hours over 12 days** |
-
-Roughly 2 hours a day. Front-load A1/A2 for the ICBINB deadline.
+- Per-subject folder → `analysis/system/results/live_deployment_n3/<subject_name>/`
+  - **Raw EMG recording (the full session, every sample)** → `raw_emg.parquet` or whatever format the recorder produces
+  - Calibration data (windows used for training the per-session model) → `cal.parquet`
+  - Trained model file → `model.pkl`
+  - Per-window predictions during the evaluation portion → `predictions.parquet`
+  - Accuracy summary → `results.json`
+  - `notes.md` — subject id, date (relative — e.g. "session 1"), any issues during the run, sensor placement description
+- Combined summary across all three → `analysis/system/results/live_deployment_n3/summary.md`
 
 ---
 
-## What Ansh is doing in parallel
+## A5 — Teensy resource check
 
-- ICBINB paper prose (~10 hrs)
-- TS-LIMITS paper reframe (~5 hrs)
-- Host-side scripts for T1 (~4 hrs) — the injection script and 58-patient driver
-- Stream metrics analysis (T4) from T1 output (~2 hrs)
-- Sizing comparison table for TS-LIMITS (~1 hr)
-- Figure production (~3 hrs)
+**Why:** For one of the papers ("tight settings" focus) reviewers will want the actual numbers on what the Teensy uses. So we can prove the deployment claim.
 
-We overlap only on the T1 interface (spec above). Everything else is independent.
+**What you make:**
+
+Write these numbers in `analysis/system/results/teensy_resource_census.md`:
+
+- **How big is the trained model on disk?** In kilobytes.
+- **How long would inference take if we ran the model ON the Teensy?** (Right now we run it on a laptop that's connected. If we tried to squeeze the model into the Teensy itself, how long would each prediction take? If the model is too big to even fit in the Teensy's memory, just say that and mention the memory limit.)
+- **How much RAM does the Teensy use?** Peak, during normal operation.
+- **How much electric current does it draw?** Use a USB power meter (about £10 on Amazon if we don't already own one). Measure two numbers: when it's running predictions vs when it's just idle.
+- **How long would it run on a battery?** Assume a standard-sized rechargeable battery (3000 mAh). Given the current draw you measured, how many hours would it last?
+
+Some of these you can look up online (like the model file size, or Teensy datasheet numbers). Some you need to actually measure (like current draw). Do what you can, and note anything you couldn't figure out.
+
+**Where it goes:**
+
+- Summary → `analysis/system/results/teensy_resource_census.md`
+- **Raw measurements** → `analysis/system/results/teensy_resource_census_raw/`
+  - Power meter readings — every individual sample, not just the average. If the meter can log to CSV, save the log. If not, take a photo of the display for each measurement and save them numbered
+  - RAM measurements — the actual Teensy serial output showing free memory over time
+  - Any datasheet screenshots or URLs you looked up → `sources.md` with links
+- `notes.md` — which power meter you used (model + serial), which battery model you assumed for battery-life estimate, room temperature (affects current draw slightly), anything else
 
 ---
 
-## Communication cadence
+## The one thing that must be right — SAFETY
 
-- Post updates in whatever channel we're using each morning
-- If any deadline slips or you hit a blocker, flag it same-day
-- If the T1 firmware won't compile / behave, tell me by Aug 28 latest so I can pivot to Approach B-lite (software-only replay through deployed post-processing)
+**Never flash the `TEST_MODE 1` firmware onto a Teensy that someone is about to wear.**
+
+If it accidentally gets used on a real person, the Teensy won't be reading their muscle signals anymore — it'll be waiting for data from a USB cable that isn't there, and it'll process garbage. That could make the exoskeleton do unpredictable things on a person's hand.
+
+`TEST_MODE 1` is only ever for the replay rig sitting on your desk, plugged into a laptop with no one wearing it. Before anything else touches a person, always flash back to `TEST_MODE 0`.
+
+If you're ever not sure which version is currently on the Teensy, don't guess — reflash the normal firmware to be safe.
 
 ---
 
-## The one thing that must be right
+## When to check in with me
 
-**Never flash TEST_MODE=1 firmware onto a device that will be used on a real person.** If it accidentally gets there and someone connects, the classifier will process garbage samples and might issue unpredictable motor commands. Fine for the T1 replay rig sitting on your desk; not fine for anything else. Always revert to `TEST_MODE 0` before any patient / subject use.
+- If you get stuck on any step, ping me the same day — don't sit on it
+- If the firmware won't compile or won't behave, tell me early so I have time to fall back to a different plan
+- Send me a short update whenever you finish one of the six items, so I can plan the next things around what's done

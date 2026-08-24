@@ -151,6 +151,26 @@ def build_abbreviated_protocol() -> List[CalibrationTrial]:
     return trials
 
 
+def build_paper22s_protocol() -> List[CalibrationTrial]:
+    """Build the paper's 22-second cued cal protocol (PhysioMio-matched).
+
+    4 reps × 3 classes = 12 cued blocks × 1.8s hold each, with 0.2s
+    transitions between blocks. Total ~24s.
+
+    Target: 12 gestures × 36 windows @ 50ms stride = 432 balanced training
+    windows (matches PhysioMio n_cal_windows for the frozen-splits protocol
+    used across every headline number in the paper).
+    """
+    trials = []
+    for _ in range(4):
+        for gesture in ["close", "open", "rest"]:
+            trials.append(CalibrationTrial(
+                gesture=gesture, label=LABEL_MAP[gesture],
+                effort="normal", duration=1.8, rest_period=0.2, phase=3,
+            ))
+    return trials
+
+
 # ── TTS cues with pacing control ───────────────────────────────────────────
 
 # Track the last TTS process so we can wait for it before starting another
@@ -1270,11 +1290,18 @@ def calibrate_patient(ser, model_data, sample_rate, patient_id="default",
 
 def abbreviated_calibrate(ser, model_data, sample_rate, patient_id="default",
                           progress_callback=None, assist_profile=None,
-                          interactive=True, stop_event=None):
-    """Abbreviated 90-second recalibration for returning patients.
+                          interactive=True, stop_event=None,
+                          protocol_builder=None, protocol_label="ABBREVIATED RECALIBRATION"):
+    """Abbreviated recalibration for returning patients.
 
     Loads previous calibration, runs short protocol, merges data
     weighted toward recency.
+
+    Args:
+        protocol_builder: callable returning List[CalibrationTrial]. Defaults to
+            build_abbreviated_protocol (90s). Pass build_paper22s_protocol for
+            the paper's 22s cued protocol.
+        protocol_label: display label for the console banner.
 
     Raises:
         CalibrationCancelled if stop_event is set during execution
@@ -1283,8 +1310,11 @@ def abbreviated_calibrate(ser, model_data, sample_rate, patient_id="default",
         from assist_profile import get_profile
         assist_profile = get_profile(3)
 
+    if protocol_builder is None:
+        protocol_builder = build_abbreviated_protocol
+
     print("\n" + "=" * 60)
-    print("ABBREVIATED RECALIBRATION (90-second protocol)")
+    print(protocol_label)
     print("=" * 60)
     print(f"  Patient ID: {patient_id}")
 
@@ -1294,11 +1324,10 @@ def abbreviated_calibrate(ser, model_data, sample_rate, patient_id="default",
         print(f"  Previous calibration found ({prev['info']['calibration_type']}, "
               f"{prev['info']['num_samples']} samples)")
     else:
-        print("  No previous calibration found. Running abbreviated anyway.")
+        print("  No previous calibration found. Running anyway.")
 
     # Phase 1: Quick rest baseline
-    # Total time: 10s rest + 9 trials × (5s hold + 4s rest) = ~91s
-    trials = build_abbreviated_protocol()
+    trials = protocol_builder()
     # Round to clean number (91s → 90s = 1:30)
     total_remaining = round((10.0 + sum(t.duration + t.rest_period for t in trials)) / 10) * 10
     if progress_callback:
@@ -1501,6 +1530,16 @@ def _run_web_mode(args):
                 assist_profile=assist_profile,
                 interactive=False,
             )
+        elif mode == "paper22s":
+            result = abbreviated_calibrate(
+                ser, model_data, sample_rate,
+                patient_id=patient_id,
+                progress_callback=_json_progress_callback,
+                assist_profile=assist_profile,
+                interactive=False,
+                protocol_builder=build_paper22s_protocol,
+                protocol_label="PAPER 22-SECOND CUED CALIBRATION",
+            )
         else:
             result = abbreviated_calibrate(
                 ser, model_data, sample_rate,
@@ -1540,8 +1579,9 @@ if __name__ == "__main__":
                         help="Path to model .pkl file")
     parser.add_argument("--patient-id", type=str, default="default",
                         help="Patient identifier")
-    parser.add_argument("--mode", type=str, choices=["full", "quick"], default="quick",
-                        help="Calibration mode: 'full' (6-min) or 'quick' (90s abbreviated)")
+    parser.add_argument("--mode", type=str, choices=["full", "quick", "paper22s"], default="quick",
+                        help="Calibration mode: 'full' (6-min), 'quick' (90s abbreviated), "
+                             "or 'paper22s' (24s cued, matches PhysioMio paper protocol)")
     parser.add_argument("--assist-level", type=int, default=3,
                         help="Assist level (1-5)")
 

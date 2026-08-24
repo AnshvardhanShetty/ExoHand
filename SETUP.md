@@ -361,3 +361,49 @@ The install steps only run once. To use the system on subsequent days:
 6. Browser: <http://localhost:5173>
 
 That's it.
+
+---
+
+## Optional · Testing the paper's 22-second calibration protocol
+
+The shipped system uses a 6-minute initial patient calibration + 30-second per-session re-cal (see the README for why). Our research paper reports numbers on a shorter protocol — a 22-second cued calibration on 4 reps × 3 classes (close/open/rest), matching the PhysioMio dataset's 432-window balanced cal budget.
+
+If you want to try the paper's exact calibration protocol on the live system (useful for validating that the reported protocol works end-to-end on real hardware, or as a shorter alternative for a quick session), you can run the calibration script with `--mode paper22s`.
+
+### What the paper22s protocol runs
+
+- 12 cued gestures total (4 reps × [close, open, rest], interleaved)
+- 1.8 seconds hold + 0.2 seconds transition per gesture
+- ~24 seconds total wall-clock
+- 432 balanced training windows at 20 Hz stride (exact match to the paper)
+
+### How to run it
+
+Same command you use for a normal calibration, just swap the mode:
+
+```bash
+python3 runtime/calibrate_patient.py \
+    --web-mode \
+    --port <YOUR_PORT> \
+    --model exohand_model.pkl \
+    --patient-id <YOUR_NAME> \
+    --mode paper22s
+```
+
+Replace `<YOUR_PORT>` with your Teensy's port (see Step 7) and `<YOUR_NAME>` with any patient identifier string.
+
+### What it produces
+
+- A trained model saved to the same location as any other calibration mode
+- JSON progress events on stdout (the web UI reads these normally, so the browser UI works unchanged)
+- A standard calibration report on completion
+
+After calibration, launch `runtime/run_exohand.py` pointing at the saved model — same as after any other calibration mode — and the exoskeleton runs with the paper's classifier configuration.
+
+### The three calibration modes at a glance
+
+| `--mode` | Duration | What it is | When to use |
+|---|---|---|---|
+| `full` | ~6 min | Multi-phase patient personalisation (rest baseline, familiarisation, sustained holds, quick contractions, variable effort) | First-time patient registration |
+| `quick` | ~90 s | Session re-cal (3 reps × 3 classes, 5 s hold + 4 s rest) | Returning patient, per-session drift correction (default) |
+| `paper22s` | ~24 s | Paper's PhysioMio-matched cued protocol (4 reps × 3 classes, 1.8 s hold) | Validating the paper's reported calibration budget on live hardware, or when the shortest possible cued cal is preferred |
