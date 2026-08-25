@@ -1,0 +1,13 @@
+{
+  "duration_sec": 733.89,
+  "sample_rate_hz": 20.2,
+  "num_frames": 14823,
+  "num_cues": 127,
+  "cue_counts": {
+    "rest": 67,
+    "close": 30,
+    "open": 30
+  },
+  "session_id": "2026-02-20_18-51",
+  "recorded_at": "2026-02-20T19:03:54.424316"
+}
