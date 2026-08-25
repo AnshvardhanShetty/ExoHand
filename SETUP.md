@@ -218,37 +218,24 @@ entry. It'll be something like `COM3`.
 
 ---
 
-## Step 8 · Start the three services (three terminals)
+## Step 8 · Start the services
 
-You need three things running at the same time. Open **three separate
-terminal windows/tabs**, all in the `ExoHand` folder.
+There are two entry points into the deployed pipeline, and they're **alternatives, not layers** — pick one, don't run both. Only one process at a time can hold the Teensy's serial port.
 
-### Terminal 1 · Python runtime
+- **Path A — React web app (recommended)**: Node backend + Vite client. Serves the React UI at http://localhost:5173. Includes the "Start 22s Test (Beta)" button and all the therapist/patient workflows. Node owns the serial port and spawns the Python calibration script on demand.
+- **Path B — Legacy Python UI**: `run_exohand.py --web` runs standalone and serves a simpler UI at http://localhost:8000. Python owns the serial port.
 
-Replace `<YOUR_PORT>` with what you found in step 7 (e.g.
-`/dev/tty.usbmodem176627901` or `COM3`):
+**Do not run both paths at the same time** — they'll fight for the serial port and the second one to start will crash with "port in use" (macOS/Linux) or hang (Windows).
 
-```bash
-python3 runtime/run_exohand.py --port <YOUR_PORT> --model exohand_model.pkl --web
-```
+The setup below is for **Path A**. If you specifically want the legacy Python UI, skip to the very bottom of this section for Path B.
 
-Wait until you see:
+---
 
-```
-Loading model...
-Model loaded (X features)
-Connecting to serial port...
-Connected. Streaming.
-```
+### Path A · Two terminals: Node backend + Vite client
 
-If you get a serial-port error, either the port name is wrong (redo step
-7) or another process is using it (unplug/replug the Teensy).
+Open **two terminal windows/tabs** in the `ExoHand` folder.
 
-You may see a few `InconsistentVersionWarning` messages from sklearn as the model loads (the model was pickled with an older sklearn version than you have installed). These are cosmetic — ignore them.
-
-**Keep this terminal open.**
-
-### Terminal 2 · Backend server
+### Terminal 1 · Backend server
 
 The backend needs to know which serial port the Teensy is on, so it can spawn calibration processes with the right port. **Set the `SERIAL_PORT` env var before running the server**, using the same port name from step 7.
 
@@ -287,7 +274,7 @@ If you see `[SERIAL] No SERIAL_PORT set — running without hardware (simulation
 
 **Keep this terminal open.**
 
-### Terminal 3 · Web client
+### Terminal 2 · Web client
 
 ```bash
 cd client
@@ -302,6 +289,22 @@ Local: http://localhost:5173/
 ```
 
 **Keep this terminal open.**
+
+---
+
+### Path B (alternative) · Legacy standalone Python UI
+
+Skip this if you're already running Path A above.
+
+If you want the older self-contained Python UI (no React app, no Node backend), open **one terminal** and run:
+
+```bash
+python3 runtime/run_exohand.py --port <YOUR_PORT> --model exohand_model.pkl --web
+```
+
+Wait for `Connected. Streaming.` and open <http://localhost:8000> in a browser.
+
+**Important:** if you already have the Node server (Path A Terminal 1) running, kill it first. Both processes try to open the same serial port and only one can hold it at a time. On Windows this manifests as a hang or a "port in use" error; on macOS/Linux you'll see the same error more clearly.
 
 ---
 
@@ -350,7 +353,7 @@ Therapist mode gives you access to Full and the 22s Beta protocols; patient mode
 
 - Check terminal 1 (Python): should say `Starting web server at http://localhost:8000` or similar. If it errored, you'll see a traceback.
 - Check terminal 2 (Node server): should say `ExoHand server running on http://localhost:3001`. If it says `[SERIAL] No SERIAL_PORT set — running without hardware (simulation mode)`, set the env var before starting Node (see Step 8).
-- Check terminal 3 (Vite / client): should say `Local: http://localhost:5173/`. If it's not running, `cd client && npm run dev`.
+- Check the client terminal (Vite): should say `Local: http://localhost:5173/`. If it's not running, `cd client && npm run dev`.
 
 ---
 
@@ -389,8 +392,9 @@ classifier and servo still work; only the visualisation is broken.
 Look in the browser console (F12 → Console tab). Errors show up in red.
 Usually one of:
 - Missing an exercise definition — go to the therapist view and add one.
-- The Python runtime crashed — check terminal 1.
-- The backend crashed — check terminal 2.
+- The Node backend crashed — check the backend terminal.
+- The Vite client failed to hot-reload — refresh the browser tab.
+- The calibration Python script errored — the Node backend terminal will show its stderr.
 
 ### I want to use the deployed public demo instead
 
@@ -402,16 +406,25 @@ recording; it isn't running the real classifier against your hardware.
 
 ## Every time after the first time
 
-The install steps only run once. To use the system on subsequent days:
+The install steps only run once. To use the system on subsequent days (Path A / React app):
 
 1. Plug the Teensy in.
-2. Open three terminals in the `ExoHand` folder.
-3. Terminal 1: `python3 runtime/run_exohand.py --port <YOUR_PORT> --model exohand_model.pkl --web`
-4. Terminal 2: `cd server && npm run dev`
-5. Terminal 3: `cd client && npm run dev`
-6. Browser: <http://localhost:5173>
+2. Open **two** terminals in the `ExoHand` folder.
+3. Terminal 1 — Node backend, with the serial port set:
+   - PowerShell: `cd server; $env:SERIAL_PORT="<YOUR_PORT>"; npm run dev`
+   - macOS/Linux: `cd server && SERIAL_PORT=<YOUR_PORT> npm run dev`
+4. Terminal 2 — Vite client: `cd client && npm run dev`
+5. Browser: <http://localhost:5173>
 
 That's it.
+
+If you only want the legacy Python UI at localhost:8000 instead, run only:
+
+```bash
+python3 runtime/run_exohand.py --port <YOUR_PORT> --model exohand_model.pkl --web
+```
+
+Don't run both — they'll fight for the serial port.
 
 ---
 
@@ -432,7 +445,7 @@ If you want to try the paper's exact calibration protocol on the live system (us
 
 **Do this the same way you'd start any calibration through the browser:**
 
-1. Follow Step 8 to start the three services (Python runtime, backend, frontend).
+1. Follow Step 8 Path A to start the Node backend + Vite client.
 2. Open <http://localhost:5173> and log in as the therapist role (the button only appears in therapist mode — patient-facing landing pages still show only the standard session cal).
 3. Navigate to the calibration screen for a patient.
 4. You'll see three stacked buttons: **Start Full Calibration**, **Start Quick Calibration**, and **Start 22s Test (Beta)**.
