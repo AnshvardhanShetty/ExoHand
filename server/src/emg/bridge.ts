@@ -48,7 +48,11 @@ export class PythonBridge extends EventEmitter {
     this._error = null;
     this.stderrBuffer = "";
 
-    this.process = spawn("python3", args, {
+    // Which Python to spawn. PYTHON_BIN env var wins, then "python3", then "python"
+    // (Windows convention). See calibrationBridge.ts for the same logic.
+    const pythonBin = process.env.PYTHON_BIN || (process.platform === "win32" ? "python" : "python3");
+
+    this.process = spawn(pythonBin, args, {
       cwd: projectRoot,
       stdio: ["pipe", "pipe", "pipe"],
     });

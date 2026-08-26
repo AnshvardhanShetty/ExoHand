@@ -153,7 +153,13 @@ export class CalibrationBridge extends EventEmitter {
     // Delay slightly so the simulator processes the "session" reset from stop() first.
     setTimeout(() => this.writeGestureFile("rest"), 600);
 
-    this.process = spawn("python3", args, {
+    // Which Python to spawn. PYTHON_BIN env var wins (useful on Windows where
+    // "python3" often doesn't exist or resolves to the wrong install), then
+    // "python3" (macOS/Linux convention), then plain "python" as a last resort.
+    const pythonBin = process.env.PYTHON_BIN || (process.platform === "win32" ? "python" : "python3");
+    console.log(`[CAL] Spawning ${pythonBin} for calibration`);
+
+    this.process = spawn(pythonBin, args, {
       cwd: projectRoot,
       stdio: ["pipe", "pipe", "pipe"],
     });

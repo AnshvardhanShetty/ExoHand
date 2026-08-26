@@ -272,6 +272,23 @@ WebSocket available on ws://localhost:3001
 
 If you see `[SERIAL] No SERIAL_PORT set — running without hardware (simulation mode)`, the env var wasn't picked up. Login and dashboard will still load, but **calibration will fail** because the Node server won't know which port to hand to the Python calibration script. Kill the server (Ctrl+C), set the env var, restart.
 
+**Windows Python note:** the Node backend spawns Python to run calibration scripts. By default it tries `python` on Windows and `python3` on macOS/Linux. If you get a `ModuleNotFoundError` when calibration runs (even though `pip install -r requirements.txt` reported success), Node is likely spawning a different Python than the one your `pip` installed into — very common on Windows when multiple Pythons are on PATH. Point Node at the exact Python by setting the `PYTHON_BIN` env var alongside `SERIAL_PORT`:
+
+**PowerShell:**
+
+```powershell
+cd server
+$env:SERIAL_PORT="<YOUR_PORT>"
+$env:PYTHON_BIN="C:\Users\<you>\AppData\Local\Programs\Python\Python312\python.exe"
+npm run dev
+```
+
+To find the right path, in any terminal run `python -c "import sys; print(sys.executable)"` — that prints the path you want. Alternatively, install all Python deps into whichever Python `python` resolves to when Node calls it:
+
+```powershell
+& "C:\path\to\your\python.exe" -m pip install -r requirements.txt
+```
+
 **Keep this terminal open.**
 
 ### Terminal 2 · Web client
