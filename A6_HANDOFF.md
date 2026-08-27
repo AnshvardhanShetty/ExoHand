@@ -131,14 +131,20 @@ The script runs three tests automatically:
 
 ### What to save (even from the tests)
 
-Copy these into `analysis/revision/T1_hardware_replay/raw/`:
+**Everything goes in `analysis/revision/T1_hardware_replay/raw/`.** After you pull the latest commit, this folder should already exist (with a placeholder `.gitkeep` file inside). If it doesn't, create it:
 
-- **verification_log.txt** — the terminal output from the three tests (just copy-paste from Terminal)
-- **teensy_emg_TEST_MODE.ino** — the exact `.ino` file you uploaded (just copy the file over)
+- macOS / Linux: `mkdir -p analysis/revision/T1_hardware_replay/raw`
+- Windows PowerShell: `New-Item -ItemType Directory -Force -Path "analysis\revision\T1_hardware_replay\raw"`
+- Windows cmd: `mkdir analysis\revision\T1_hardware_replay\raw`
+
+Then drop these three files into that folder:
+
+- **verification_log.txt** — the terminal output from the three tests (just copy-paste from Terminal into a new text file)
+- **teensy_emg_TEST_MODE.ino** — the exact `.ino` file you uploaded (just copy `teensy_emg/teensy_emg.ino` into this folder, as-is — it captures the version you actually flashed)
 - **notes.md** — a plain text file with:
   - Which Teensy model this is (should be Teensy 4.0)
   - Which version of Arduino IDE (Arduino IDE → About)
-  - Which macOS version
+  - Which macOS/Windows version you're on
   - Which USB port name showed up
   - Anything weird that happened
 
