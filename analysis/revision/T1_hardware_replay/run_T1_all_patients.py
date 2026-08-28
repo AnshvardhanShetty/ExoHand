@@ -37,7 +37,7 @@ from analysis.physiomio.deployed_pipeline_sim import (
     TEENSY_PP_WINDOW_MS, INFERENCE_WINDOW_MS, INFERENCE_STRIDE_MS,
     TEENSY_OUTPUT_HZ, extract_session_features_20hz,
 )
-from analysis.physiomio.per_session_eval import SAMPLE_RATE_HZ
+from ml.preprocessing_physiomio import SAMPLE_RATE_HZ
 
 OUT_DIR = PROJECT_ROOT / "analysis" / "revision" / "results"
 OUT_CSV = OUT_DIR / "T1_deployed_accuracy_per_patient.csv"
