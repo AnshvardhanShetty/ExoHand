@@ -122,6 +122,10 @@ export class CalibrationBridge extends EventEmitter {
     const script = path.join(projectRoot, "runtime", "calibrate_patient.py");
 
     const args = [
+      // -u: unbuffered stdout/stderr. Prevents late-protocol freezes on Windows
+      // where Python's block-buffered PIPE fills after ~90s of 20 Hz EMG emit,
+      // stalls flush(), and blocks the next trial_start from firing.
+      "-u",
       script,
       "--web-mode",
       "--port", options.port,
@@ -211,7 +215,12 @@ export class CalibrationBridge extends EventEmitter {
         this.status.phaseName = GESTURE_DISPLAY[gesture] || gesture.toUpperCase();
         this.status.phaseInstruction = GESTURE_INSTRUCTIONS[gesture] || gesture;
         this.status.phaseTargetAngle = GESTURE_ANGLES[gesture] ?? 110;
-        this.status.overallProgress = (data.percent || 0) / 100;
+        // Clamp progress monotonically. Python's post-loop "processing"
+        // callback occasionally emits a smaller pct than the last trial-loop
+        // emit; without this, the progress bar visibly walks backward while
+        // the calibration is genuinely still advancing.
+        const incoming = (data.percent || 0) / 100;
+        this.status.overallProgress = Math.max(this.status.overallProgress, incoming);
         this.status.remainingSec = Math.round(data.remaining || 0);
         this.status.trialIndex = data.trial || 0;
         this.status.phaseProgress = data.total > 0 ? data.trial / data.total : 0;

@@ -188,8 +188,23 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
       // Signal layout to hide sidebar during active calibration
       navigate("/patient/calibration?active=1", { replace: true });
     }
-    await api.startCalibration(mode, patientId);
-    startPolling();
+    try {
+      await api.startCalibration(mode, patientId);
+      startPolling();
+    } catch (e: unknown) {
+      // Backend rejected the start request (server down, model missing, port
+      // unavailable). Surface the error and bail rather than sit on the
+      // "loading_model" screen forever.
+      const message = e instanceof Error ? e.message : "Failed to start calibration";
+      setStatus({
+        active: false, completed: false, mode: "quick", modelLoaded: false,
+        phaseIndex: 0, trialIndex: 0, totalPhases: 3, phaseName: null,
+        phaseInstruction: null, phaseTargetAngle: 110, phaseDurationSec: 0,
+        phaseTrials: 0, phaseElapsedSec: 0, phaseProgress: 0,
+        overallProgress: 0, remainingSec: 0, phaseWaiting: false,
+        error: message,
+      });
+    }
   };
 
   const handleCancel = async () => {
@@ -232,6 +247,26 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
 
   // Remaining time: use server's authoritative remainingSec from Python progress callbacks
   const serverRemaining = status?.remainingSec ?? 0;
+
+  /* ── Global error surface: if Python crashes or serial dies mid-run, the
+       server sets status.error and clears status.active. Show the error UI
+       from any post-launch state (was previously only shown while step ==
+       "loading_model", leaving the user with a frozen screen otherwise). ── */
+  if (status?.error && !status.active &&
+      (step === "loading" || step === "pre_phase" ||
+       step === "countdown" || step === "running")) {
+    return (
+      <div className="h-full flex items-center justify-center">
+        <div className="text-center space-y-4 max-w-md px-6">
+          <p className="text-h3 font-semibold text-text">Calibration failed</p>
+          <p className="text-small text-muted">{status.error}</p>
+          <Button variant="danger" onClick={handleCancel}>
+            Go back
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   /* ── Choose mode (full calibration: ?mode=full, therapist-initiated) ── */
   if (step === "choose") {
@@ -420,19 +455,35 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
   const displayInstruction = status?.phaseInstruction ?? "Follow the instructions";
   const phaseComplete = localTimer <= 0;
 
+  // Detect the post-trials "processing" state: after the last trial fires,
+  // Python emits progress with gesture="processing" and percent=90 and runs
+  // feature extraction + fine-tuning synchronously with no more progress
+  // updates. Show a friendly waiting message rather than a stale
+  // "Done — next phase starting..." until the "complete" event arrives.
+  const isProcessing = phaseComplete && (
+    status?.phaseName === "PROCESSING" ||
+    (status?.overallProgress ?? 0) >= 0.9
+  );
+  const doneMessage = isProcessing
+    ? "Processing calibration data — this can take a minute..."
+    : "Done — next phase starting...";
+  const doneSubMessage = isProcessing
+    ? "Extracting features and fine-tuning the model"
+    : "Preparing next phase...";
+
   return (
     <div className="h-full flex">
       {/* Left — large timer display */}
       <div className="flex-[2] flex items-center justify-center bg-bg">
         <div className="text-center space-y-6">
           <p className="text-small text-muted uppercase tracking-wider">
-            {displayName}
+            {isProcessing ? "PROCESSING" : displayName}
           </p>
           <p className="text-[96px] font-bold font-mono text-text leading-none">
             {phaseComplete ? "0s" : `${localTimer}s`}
           </p>
           <p className="text-body text-muted">
-            {phaseComplete ? "Done — next phase starting..." : displayInstruction}
+            {phaseComplete ? doneMessage : displayInstruction}
           </p>
         </div>
       </div>
@@ -442,10 +493,10 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
         {/* Phase label */}
         <div className="text-center py-3 border-b border-border">
           <p className="text-small text-muted uppercase tracking-wider">
-            {displayName}
+            {isProcessing ? "PROCESSING" : displayName}
           </p>
           <p className="text-h3 font-bold text-text mt-1">
-            {phaseComplete ? "Done — next phase starting..." : displayInstruction}
+            {phaseComplete ? doneMessage : displayInstruction}
           </p>
         </div>
 
@@ -455,7 +506,7 @@ export function Calibration({ patientId, therapistMode, onComplete, onCancel }: 
             {phaseComplete ? "0s" : `${localTimer}s`}
           </p>
           <p className="text-small text-muted">
-            {phaseComplete ? "Preparing next phase..." : "Hold steady"}
+            {phaseComplete ? doneSubMessage : "Hold steady"}
           </p>
         </div>
 

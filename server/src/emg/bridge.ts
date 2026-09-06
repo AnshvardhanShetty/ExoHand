@@ -29,6 +29,9 @@ export class PythonBridge extends EventEmitter {
     const script = path.join(projectRoot, "runtime", "run_exohand.py");
 
     const args = [
+      // -u: unbuffered stdout/stderr. Prevents Windows freezes where Python's
+      // block-buffered PIPE stalls flush() during long streaming sessions.
+      "-u",
       script,
       "--port",
       options.port,

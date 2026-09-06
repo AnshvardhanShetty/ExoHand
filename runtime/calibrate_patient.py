@@ -1074,7 +1074,11 @@ def _run_trials(ser, trials, sample_rate, progress_callback=None,
 
         # Progress callback — remaining shows data-collection time only (no UI pause overhead)
         remaining = sum(t.duration + t.rest_period for t in trials[idx:])
-        pct = (idx / total_trials) * 100
+        # Trial loop covers 0..90% of overall progress. The post-loop stage
+        # (feature extraction + fine-tuning) takes 90..100%. Without this
+        # scaling the trial loop hits 98% (full mode) and then the post-loop
+        # "processing" progress emit at 90% causes a visible bar regression.
+        pct = (idx / total_trials) * 90.0
         if progress_callback:
             progress_callback(trial.phase, idx, total_trials,
                               trial.gesture, remaining, pct)
@@ -1406,6 +1410,11 @@ def abbreviated_calibrate(ser, model_data, sample_rate, patient_id="default",
         merged_samples, merged_labels, sample_rate, model_data)
     print(f"  {len(features)} feature windows")
 
+    # Progress heartbeat so the client UI does not sit at 90% during the
+    # long-running feature extraction + fine-tuning steps (10-60s combined).
+    if progress_callback:
+        progress_callback(0, len(trials), len(trials), "processing", 0.0, 94.0)
+
     # Remap labels for quality report (adapted labels are in GrabMyo order)
     model_type = model_data.get("model_type", "session")
     if model_type == "adapted_hgb" and len(feature_labels) > 0:
@@ -1421,7 +1430,11 @@ def abbreviated_calibrate(ser, model_data, sample_rate, patient_id="default",
 
     # Fine-tune (uses feature_labels in the model's native label order)
     print("\n  Fine-tuning model...")
+    if progress_callback:
+        progress_callback(0, len(trials), len(trials), "processing", 0.0, 96.0)
     finetuned = finetune_model(model_data, features, feature_labels)
+    if progress_callback:
+        progress_callback(0, len(trials), len(trials), "processing", 0.0, 99.0)
 
     # Gain/threshold overrides
     cal_params = apply_calibration(rest_baseline, per_class_stats, assist_profile)

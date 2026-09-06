@@ -28,8 +28,23 @@ router.post("/start", (req: Request, res: Response) => {
   serial.close();
   console.log("[SERIAL] Releasing port for calibration");
 
+  // Default serial port: macOS-style device path. Windows users must set
+  // EMG_PORT (e.g. "COM4") or SERIAL_PORT. If neither is set on non-macOS,
+  // reject with a clear message rather than pass an invalid path to Python.
+  const explicitPort = process.env.EMG_PORT || process.env.SERIAL_PORT;
+  const port = explicitPort || (process.platform === "darwin"
+    ? "/dev/cu.usbmodem176627901"
+    : "");
+  if (!port) {
+    res.status(400).json({
+      ok: false,
+      error: `EMG_PORT (or SERIAL_PORT) env var must be set on ${process.platform}. Example: EMG_PORT=COM4 npm start`,
+    });
+    return;
+  }
+
   calibBridge.start({
-    port: process.env.EMG_PORT || process.env.SERIAL_PORT || "/dev/cu.usbmodem176627901",
+    port,
     model: process.env.MODEL_PATH || path.join(__dirname, "..", "..", "..", "exohand_model.pkl"),
     patientId: String(patientId),
     mode,
