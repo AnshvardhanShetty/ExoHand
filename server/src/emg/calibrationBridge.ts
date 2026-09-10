@@ -126,6 +126,11 @@ export class CalibrationBridge extends EventEmitter {
       // where Python's block-buffered PIPE fills after ~90s of 20 Hz EMG emit,
       // stalls flush(), and blocks the next trial_start from firing.
       "-u",
+      // -X utf8: force UTF-8 mode. Without this, Windows Python defaults its
+      // stdout encoding to cp1252 and raises UnicodeEncodeError on the first
+      // non-latin1 character (em dashes, delta, arrows, etc.) that any Python
+      // print() emits during calibration/finetune, killing the process.
+      "-X", "utf8",
       script,
       "--web-mode",
       "--port", options.port,

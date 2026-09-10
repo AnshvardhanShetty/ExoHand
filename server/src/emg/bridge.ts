@@ -32,6 +32,10 @@ export class PythonBridge extends EventEmitter {
       // -u: unbuffered stdout/stderr. Prevents Windows freezes where Python's
       // block-buffered PIPE stalls flush() during long streaming sessions.
       "-u",
+      // -X utf8: force UTF-8 stdout on Windows so Python print() of Unicode
+      // characters (em dash, delta, arrows, etc.) does not raise cp1252
+      // encode errors and kill the runtime.
+      "-X", "utf8",
       script,
       "--port",
       options.port,
