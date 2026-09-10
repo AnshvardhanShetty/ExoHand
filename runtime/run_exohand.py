@@ -193,7 +193,7 @@ def calibrate(ser, model_data, duration_per_gesture=30):
 
 def _add_temporal_features(features):
     """Add _prev, _delta, _roll3 temporal features on env_rms columns."""
-    from train_from_session import get_feature_names
+    from ml.train_from_session import get_feature_names
 
     feat_names = get_feature_names()
     env_rms_indices = [i for i, name in enumerate(feat_names) if name.endswith("_env_rms")]
@@ -915,7 +915,7 @@ class RealtimePredictor:
 
         # Add temporal features inline
         env_rms_vals = []
-        from train_from_session import get_feature_names
+        from ml.train_from_session import get_feature_names
         feat_names = get_feature_names()
         for i, name in enumerate(feat_names):
             if name.endswith("_env_rms"):

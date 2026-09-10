@@ -502,7 +502,7 @@ def _extract_calibration_features(raw_samples, raw_labels, sample_rate, model_da
 
 def _extract_session_features(raw_samples, raw_labels, sample_rate, model_data):
     """Session model path: extract_window_features + temporal features."""
-    from train_from_session import extract_window_features
+    from ml.train_from_session import extract_window_features
     from run_exohand import _add_temporal_features
 
     window_ms = model_data["window_ms"]
@@ -558,10 +558,10 @@ def _extract_adapted_features(raw_samples, raw_labels, sample_rate, model_data):
         for train/serve consistency. If patient_norm_stats exists, we skip the
         built-in per-participant normalisation and apply the saved stats instead.
     """
-    from adapt_model import (
+    from ml.adapt_model import (
         bandpass_filter, compute_envelope, extract_session_features,
     )
-    from train_hgb_v2 import (
+    from ml.train_hgb_v2 import (
         add_temporal_features, add_cross_channel_features,
         add_temporal_on_interactions, add_rank_features,
         add_within_trial_position, add_per_session_normalisation,
@@ -624,7 +624,7 @@ def _extract_adapted_features(raw_samples, raw_labels, sample_rate, model_data):
         df = add_per_session_normalisation(df, [c for c in base_features if c in df.columns])
     else:
         # Fallback: use the full pipeline (includes per-participant normalisation)
-        from adapt_model import engineer_features_for_saved_model
+        from ml.adapt_model import engineer_features_for_saved_model
         df = engineer_features_for_saved_model(df)
 
     # Get feature columns in model order
