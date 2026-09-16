@@ -166,25 +166,36 @@ def wait_enter(prompt):
 # ─────────────────────────────────────────────────────────────────────
 
 _GESTURE_CUE = {
-    "close": "Close your hand",
-    "open":  "Open your hand",
-    "rest":  "Relax",
+    "close": "close your hand",
+    "open":  "open your hand",
+    "rest":  "relax",
+}
+
+_EFFORT_PREFIX = {
+    "light": "gently ",
+    "hard":  "strongly ",
+    "pulse": "quickly ",
 }
 
 
-def cue_gesture(gesture, trial_idx, total, prep_seconds):
+def cue_gesture(gesture, trial_idx, total, prep_seconds, effort="normal"):
     """Show instruction + countdown before a hold.
 
     Layout: half of prep_seconds is instruction display, other half is
     a spoken 3-2-1 countdown. Matches the deployed web UI timing.
+    The effort modifier (gently/strongly/quickly) is spoken and displayed
+    BEFORE the countdown, so the participant knows how to modulate the
+    hold when GO fires.
     """
-    gesture_display = gesture.upper()
+    prefix = _EFFORT_PREFIX.get(effort, "")
+    spoken = (prefix + _GESTURE_CUE[gesture]).strip().capitalize()
+    display = spoken
 
-    banner(f">>  TRIAL {trial_idx + 1} / {total}   |   {gesture_display}")
+    banner(f">>  TRIAL {trial_idx + 1} / {total}   |   {display.upper()}")
 
     # Speak the instruction, print big
-    speak(_GESTURE_CUE[gesture], blocking=False)
-    print(f"\n     {_GESTURE_CUE[gesture]}", flush=True)
+    speak(spoken, blocking=False)
+    print(f"\n     {display}", flush=True)
 
     # Half of prep is instruction display (no countdown yet)
     inst_time = max(1.0, prep_seconds / 2.0)
@@ -369,12 +380,8 @@ def _run_eval_trials(ser, trials, sample_rate, prep_seconds):
 
         # Pulse trials get shorter prep; hold trials get full prep.
         this_prep = 2.0 if trial.effort == "pulse" else prep_seconds
-        cue_gesture(trial.gesture, idx, total, prep_seconds=this_prep)
-
-        # Effort prefix cue for non-normal efforts
-        if trial.effort in ("light", "hard", "pulse"):
-            adj = {"light": "gently", "hard": "strongly", "pulse": "quickly"}[trial.effort]
-            speak(f"{adj}", blocking=False)
+        cue_gesture(trial.gesture, idx, total,
+                    prep_seconds=this_prep, effort=trial.effort)
 
         # Hold — collect data
         samples = _collect_emg_segment(ser, trial.duration, trial.label)
