@@ -246,7 +246,13 @@ def resolve_port(explicit: Optional[str]) -> str:
     raise SystemExit("\nRerun with --port <name>")
 
 
-def measure_sample_rate(ser, duration_s=1.0, min_hz=50) -> int:
+def measure_sample_rate(ser, duration_s=2.0, min_hz=10) -> int:
+    """Measure incoming EMG stream rate from the Teensy, then apply the
+    same 50 Hz floor the deployed calibration pipeline uses (see
+    calibrate_patient.py line 1531). The Teensy sends a 20 Hz peak-to-peak
+    envelope by design, so raw counts of ~20 are healthy; the floor keeps
+    feature window sizes aligned with what the models were trained on.
+    """
     ser.reset_input_buffer()
     count = 0
     t0 = time.perf_counter()
@@ -257,14 +263,24 @@ def measure_sample_rate(ser, duration_s=1.0, min_hz=50) -> int:
         line = raw.decode("utf-8", errors="ignore").strip()
         if parse_emg_line(line) is not None:
             count += 1
-    hz = int(round(count / duration_s))
-    if hz < min_hz:
+    measured = int(round(count / duration_s))
+    if measured < min_hz:
         raise SystemExit(
-            f"\nERROR: EMG sample rate too low ({hz} Hz). Expected >{min_hz} Hz.\n"
+            f"\nERROR: EMG stream rate too low ({measured} Hz). "
+            f"Expected at least {min_hz} Hz from the Teensy.\n"
             "  Is the sleeve on and pressed against skin?\n"
             "  Is the Teensy streaming EMG (not idle)?"
         )
-    return hz
+    # Match deployed pipeline's max(count, 50) floor. The Teensy's actual
+    # 20 Hz envelope becomes an effective 50 Hz for feature-window sizing
+    # inside _extract_calibration_features — same convention the shipping
+    # 22s cal uses, so the two calibrations we compare match what a real
+    # patient would get.
+    effective = max(measured, 50)
+    if effective != measured:
+        print(f"  Measured stream rate: {measured} Hz "
+              f"(deployed pipeline floors this to {effective} Hz internally)")
+    return effective
 
 
 # ─────────────────────────────────────────────────────────────────────
