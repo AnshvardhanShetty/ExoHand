@@ -338,19 +338,31 @@ export const mockApi = {
   endSession: async (sessionId: number, exerciseDuration?: number) =>
     ok({ id: sessionId, duration_sec: exerciseDuration ?? 0, saved: true }),
   getSessionSummary: async (sessionId: number) =>
+    // Match the real API contract: { session, reps[], previous, recommendation }.
+    // Previously returned a flat shape that hid `session` and made `reps` a
+    // count instead of an array, blanking SessionSummary.tsx on load.
     ok({
-      id: sessionId,
-      patient_id: DEMO_PATIENT.id,
-      date: new Date().toISOString(),
-      exercise: "Alternating · 8 reps",
-      duration_sec: 420,
-      score: 87,
-      reps: 8,
-      negativeReps: 8,
-      completion: 1.0,
-      stability: 0.89,
-      averageConfidence: 0.88,
-      classDistribution: { rest: 0.52, close: 0.24, open: 0.24 },
+      session: {
+        id: sessionId,
+        patient_id: DEMO_PATIENT.id,
+        started_at: new Date(Date.now() - 420_000).toISOString(),
+        ended_at: new Date().toISOString(),
+        overall_score: 87,
+        completion_rate: 100,
+        avg_stability: 89,
+        avg_accuracy: 88,
+        exercise_type: "open_close",
+        exercise_duration: 420,
+      },
+      reps: Array.from({ length: 8 }, (_, i) => ({
+        rep_number: i + 1,
+        accuracy: 88,
+        stability: 89,
+        time_to_target: 1.4,
+        success: true,
+      })),
+      previous: null,
+      recommendation: null,
     }),
   recordRep: async (_sessionId: number, _rep: any) => ok({ ok: true }),
 

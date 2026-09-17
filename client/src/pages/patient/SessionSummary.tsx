@@ -10,12 +10,39 @@ export function SessionSummary() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (sessionId) {
-      api.getSessionSummary(Number(sessionId)).then(setData);
+    if (!sessionId) return;
+    const n = Number(sessionId);
+    if (!Number.isFinite(n) || n <= 0) {
+      setError(`Invalid session id: "${sessionId}"`);
+      return;
     }
+    api.getSessionSummary(n)
+      .then(setData)
+      .catch((e) => setError(e?.message || String(e)));
   }, [sessionId]);
+
+  if (error) {
+    return (
+      <div>
+        <TopBar title="Session Complete" />
+        <div className="p-8 max-w-2xl mx-auto space-y-4 text-center">
+          <p className="text-h3 font-mono text-danger">Couldn't load summary</p>
+          <p className="text-small text-muted break-words">{error}</p>
+          <div className="flex gap-3 justify-center">
+            <Button variant="secondary" onClick={() => navigate("/patient")}>
+              Home
+            </Button>
+            <Button onClick={() => navigate("/patient/session/new")}>
+              New Session
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!data)
     return <div className="p-8 text-center text-muted">Loading summary...</div>;
