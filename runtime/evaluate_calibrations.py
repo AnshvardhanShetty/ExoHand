@@ -124,10 +124,29 @@ def bell():
 # Cross-platform TTS
 # ─────────────────────────────────────────────────────────────────────
 
+# Track the last TTS process so we can wait for it before starting a
+# new one. Without this, "close your hand" and the 3-2-1 countdown
+# fire as separate say processes that play on top of each other.
+_last_tts_proc = None
+
+
 def speak(text, blocking=False):
-    """Say `text` out loud. Non-blocking by default so we can print at
-    the same time. Falls back silently if no TTS engine is available.
+    """Say `text` out loud, serialized against the previous cue.
+
+    Non-blocking by default so the terminal countdown can still tick,
+    but each new cue first waits (up to 3s) for the previous one to
+    finish speaking. Falls back silently if no TTS engine is available.
     """
+    global _last_tts_proc
+
+    # Wait for the previous utterance to finish before starting a new one.
+    if _last_tts_proc is not None:
+        try:
+            _last_tts_proc.wait(timeout=3.0)
+        except Exception:
+            pass
+        _last_tts_proc = None
+
     try:
         if IS_MAC:
             cmd = ["say", text]
@@ -144,7 +163,7 @@ def speak(text, blocking=False):
         if blocking:
             subprocess.run(cmd, check=False, capture_output=True, timeout=15)
         else:
-            subprocess.Popen(
+            _last_tts_proc = subprocess.Popen(
                 cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
             )
     except Exception:
