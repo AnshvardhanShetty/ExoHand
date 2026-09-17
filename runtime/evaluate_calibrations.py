@@ -210,7 +210,7 @@ def cue_gesture(gesture, trial_idx, total, prep_seconds, effort="normal"):
         bell()
         time.sleep(1.0)
 
-    print(f"     >>>  GO — {gesture_display}  <<<", flush=True)
+    print(f"     >>>  GO — {display.upper()}  <<<", flush=True)
     bell()
 
 
