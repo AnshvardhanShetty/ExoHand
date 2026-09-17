@@ -74,18 +74,43 @@ router.post("/start", (req: Request, res: Response) => {
   // Start PythonBridge for real-time EMG inference
   const assistLevel = patient?.assist_level ?? 3;
   const projectRoot = path.resolve(__dirname, "..", "..", "..");
-  const calModelPath = path.join(projectRoot, "calibrations", String(patient_id), "calibrated_model.pkl");
+  // Calibrated models are saved by runtime/calibrate_patient.py under
+  // runtime/calibrations/{patient_id}/ (dirname of __file__). Without the
+  // "runtime" segment this was silently missing every calibration and
+  // falling through to the vanilla baseline — sessions ran as if the
+  // patient had never calibrated.
+  const calModelPath = path.join(projectRoot, "runtime", "calibrations",
+                                 String(patient_id), "calibrated_model.pkl");
   const modelPath = fs.existsSync(calModelPath)
     ? calModelPath
     : (process.env.MODEL_PATH || path.join(projectRoot, "exohand_model.pkl"));
+  if (fs.existsSync(calModelPath)) {
+    console.log(`[SESSION] Using calibrated model: ${calModelPath}`);
+  } else {
+    console.log(`[SESSION] No calibration for patient ${patient_id}; using baseline: ${modelPath}`);
+  }
 
   // Release serial port so Python can own it during the session.
   // Close unconditionally — port may be mid-connect from previous session cleanup.
   serial.close();
   console.log("[SERIAL] Releasing port for session");
 
+  // Default serial port: macOS-style device path. Windows users must set
+  // EMG_PORT (e.g. "COM5") or SERIAL_PORT. If neither is set on non-macOS,
+  // reject with a clear message rather than pass an invalid path to Python.
+  const explicitPort = process.env.EMG_PORT || process.env.SERIAL_PORT;
+  const port = explicitPort || (process.platform === "darwin"
+    ? "/dev/cu.usbmodem176627901"
+    : "");
+  if (!port) {
+    res.status(400).json({
+      error: `EMG_PORT (or SERIAL_PORT) env var must be set on ${process.platform}. Example: EMG_PORT=COM5 npm start`,
+    });
+    return;
+  }
+
   bridge.start({
-    port: process.env.EMG_PORT || process.env.SERIAL_PORT || "/dev/cu.usbmodem176627901",
+    port,
     model: modelPath,
     assistLevel,
     patientId: String(patient_id),
