@@ -356,7 +356,16 @@ export const mockApi = {
 
   getTherapistPatients: async () => ok([DEMO_PATIENT]),
   getTherapistPatientDetail: async (_id: number) =>
-    ok({ ...DEMO_PATIENT, sessions: DEMO_SESSIONS, progress: DEMO_PROGRESS, recommendations: DEMO_RECOMMENDATIONS }),
+    // Match the real API contract: nested `patient` + top-level arrays.
+    // Previously spread DEMO_PATIENT at the top level, which left
+    // `data.patient` undefined and blanked PatientDetail.tsx on load.
+    ok({
+      patient: DEMO_PATIENT,
+      sessions: DEMO_SESSIONS,
+      safetyEvents: [],
+      recommendations: DEMO_RECOMMENDATIONS,
+      progress: DEMO_PROGRESS,
+    }),
   updatePatientSettings: async (_id: number, settings: any) => ok({ ...DEMO_PATIENT, ...settings }),
   approveRecommendation: async (_patientId: number, recommendationId: number, approved: boolean) =>
     ok({ id: recommendationId, approved }),
