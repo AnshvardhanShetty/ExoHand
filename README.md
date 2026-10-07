@@ -1,5 +1,7 @@
 # ExoHand
 
+**Accepted to BrainBodyFM at NeurIPS 2026.**
+
 EMG-controlled hand exoskeleton with real-time intent classification, adaptive motor assistance, and a full-stack rehabilitation platform.
 
 [![Watch the demo](https://img.youtube.com/vi/RMq31iIWcPk/maxresdefault.jpg)](https://www.youtube.com/watch?v=RMq31iIWcPk)
@@ -11,6 +13,14 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
 The system achieves **97.3% three-class accuracy** (close / open / rest) with a per-user calibration protocol, measured over 43 leave-one-subject-out folds on the GrabMyo dataset (95% bootstrap CI: [96.7%, 97.9%]).
+
+## Research & Paper
+
+The ExoHand paper has been accepted to **BrainBodyFM at NeurIPS 2026**. The repository includes the research analyses, evaluation results, figures, and supporting paper materials.
+
+- [Paper materials](paper/README.md): research documentation, figures, appendix, and hardware verification handoffs.
+- [Canonical results](paper/FINAL_NUMBERS.md): results and provenance for the paper.
+- [Analysis and evaluation](analysis/README.md): scripts and results for calibration, cross-subject transfer, longitudinal evaluation, and deployment checks.
 
 ## System Architecture
 
@@ -175,6 +185,8 @@ ExoHand/
 │   └── exohand_combined.ino
 ├── grabmyo/                     # GrabMyo processed features + models (raw data from PhysioNet)
 ├── datasets/                    # Exercise protocol definitions (JSON)
+├── analysis/                    # Research scripts, evaluation results & figures
+├── paper/                       # BrainBodyFM paper materials & hardware handoffs
 ├── REPORT_EMG_Classification.md # Detailed classification report
 └── report_figures/              # Result visualizations
 ```

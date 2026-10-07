@@ -1,6 +1,6 @@
-# Paper — ICBINB @ NeurIPS 2026
+# Paper — BrainBodyFM at NeurIPS 2026
 
-Everything paper-related in one place. Deadline: **August 29, 2026**.
+**Accepted to BrainBodyFM at NeurIPS 2026.** Everything paper-related in one place. Some supporting documents retain references to the earlier ICBINB submission plan.
 
 ---
 
