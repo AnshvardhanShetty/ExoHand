@@ -1,12 +1,12 @@
 # Paper — BrainBodyFM at NeurIPS 2026
 
-**Accepted as a demonstration at BrainBodyFM — Foundation Models for the Brain and Body — at NeurIPS 2026.**
+**Accepted at BrainBodyFM — Foundation Models for the Brain and Body — at NeurIPS 2026.**
 
 **Title:** *ExoHand: A £200 Closed-loop Hand Exoskeleton, Calibrated in 22 Seconds*
 
 **Authors:** Anshvardhan Shetty · Adhiraiyan Sasikumar
 
-The accepted demo trains its decoder from scratch on 22 seconds of the user's own signals during a guided session of about two minutes, and uses a two-servo tendon-driven exoskeleton. See the [main README](../README.md) for the current demonstration description.
+ExoHand trains its decoder from scratch on 22 seconds of the user's own signals during a guided session of about two minutes, and uses a two-servo tendon-driven exoskeleton. See the [main README](../README.md) for the current demonstration description.
 
 This directory collects the supporting research and earlier submission drafts. Some documents retain the ICBINB framing, earlier hardware descriptions, or planning status from when they were written.
 

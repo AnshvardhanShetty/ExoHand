@@ -1,6 +1,6 @@
 # ExoHand
 
-**Accepted demonstration at BrainBodyFM (NeurIPS 2026).**
+**Accepted at BrainBodyFM (NeurIPS 2026).**
 
 EMG-controlled hand exoskeleton with real-time intent classification, adaptive motor assistance, and a full-stack rehabilitation platform.
 
@@ -12,11 +12,11 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 
 ExoHand is a closed-loop hand rehabilitation prototype that turns surface electromyography (sEMG) from the forearm into movement of a 3D-printed, tendon-driven hand exoskeleton. Four sensors capture the user's muscle activity; a locally trained classifier decodes **close / open / rest** and drives the device in real time. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
-The accepted demonstration uses a HistGradientBoosting classifier **trained from scratch on 22 seconds of the user's own signals**, with no pretrained model in the live loop. The guided calibration session takes about two minutes overall; **22 seconds refers to the labelled signal budget**, rather than the entire setup and cueing time. The hardware build costs **under £200** and runs with a Teensy 4.0, a laptop, four sEMG sensors, and two hobby servos.
+ExoHand uses a HistGradientBoosting classifier **trained from scratch on 22 seconds of the user's own signals**, with no pretrained model in the live loop. The guided calibration session takes about two minutes overall; **22 seconds refers to the labelled signal budget**, rather than the entire setup and cueing time. The hardware build costs **under £200** and runs with a Teensy 4.0, a laptop, four sEMG sensors, and two hobby servos.
 
-## NeurIPS 2026 Demonstration
+## NeurIPS 2026
 
-**Accepted as a demonstration at BrainBodyFM — Foundation Models for the Brain and Body — at NeurIPS 2026.**
+**Accepted at BrainBodyFM — Foundation Models for the Brain and Body — at NeurIPS 2026.**
 
 **Title:** *ExoHand: A £200 Closed-loop Hand Exoskeleton, Calibrated in 22 Seconds*
 
@@ -61,7 +61,7 @@ The zero-shot result was statistically indistinguishable from chance. Adding Gra
 
 The demonstration fits a scikit-learn HistGradientBoostingClassifier to the user's own cued close, open, and rest signals. Feature scaling is fitted to calibration data. The repository includes a `paper22s` calibration protocol with 12 cued blocks of 1.8 seconds each (21.6 seconds of labelled signal), plus transitions, baseline collection, and instructions.
 
-The runtime also retains longer calibration protocols: a full initial protocol of about six minutes and a quick abbreviated protocol of about 90 seconds. These are additional runtime options; the accepted demonstration uses the short signal budget described above.
+The runtime also retains longer calibration protocols: a full initial protocol of about six minutes and a quick abbreviated protocol of about 90 seconds. These are additional runtime options; ExoHand uses the short signal budget described above.
 
 ### Features
 
@@ -69,7 +69,7 @@ The pipeline uses 370 engineered features, including per-channel RMS, mean absol
 
 ### Earlier GrabMyo Benchmark
 
-Earlier development evaluated a population model within GrabMyo using 43 leave-one-subject-out folds. These results describe the healthy-subject benchmark and its larger calibration budget; they are separate from the stroke evaluation and the accepted live demonstration.
+Earlier development evaluated a population model within GrabMyo using 43 leave-one-subject-out folds. These results describe the healthy-subject benchmark and its larger calibration budget; they are separate from the stroke evaluation and the live system.
 
 | Configuration | Accuracy (mean, 95% CI) | Macro-F1 (mean, 95% CI) |
 |---|---|---|
