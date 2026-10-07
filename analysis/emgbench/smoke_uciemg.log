@@ -1,0 +1,76 @@
+=== EMGBench × ExoHand on uciemg (leftout subject 1) ===
+  fs=200.0 Hz  n_channels_total=8
+  selected_channels=[0, 2, 4, 6]  name_map=[0, 4, 9, 13]
+  NOTES: Labels confirmed against utils_UCI.py line 34. 7 raw gestures; we keep 3 (rest, close, open) and drop wrist gestures.
+
+[1/6] Building EMGBench env + dataset...
+------------------------------------------------------------------------------------------------------------------------
+Starting run at 2026-05-26_07-44-44
+------------------------------------------------------------------------------------------------------------------------
+[2/6] Loading raw EMG (this triggers dataset download if not cached)...
+  n_subjects = 36  per-subject shape = (381, 8, 250)
+
+[3/6] Extracting 60 base features per window per subject...
+  subj 1/36: extracted 381 windows × 60 features
+  subj 2/36: extracted 355 windows × 60 features
+  subj 3/36: extracted 318 windows × 60 features
+  subj 4/36: extracted 390 windows × 60 features
+  subj 5/36: extracted 323 windows × 60 features
+  subj 6/36: extracted 349 windows × 60 features
+  subj 7/36: extracted 428 windows × 60 features
+  subj 8/36: extracted 314 windows × 60 features
+  subj 9/36: extracted 301 windows × 60 features
+  subj 10/36: extracted 352 windows × 60 features
+  subj 11/36: extracted 368 windows × 60 features
+  subj 12/36: extracted 375 windows × 60 features
+  subj 13/36: extracted 563 windows × 60 features
+  subj 14/36: extracted 314 windows × 60 features
+  subj 15/36: extracted 337 windows × 60 features
+  subj 16/36: extracted 362 windows × 60 features
+  subj 17/36: extracted 347 windows × 60 features
+  subj 18/36: extracted 383 windows × 60 features
+  subj 19/36: extracted 379 windows × 60 features
+  subj 20/36: extracted 380 windows × 60 features
+  subj 21/36: extracted 334 windows × 60 features
+  subj 22/36: extracted 324 windows × 60 features
+  subj 23/36: extracted 405 windows × 60 features
+  subj 24/36: extracted 363 windows × 60 features
+  subj 25/36: extracted 367 windows × 60 features
+  subj 26/36: extracted 355 windows × 60 features
+  subj 27/36: extracted 357 windows × 60 features
+  subj 28/36: extracted 259 windows × 60 features
+  subj 29/36: extracted 353 windows × 60 features
+  subj 30/36: extracted 393 windows × 60 features
+  subj 31/36: extracted 324 windows × 60 features
+  subj 32/36: extracted 385 windows × 60 features
+  subj 33/36: extracted 321 windows × 60 features
+  subj 34/36: extracted 397 windows × 60 features
+  subj 35/36: extracted 305 windows × 60 features
+  subj 36/36: extracted 309 windows × 60 features
+
+[4/6] Building dataframe + applying train_hgb_v2 feature engineering...
+  pre-engineering shape: (4284, 68)  participants: 36
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  post-engineering shape: (4284, 378)
+
+[5/6] Training HGB + calibration refit for leftout=1...
+
+[6/6] Result:
+  leftout_subject: subj1
+  n_train_windows: 4157
+  n_calib_windows: 63
+  n_eval_windows: 64
+  acc_no_cal: 1.0000
+  f1_no_cal: 1.0000
+  acc_with_cal: 1.0000
+  f1_with_cal: 1.0000
+  delta_acc: 0.0000
+  fit_time_s_no_cal: 0.6221
+  fit_time_s_with_cal: 0.6308
+  CSV: analysis/emgbench/results_uciemg_leftout1.csv

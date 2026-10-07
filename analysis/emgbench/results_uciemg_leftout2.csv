@@ -1,0 +1,2 @@
+leftout_subject,n_train_windows,n_calib_windows,n_eval_windows,acc_no_cal,f1_no_cal,acc_with_cal,f1_with_cal,delta_acc,fit_time_s_no_cal,fit_time_s_with_cal,dataset
+subj2,4162,61,61,1.0,1.0,1.0,1.0,0.0,0.7045743465423584,0.5780370235443115,uciemg

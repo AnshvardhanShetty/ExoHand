@@ -95,3 +95,8 @@ Adhi Data/
 
 # Misc
 exohand/
+
+# Downloaded UCI EMG recordings and generated paper submission archive
+/uciEMG/
+/paper-anon.zip
+*.tsbuildinfo

@@ -1,0 +1,35 @@
+1 extra bytes in post.stringData array
+'created' timestamp seems very low; regarding as unix timestamp
+Zapf NOT subset; don't know how to subset; dropped
+feat NOT subset; don't know how to subset; dropped
+morx NOT subset; don't know how to subset; dropped
+Loading + engineering PhysioMio...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  engineered in 36s
+Sampled 10 sessions across patients
+  [1/10] patient34 impaired_01: 34s top-3 features: ch9_wl_sess_norm(0.027), ch13_wl_prev(0.027), ch0_wl_sess_norm(0.026)
+  [2/10] patient46 impaired_01: 40s top-3 features: ch9_wl_sess_norm(0.063), ch4_wl_prev2(0.060), ch0_wl_prev2(0.039)
+  [3/10] patient33 impaired_01: 43s top-3 features: ch4_wl_prev2(0.062), ch9_wl_sess_norm(0.058), ch9_wl_prev2(0.039)
+  [4/10] patient5 impaired_01: 36s top-3 features: ch9_wl_sess_norm(0.164), ch4_wl_prev2(0.051), ch0_wl_sess_norm(0.034)
+  [5/10] patient31 impaired_01: 42s top-3 features: ch9_wl_sess_norm(0.058), ch0_wl_sess_norm(0.021), ch9_wl(0.012)
+  [6/10] patient43 impaired_01: 34s top-3 features: ch0_env_rms_pctile(0.024), ch0_wl_sess_norm(0.017), ch0_wl_prev2(0.014)
+  [7/10] patient20 impaired_01: 32s top-3 features: ch9_wl_sess_norm(0.094), ch0_wl_sess_norm(0.050), ch4_wl_prev2(0.036)
+  [8/10] patient27 impaired_01: 33s top-3 features: ch4_wl_prev2(0.043), ch0_wl_sess_norm(0.041), ch0_wl_prev2(0.034)
+  [9/10] patient13 impaired_01: 32s top-3 features: ch13_wl_roll5(0.178), ch13_rms_roll5(0.041), ch0_wl_sess_norm(0.021)
+  [10/10] patient32 impaired_01: 32s top-3 features: ch0_ch9_rms_ratio_roll3(0.014), ch0_wl_roll3(0.012), ch0_ch9_mav_ratio_roll3(0.010)
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/mechanism/results/feature_importance.csv
+
+Spearman ρ(importance rank, shift rank) = +0.0516, p = 3.218e-01
+  Positive ρ → calibration weights toward shifted features (mechanism aligned)
+  Near zero → effect is diffuse, not feature-localized
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/mechanism/results/feature_importance_vs_shift.png and /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/mechanism/results/feature_importance_vs_shift.pdf
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/mechanism/results/feature_importance_summary.md
+
+Total wall: 6.6 min

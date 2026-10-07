@@ -62,10 +62,14 @@ def main():
         cal_mean = sub["cal"].mean()
         ax.axhline(zs_mean, color=PALETTE["zero_shot"], linestyle="--", linewidth=0.8, alpha=0.7)
         ax.axhline(cal_mean, color=PALETTE["calibrated"], linestyle="--", linewidth=0.8, alpha=0.7)
-        ax.text(len(sub) - 1, zs_mean - 0.025, f"mean {zs_mean:.2f}", fontsize=7,
-                color=PALETTE["muted_text"], ha="right", va="top")
-        ax.text(len(sub) - 1, cal_mean + 0.015, f"mean {cal_mean:.2f}", fontsize=7,
-                color=PALETTE["calibrated"], ha="right", va="bottom")
+        # Mean labels placed on the LEFT (low-accuracy patients sit lowest there,
+        # so the dashed-mean line area is clear of overlapping markers).
+        # White bbox for safety against any near-misses.
+        bbox_kw = dict(facecolor="white", edgecolor="none", pad=1.0, alpha=0.9)
+        ax.text(0, zs_mean - 0.025, f"mean {zs_mean:.2f}", fontsize=7,
+                color=PALETTE["muted_text"], ha="left", va="top", bbox=bbox_kw)
+        ax.text(0, cal_mean + 0.015, f"mean {cal_mean:.2f}", fontsize=7,
+                color=PALETTE["calibrated"], ha="left", va="bottom", bbox=bbox_kw)
 
         ax.set_title(ax_title, loc="left")
         ax.set_xlabel(f"Patients (n = {len(sub)}, sorted by zero-shot accuracy)")

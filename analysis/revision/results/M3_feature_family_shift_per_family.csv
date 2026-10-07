@@ -1,0 +1,5 @@
+family,mean,median,std,n
+cross-channel,0.346,0.3239,0.0939,148
+amplitude,0.2787,0.2716,0.1397,166
+other,0.2782,0.2774,0.1127,21
+degenerate,0.051,0.0458,0.0287,35

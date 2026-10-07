@@ -1,0 +1,45 @@
+{
+  "session": {
+    "id": "2026-02-20_18-51",
+    "subject": "project PI (Adhi), healthy adult",
+    "duration_s": 733.89,
+    "n_samples": 14823,
+    "sample_rate_hz": 20.2,
+    "n_cue_events": 127,
+    "cue_counts": {
+      "rest": 67,
+      "close": 30,
+      "open": 30
+    },
+    "hardware": "Teensy 4.0 + 4\u00d7 MyoWare 2.0, integrated exoskeleton"
+  },
+  "deployed_model": {
+    "package": "exohand_adapted_model.pkl",
+    "model_type": "adapted_hgb",
+    "n_features": 370,
+    "window_ms": 200,
+    "stride_ms": 50,
+    "label_names": [
+      "close",
+      "open",
+      "rest"
+    ],
+    "channel_map": {
+      "0": 0,
+      "1": 4,
+      "2": 9,
+      "3": 13
+    },
+    "bandpass_lowcut": 20.0,
+    "bandpass_highcut": 450.0,
+    "sample_rate_hint": 20.2
+  },
+  "metrics_saved_at_calibration_time": {
+    "patient_accuracy": 0.9916998447938458,
+    "grabmyo_accuracy": 0.9997545409916544,
+    "note": "Within-session held-out metrics from the patient calibration protocol. These are NOT cross-subject / cross-session generalisation metrics \u2014 cross-subject is supported by PhysioMio (\u00a74) and Lucchetti (\u00a75)."
+  },
+  "onset_latency": {
+    "mean_s": 0.7074
+  }
+}

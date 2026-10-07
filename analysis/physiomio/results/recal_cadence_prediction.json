@@ -1,0 +1,72 @@
+{
+  "n_patients": 37,
+  "lopo_metrics": {
+    "r2": -0.13966597276283443,
+    "rmse": 0.09355007854887071,
+    "mae": 0.07455681941067102,
+    "baseline_rmse": 0.08763051533043015,
+    "rmse_ratio_vs_baseline": 1.067551391157744
+  },
+  "spearman": {
+    "rho": 0.3041725936462778,
+    "p": 0.06719806250085565
+  },
+  "target_summary": {
+    "decay_slope_mean": -0.08104198104198106,
+    "decay_slope_std": 0.08763051533043015,
+    "decay_slope_min": -0.3547008547008547,
+    "decay_slope_max": -0.0019536019536019857
+  },
+  "feature_importance": [
+    {
+      "feature": "fma_impaired",
+      "importance_mean": 0.00730200819405992,
+      "importance_std": 0.0014432562961961067
+    },
+    {
+      "feature": "s1_f1_macro",
+      "importance_mean": 0.004264832476828431,
+      "importance_std": 0.0011072253959040319
+    },
+    {
+      "feature": "s1_f1_close",
+      "importance_mean": 0.0024286247398683154,
+      "importance_std": 0.0006354801347668122
+    },
+    {
+      "feature": "s1_crossarm_acc",
+      "importance_mean": 0.0015414523324016134,
+      "importance_std": 0.0004071013560872605
+    },
+    {
+      "feature": "s1_acc",
+      "importance_mean": 0.0006769283342584892,
+      "importance_std": 0.0001428589335843338
+    },
+    {
+      "feature": "s1_f1_open",
+      "importance_mean": 0.0004427007490333616,
+      "importance_std": 9.218568682123244e-05
+    },
+    {
+      "feature": "s1_f1_imbalance",
+      "importance_mean": 0.0003022275182650093,
+      "importance_std": 8.52940054625302e-05
+    },
+    {
+      "feature": "s1_f1_rest",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    }
+  ],
+  "features_used": [
+    "s1_acc",
+    "s1_f1_macro",
+    "s1_f1_rest",
+    "s1_f1_close",
+    "s1_f1_open",
+    "s1_f1_imbalance",
+    "s1_crossarm_acc",
+    "fma_impaired"
+  ]
+}

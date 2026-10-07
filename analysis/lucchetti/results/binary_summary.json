@@ -1,0 +1,40 @@
+{
+  "binary_session_acc": {
+    "mean": 0.970972127445188,
+    "ci95": [
+      0.9589059190577648,
+      0.9814886927989762
+    ]
+  },
+  "binary_patient_acc": {
+    "mean": 0.9750819285527499,
+    "ci95": [
+      0.9637441291215272,
+      0.9838887131456876
+    ]
+  },
+  "three_class_session_acc_for_context": 0.827777053627587,
+  "by_arm_binary": {
+    "healthy": {
+      "n": 20,
+      "mean": 0.976508191260866,
+      "ci": [
+        0.9599591893853446,
+        0.9878563913189812
+      ]
+    },
+    "impaired": {
+      "n": 10,
+      "mean": 0.959899999813832,
+      "ci": [
+        0.9425435691923655,
+        0.975503568375066
+      ]
+    }
+  },
+  "per_class_f1_binary": {
+    "rest": 0.9837588688387644,
+    "movement": 0.6224749117755269
+  },
+  "note": "Zero-shot 3-class session mean: 0.182. Binary zero-shot would be higher (rest is 59% of windows) but is not directly recomputable from saved aggregate; binary calibration delta is the relevant comparison."
+}

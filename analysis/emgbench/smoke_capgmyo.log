@@ -1,0 +1,53 @@
+=== EMGBench × ExoHand on capgmyo (leftout subject 1) ===
+  fs=1000.0 Hz  n_channels_total=8
+  selected_channels=[0, 2, 4, 6]  name_map=[0, 4, 9, 13]
+  NOTES: Channel selection is evenly-spaced (every other electrode); confirm anatomical mapping before locking. Gesture map placeholder — must be verified against utils_CapgMyo.gesture_labels exact strings.
+
+[1/6] Building EMGBench env + dataset...
+------------------------------------------------------------------------------------------------------------------------
+Starting run at 2026-05-25_21-02-00
+------------------------------------------------------------------------------------------------------------------------
+[2/6] Loading raw EMG (this triggers dataset download if not cached)...
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/scipy/io/matlab/_mio.py", line 39, in _open_file
+    return open(file_like, mode), True
+FileNotFoundError: [Errno 2] No such file or directory: './CapgMyo_B/dbb-preprocessed-001/001-001-001.mat'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+  File "/Users/anshshetty/emgbench/Setup/Utils/utils_CapgMyo.py", line 156, in getEMG
+    return filter(getData(data_index, 1, 1))
+  File "/Users/anshshetty/emgbench/Setup/Utils/utils_CapgMyo.py", line 134, in getData
+    mat_data = io.loadmat('./CapgMyo_B/dbb-preprocessed-0' + sub + '/' + name + '.mat')
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/scipy/io/matlab/_mio.py", line 225, in loadmat
+    with _open_file_context(file_name, appendmat) as f:
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/contextlib.py", line 113, in __enter__
+    return next(self.gen)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/scipy/io/matlab/_mio.py", line 17, in _open_file_context
+    f, opened = _open_file(file_like, appendmat, mode)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/scipy/io/matlab/_mio.py", line 45, in _open_file
+    return open(file_like, mode), True
+FileNotFoundError: [Errno 2] No such file or directory: './CapgMyo_B/dbb-preprocessed-001/001-001-001.mat'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "analysis/emgbench/exohand_runner.py", line 379, in <module>
+    main()
+  File "analysis/emgbench/exohand_runner.py", line 340, in main
+    combined.load_data()
+  File "/Users/anshshetty/emgbench/Data/Combined_Data.py", line 176, in load_data
+    self.load_other_datasets()
+  File "/Users/anshshetty/emgbench/Data/Combined_Data.py", line 157, in load_other_datasets
+    emg = emg_async.get() # (SUBJECT, TRIAL, CHANNEL, TIME)
+  File "/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/multiprocessing/pool.py", line 771, in get
+    raise self._value
+FileNotFoundError: [Errno 2] No such file or directory: './CapgMyo_B/dbb-preprocessed-001/001-001-001.mat'

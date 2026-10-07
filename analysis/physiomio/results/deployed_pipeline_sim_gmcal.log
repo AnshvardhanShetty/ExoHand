@@ -1,0 +1,82 @@
+Rebuilding PhysioMio 20 Hz P-P features for the 48-patient cohort...
+  [12/48]  (5s)
+  [24/48]  (11s)
+  [36/48]  (16s)
+  [48/48]  (21s)
+  PhysioMio: 44928 windows across 48 patients
+Building GrabMyo 20 Hz cache (subset, n=10 participants × 3 sessions)...
+  Session1: cumulative 20370 windows  (10s)
+  Session2: cumulative 40740 windows  (19s)
+  Session3: cumulative 61110 windows  (28s)
+  GrabMyo 20 Hz subset: 61110 windows from 30 participant-sessions
+
+Concatenating PhysioMio + GrabMyo for engineer_features...
+  combined: 106038 windows
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  features: 370
+  GrabMyo engineered rows: 61110
+  PhysioMio engineered rows: 44928
+
+Per-session GM+cal evaluation on PhysioMio...
+  patient1: acc=0.7265  fit=11.7s  (1/48 done)
+  patient2: acc=0.7692  fit=12.0s  (2/48 done)
+  patient3: acc=0.8376  fit=11.4s  (3/48 done)
+  patient4: acc=0.8547  fit=11.1s  (4/48 done)
+  patient5: acc=0.8205  fit=10.1s  (5/48 done)
+  patient6: acc=0.7094  fit=11.1s  (6/48 done)
+  patient7: acc=0.9316  fit=9.8s  (7/48 done)
+  patient8: acc=0.9829  fit=9.5s  (8/48 done)
+  patient9: acc=0.7607  fit=9.6s  (9/48 done)
+  patient10: acc=0.7692  fit=9.9s  (10/48 done)
+  patient11: acc=0.7863  fit=8.6s  (11/48 done)
+  patient12: acc=0.9573  fit=10.0s  (12/48 done)
+  patient13: acc=0.9915  fit=10.1s  (13/48 done)
+  patient14: acc=0.7009  fit=10.1s  (14/48 done)
+  patient15: acc=1.0000  fit=10.0s  (15/48 done)
+  patient16: acc=0.8632  fit=9.7s  (16/48 done)
+  patient17: acc=0.9145  fit=9.7s  (17/48 done)
+  patient18: acc=0.8034  fit=9.2s  (18/48 done)
+  patient19: acc=0.8291  fit=9.0s  (19/48 done)
+  patient20: acc=0.8974  fit=9.3s  (20/48 done)
+  patient21: acc=0.9487  fit=9.2s  (21/48 done)
+  patient22: acc=0.9316  fit=8.9s  (22/48 done)
+  patient23: acc=0.9231  fit=9.1s  (23/48 done)
+  patient24: acc=0.8718  fit=9.9s  (24/48 done)
+  patient25: acc=0.7009  fit=9.4s  (25/48 done)
+  patient26: acc=0.8974  fit=9.4s  (26/48 done)
+  patient27: acc=0.9744  fit=9.1s  (27/48 done)
+  patient28: acc=0.8889  fit=9.2s  (28/48 done)
+  patient29: acc=0.9573  fit=9.1s  (29/48 done)
+  patient30: acc=0.9915  fit=9.0s  (30/48 done)
+  patient31: acc=0.8376  fit=9.2s  (31/48 done)
+  patient32: acc=0.7265  fit=9.2s  (32/48 done)
+  patient33: acc=0.7778  fit=9.0s  (33/48 done)
+  patient34: acc=0.9402  fit=9.0s  (34/48 done)
+  patient35: acc=0.6239  fit=8.9s  (35/48 done)
+  patient36: acc=0.8632  fit=9.2s  (36/48 done)
+  patient37: acc=0.9915  fit=9.0s  (37/48 done)
+  patient38: acc=0.8632  fit=9.1s  (38/48 done)
+  patient39: acc=0.8462  fit=9.1s  (39/48 done)
+  patient40: acc=0.9658  fit=10.2s  (40/48 done)
+  patient41: acc=0.6581  fit=10.5s  (41/48 done)
+  patient42: acc=0.9658  fit=9.1s  (42/48 done)
+  patient43: acc=0.8803  fit=9.1s  (43/48 done)
+  patient44: acc=0.9402  fit=9.6s  (44/48 done)
+  patient45: acc=0.7350  fit=12.1s  (45/48 done)
+  patient46: acc=0.9402  fit=11.1s  (46/48 done)
+  patient47: acc=1.0000  fit=9.6s  (47/48 done)
+  patient48: acc=0.8803  fit=9.6s  (48/48 done)
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/deployed_pipeline_sim_gmcal.csv
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/deployed_pipeline_sim_gmcal_summary.md
+
+=== RESULT ===
+  GM+cal at simulated 20 Hz P-P pipeline: 0.8631  (n=48)
+  PO at simulated 20 Hz P-P:               0.8649
+  PO at raw 2 kHz:                          0.8777

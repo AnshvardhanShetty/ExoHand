@@ -26,10 +26,20 @@ Usage (once setup is complete):
 """
 
 import argparse
+import multiprocessing
 import os
 import sys
 import time
 from pathlib import Path
+
+# EMGBench's utils modules set args as a module-level global. On macOS,
+# multiprocessing defaults to 'spawn' (since Python 3.8) which does NOT
+# inherit module globals → utils.args is None in workers → NoneType errors.
+# Force 'fork' before importing EMGBench so workers inherit state.
+try:
+    multiprocessing.set_start_method("fork", force=True)
+except RuntimeError:
+    pass   # already set
 
 import numpy as np
 import pandas as pd
@@ -365,7 +375,7 @@ def main():
     # 6. Output
     out_csv = args.out or f"analysis/emgbench/results_{args.dataset}_leftout{args.leftout_subject}.csv"
     Path(out_csv).parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame([result | {"dataset": args.dataset}]).to_csv(out_csv, index=False)
+    pd.DataFrame([{**result, "dataset": args.dataset}]).to_csv(out_csv, index=False)
     print(f"\n[6/6] Result:")
     for k, v in result.items():
         if isinstance(v, float):

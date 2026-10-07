@@ -1,0 +1,83 @@
+{
+  "config": {
+    "stability_N": 3,
+    "sustain_window_ms": 250,
+    "window_ms": 50
+  },
+  "n_sessions": 329,
+  "n_patients": 48,
+  "per_rep_success_rate": {
+    "mean": 0.9772036474164134,
+    "ci95": [
+      0.9650455927051672,
+      0.9878419452887538
+    ],
+    "interpretation": "Of every 10 cued grasps in a session, the deployed pipeline produces a sustained (\u2265250 ms) correct motor command for 9.8."
+  },
+  "false_activation_per_min_rest": {
+    "mean": 1.9105514546244025,
+    "ci95": [
+      1.128962223187147,
+      2.865827181936604
+    ],
+    "interpretation": "During patient rest periods, the deployed pipeline incorrectly issues a non-rest motor command 1.91 times per minute of rest on average; in a 5-min therapy session with ~70% rest, this is ~6.7 spurious activations."
+  },
+  "time_to_correct_command_ms": {
+    "mean": 148.70820668693008,
+    "ci95": [
+      133.3567629179331,
+      165.88145896656536
+    ],
+    "interpretation": "From the ground-truth cue/transition onset, the system takes ~149 ms (mean) to issue its first sustained correct motor command. This is the deployment latency from intent \u2192 action that a patient experiences."
+  },
+  "by_arm": {
+    "healthy": {
+      "n_sessions": 91,
+      "per_rep_success": {
+        "mean": 0.989010989010989,
+        "ci": [
+          0.9725274725274725,
+          1.0
+        ]
+      },
+      "false_act_per_min_rest": {
+        "mean": 0.6279434850863422,
+        "ci": [
+          0.0,
+          1.5698587127158552
+        ]
+      },
+      "time_to_correct_ms": {
+        "mean": 125.82417582417582,
+        "ci": [
+          102.74725274725274,
+          154.4024725274725
+        ]
+      }
+    },
+    "impaired": {
+      "n_sessions": 238,
+      "per_rep_success": {
+        "mean": 0.9726890756302521,
+        "ci": [
+          0.957983193277311,
+          0.9853466386554619
+        ]
+      },
+      "false_act_per_min_rest": {
+        "mean": 2.400960384153661,
+        "ci": [
+          1.3205282112845136,
+          3.7214885954381747
+        ]
+      },
+      "time_to_correct_ms": {
+        "mean": 157.4579831932773,
+        "ci": [
+          137.71008403361344,
+          178.67909663865547
+        ]
+      }
+    }
+  }
+}

@@ -23,8 +23,8 @@ GESTURE MAPPING RATIONALE:
   Per-dataset maps below; gestures not in the map are dropped.
 """
 
-from dataclasses import dataclass
-from typing import Sequence
+from dataclasses import dataclass, field
+from typing import List, Sequence
 
 
 @dataclass
@@ -36,6 +36,11 @@ class DatasetAdapter:
     channel_name_map: Sequence[int]      # canonical naming, always [0, 4, 9, 13]
     gesture_to_intent: dict              # raw label → 'close' | 'open' | 'rest'
     notes: str = ""
+    # Optional: ordered list of raw label strings matching EMGBench's integer
+    # restimulus indices. When populated, exohand_runner uses these to look up
+    # gesture_to_intent by string; otherwise it falls back to integer keys.
+    # Source: utils_<DATASET>.gesture_labels list in the EMGBench repo.
+    raw_gesture_labels: List[str] = field(default_factory=list)
 
 
 # Mapping of intent strings to GrabMyo-canonical indices (matches build_intent_dataset.py)
@@ -128,17 +133,34 @@ HYSER = DatasetAdapter(
 )
 
 
-# --- UCI EMG: variable, 200 Hz ---
+# --- UCI EMG: 8 channels, 200 Hz, 36 subjects, 7 gestures ---
+# Labels verified against utils_UCI.gesture_labels (line 34 of EMGBench's repo).
+# Gesture order is fixed; we map by string after the runner indexes restimulus
+# into the gesture_labels list.
 UCIEMG = DatasetAdapter(
     name="uciemg",
     sample_rate_hz=200.0,
     n_channels_total=8,
     selected_channels=[0, 2, 4, 6],
     channel_name_map=[0, 4, 9, 13],
+    raw_gesture_labels=[
+        "hand at rest",                # 0
+        "hand clenched in a fist",     # 1 → close
+        "wrist flexion",               # 2 (drop — not hand intent)
+        "wrist extension",             # 3 (drop — not hand intent)
+        "radial deviations",           # 4 (drop — wrist movement)
+        "ulnar deviations",            # 5 (drop — wrist movement)
+        "extended palm",               # 6 → open
+    ],
     gesture_to_intent={
-        "rest": "rest",
+        "hand at rest": "rest",
+        "hand clenched in a fist": "close",
+        "extended palm": "open",
+        # wrist flexion/extension + radial/ulnar deviations are NOT mapped →
+        # those windows are dropped from training, matching our 3-class scope.
     },
-    notes="Verify channel count + gesture labels from utils_UCI.py before running.",
+    notes="Labels confirmed against utils_UCI.py line 34. 7 raw gestures; "
+          "we keep 3 (rest, close, open) and drop wrist gestures.",
 )
 
 

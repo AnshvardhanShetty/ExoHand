@@ -1,0 +1,73 @@
+Simulating deployed (20 Hz P-P) pipeline on impaired_01 for 48 patients...
+  Teensy P-P window: 50 ms → output rate 20 Hz
+  Inference window:  200 ms = 4 P-P samples
+  Inference stride:  50 ms = 1 P-P samples
+
+  [ 1/48] patient1: 936 windows (1s elapsed)
+  [ 2/48] patient2: 936 windows (1s elapsed)
+  [ 3/48] patient3: 936 windows (1s elapsed)
+  [ 4/48] patient4: 936 windows (2s elapsed)
+  [ 5/48] patient5: 936 windows (2s elapsed)
+  [ 6/48] patient6: 936 windows (3s elapsed)
+  [ 7/48] patient7: 936 windows (3s elapsed)
+  [ 8/48] patient8: 936 windows (4s elapsed)
+  [ 9/48] patient9: 936 windows (4s elapsed)
+  [10/48] patient10: 936 windows (4s elapsed)
+  [11/48] patient11: 936 windows (5s elapsed)
+  [12/48] patient12: 936 windows (5s elapsed)
+  [13/48] patient13: 936 windows (6s elapsed)
+  [14/48] patient14: 936 windows (6s elapsed)
+  [15/48] patient15: 936 windows (7s elapsed)
+  [16/48] patient16: 936 windows (7s elapsed)
+  [17/48] patient17: 936 windows (8s elapsed)
+  [18/48] patient18: 936 windows (8s elapsed)
+  [19/48] patient19: 936 windows (8s elapsed)
+  [20/48] patient20: 936 windows (9s elapsed)
+  [21/48] patient21: 936 windows (9s elapsed)
+  [22/48] patient22: 936 windows (10s elapsed)
+  [23/48] patient23: 936 windows (10s elapsed)
+  [24/48] patient24: 936 windows (11s elapsed)
+  [25/48] patient25: 936 windows (11s elapsed)
+  [26/48] patient26: 936 windows (11s elapsed)
+  [27/48] patient27: 936 windows (12s elapsed)
+  [28/48] patient28: 936 windows (12s elapsed)
+  [29/48] patient29: 936 windows (13s elapsed)
+  [30/48] patient30: 936 windows (13s elapsed)
+  [31/48] patient31: 936 windows (14s elapsed)
+  [32/48] patient32: 936 windows (14s elapsed)
+  [33/48] patient33: 936 windows (15s elapsed)
+  [34/48] patient34: 936 windows (15s elapsed)
+  [35/48] patient35: 936 windows (15s elapsed)
+  [36/48] patient36: 936 windows (16s elapsed)
+  [37/48] patient37: 936 windows (16s elapsed)
+  [38/48] patient38: 936 windows (17s elapsed)
+  [39/48] patient39: 936 windows (17s elapsed)
+  [40/48] patient40: 936 windows (18s elapsed)
+  [41/48] patient41: 936 windows (18s elapsed)
+  [42/48] patient42: 936 windows (18s elapsed)
+  [43/48] patient43: 936 windows (19s elapsed)
+  [44/48] patient44: 936 windows (19s elapsed)
+  [45/48] patient45: 936 windows (20s elapsed)
+  [46/48] patient46: 936 windows (20s elapsed)
+  [47/48] patient47: 936 windows (21s elapsed)
+  [48/48] patient48: 936 windows (21s elapsed)
+
+Concatenated: 44928 windows from 48 patients
+Engineering features (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+  shape: (44928, 377)
+  370 feature columns
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/deployed_pipeline_sim.csv
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/deployed_pipeline_sim_summary.md
+
+=== RESULT ===
+  Deployed-sim acc (patient-mean): 0.8649  (n=48)
+  Baseline raw 2 kHz patient-only:  0.8777
+  Δ:                                 -0.0128

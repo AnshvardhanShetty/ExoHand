@@ -1,0 +1,45 @@
+Loading GrabMyo envelope cache from /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/.cache/grabmyo_features_370_20hz_full.pkl...
+  262773 GrabMyo windows  (0s)
+
+Extracting Lucchetti stroke impaired-arm features at 20 Hz P-P...
+  ST_01: 10702 windows  (5s)
+  ST_02: 8694 windows  (9s)
+  ST_03: 7509 windows  (13s)
+  ST_04: 4570 windows  (15s)
+  ST_05: 3819 windows  (17s)
+  ST_06: 5668 windows  (19s)
+  ST_07: 8712 windows  (23s)
+  ST_08: 6493 windows  (26s)
+  ST_09: 12441 windows  (31s)
+  ST_10: 7464 windows  (35s)
+  Lucchetti stroke impaired: 76072 windows across 10 subjects
+
+Engineer features (60 → 370)...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+
+Fitting HGB on GrabMyo envelope features (zero-shot)...
+  zero-shot fit_time: 26.4s
+  ST_01: zs=0.350  cal3=0.470  calBin=0.538  fit=29.3s (1/10)
+  ST_02: zs=0.393  cal3=0.547  calBin=0.726  fit=29.1s (2/10)
+  ST_03: zs=0.393  cal3=0.581  calBin=0.718  fit=29.1s (3/10)
+  ST_04: zs=0.299  cal3=0.436  calBin=0.598  fit=29.5s (4/10)
+  ST_05: zs=0.376  cal3=0.470  calBin=0.564  fit=29.3s (5/10)
+  ST_06: zs=0.393  cal3=0.402  calBin=0.547  fit=30.4s (6/10)
+  ST_07: zs=0.342  cal3=0.453  calBin=0.650  fit=30.2s (7/10)
+  ST_08: zs=0.479  cal3=0.615  calBin=0.812  fit=31.4s (8/10)
+  ST_09: zs=0.342  cal3=0.368  calBin=0.368  fit=28.3s (9/10)
+  ST_10: zs=0.359  cal3=0.581  calBin=0.778  fit=28.2s (10/10)
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/lucchetti/results/deployed_pipeline_sim.csv
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/lucchetti/results/deployed_pipeline_sim_summary.md
+
+=== RESULT (Lucchetti, envelope pipeline) ===
+  Zero-shot 3-class:  0.3726  (raw 2 kHz: 0.194)
+  Calibrated 3-class: 0.4923  (raw 2 kHz: 0.795)
+  Calibrated binary:  0.6299  (raw 2 kHz: 0.960)

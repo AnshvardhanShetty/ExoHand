@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+import { DEMO_MODE } from "../lib/demoMode";
+import { startDemoReplay } from "../lib/demoData";
 
 export interface MotorFrame {
   type: string;
@@ -35,6 +37,23 @@ export function useWebSocket() {
 
   useEffect(() => {
     let unmounted = false;
+
+    // Demo mode: replay the bundled Adhi recording instead of opening a real
+    // WebSocket. Returns a stop() function which we chain into cleanup.
+    if (DEMO_MODE) {
+      const stopReplay = startDemoReplay({
+        onConnected: (c) => { if (!unmounted) setConnected(c); },
+        onFrame: (f) => {
+          if (unmounted) return;
+          setFrame(f);
+          setStale(false);
+        },
+      });
+      return () => {
+        unmounted = true;
+        stopReplay();
+      };
+    }
 
     function connect() {
       if (unmounted) return;

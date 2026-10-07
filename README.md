@@ -55,9 +55,34 @@ The mean improvement of +2.7% is distribution-dependent: easy subjects (no-cal >
 Additional configurations not yet reproduced under this LOSO protocol: instantaneous-features-only baseline, temporal-features-only baseline, binary (movement vs rest) classifier, per-class precision/recall breakdown. Ablations are tracked under Stream 3 of the paper plan.
 
 ### Patient Calibration
-Full initial calibration (6 minutes) runs when a new patient is registered, including rest baseline, familiarization, sustained holds, quick contractions, and variable effort phases with onset trimming and outlier rejection.
 
-For LOSO evaluation, a 60-second adaptation protocol (1200 windows at 200 ms windows / 50 ms stride) is applied with patient data weighted 100× against the base training set. This protocol reproduces the variance-collapse outcome: cross-subject standard deviation drops from ±4.2% to ±2.1% (2.05×) and mean accuracy rises from 94.6% to 97.3%. The deployed `runtime/calibrate_patient.py` exposes both a full initial protocol and a shorter recalibration mode; the exact production-time defaults are being aligned with the validated evaluation protocol.
+Two protocols, used at different points in the patient's journey:
+
+- **Initial calibration (~6 minutes, once per patient):** rest baseline, familiarization, sustained holds, quick contractions, and variable-effort phases, with onset trimming and outlier rejection. Run when a patient is registered.
+- **Per-session re-cal (~30 seconds, every session):** the patient holds rest, close, and open for ~5 s each with ~5 s gaps. Refreshes the decision boundary against day-to-day electrode placement and skin-impedance drift. Without per-session re-cal, accuracy degrades from ~0.87 to ~0.50 within a few sessions on PhysioMio's longitudinal data.
+
+The **LOSO evaluation protocol** that produced the 97.3% headline uses 1200 cued windows (~60 s at 50 ms stride) weighted 100× against the GrabMyo base — a deliberately larger calibration than the deployed 30 s re-cal, since the eval target is the largest accuracy lift that a per-user fine-tune produces in principle. Variance collapses 2.05× (±4.2% → ±2.1%) and mean accuracy rises 94.6% → 97.3%.
+
+### Why the protocol assumes a population backbone
+
+The cal=3 collapse is not a methodological footnote; it is the constraint the entire protocol is designed around. A 30-second per-session re-cal is only viable because the population backbone makes 25 windows/gesture sufficient. Without it, deployable cal sizes return classifiers that collapse to majority-class prediction, and the protocol reverts to a 6-minute enrollment per session — operationally non-viable for stroke rehabilitation. **The backbone is therefore not a performance enhancement at the operating point (where it ties patient-only on raw accuracy) but the precondition for the operational protocol to exist.**
+
+We measured this with a cal-size sweep over all 48 PhysioMio patients × {3, 6, 12, 24, 36} cued windows/gesture × {patient-only HGB, GrabMyo+cal HGB}:
+
+| windows/gesture | patient-only (same-session) | GrabMyo + cal (same-session) |
+|---:|---:|---:|
+| **3** | **0.333 (single-class collapse — 12/12 patients predict `close` for 100% of test windows)** | **0.716** |
+| 6 | 0.774 | 0.768 |
+| 12 | 0.837 | 0.827 |
+| 24 | 0.870 | 0.870 |
+| 36 | 0.878 | 0.884 |
+
+The two ends of the curve carry the argument:
+
+- **Left end (cal=3, 1.5 s/gesture).** Patient-only predicts a single class for every test window in every patient sampled. Mechanism: 3 windows × 12 trials × 75% overlap → ~1 independent sample per class, against 370 features — underdetermined by construction, confirmed empirically with single-column confusion matrices. GrabMyo + cal at the same budget reaches 0.72. The protocol assumes a backbone because at deployable cal sizes this is what happens without one.
+- **Right end (cal=24–36, the protocol's operating budget).** Patient-only and GrabMyo+cal converge to ~0.87 — the prior has handed off to the patient data, exactly as the cal-weighting (×100 vs base ×1) is intended to produce. Steady-state accuracy at the operating point no longer requires the prior; the protocol that gets a 30 s re-cal to the operating point does.
+
+Even the 6-minute initial calibration provides only ~30–45 independent samples per class (~10–15 distinct trials × 75%-overlapping windows), below the feature-count threshold. GrabMyo carries the cross-subject variability one patient's data cannot generate, which is what makes 30 s per-session re-cal a viable design rather than a 6-minute fresh enrollment every time the device is put on.
 
 ## Web Platform
 
@@ -177,6 +202,6 @@ cd client && npm install && npm run dev  # localhost:5173
 ### Modes
 - **Free mode** (default): Real-time EMG → motor passthrough
 - **Exercise mode** (`--exercise`): Structured reps with state tracking, timeout warnings, and rep counting
-- **Calibrate** (`--calibrate`): Run 30-second calibration for a new patient
+- **Calibrate** (`--calibrate`): Run patient calibration — full 6-minute protocol for first-time setup, ~30-second per-session re-cal for returning patients
 
 

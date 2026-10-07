@@ -1,0 +1,59 @@
+Loading + engineering PhysioMio...
+  Adding temporal features …
+  Adding cross-channel features …
+  Adding temporal features on interaction columns …
+  Adding rank-percentile features …
+  Adding within-trial position …
+  Per-participant z-score normalisation …
+  Per-participant-session normalisation …
+Running cal-size ablation on 48 patients × 6 sizes
+
+=== cal_per_gesture = 12 (600 ms × 12 gestures = 7.2 s total) ===
+  patient 10/48 done, elapsed=75s
+  patient 20/48 done, elapsed=103s
+  patient 30/48 done, elapsed=136s
+  patient 40/48 done, elapsed=177s
+
+=== cal_per_gesture = 24 (1200 ms × 12 gestures = 14.4 s total) ===
+  patient 10/48 done, elapsed=227s
+  patient 20/48 done, elapsed=252s
+  patient 30/48 done, elapsed=277s
+  patient 40/48 done, elapsed=314s
+
+=== cal_per_gesture = 36 (1800 ms × 12 gestures = 21.6 s total) ===
+  patient 10/48 done, elapsed=374s
+  patient 20/48 done, elapsed=407s
+  patient 30/48 done, elapsed=441s
+  patient 40/48 done, elapsed=486s
+
+=== cal_per_gesture = 60 (3000 ms × 12 gestures = 36.0 s total) ===
+  patient 10/48 done, elapsed=556s
+  patient 20/48 done, elapsed=589s
+  patient 30/48 done, elapsed=623s
+  patient 40/48 done, elapsed=665s
+
+=== cal_per_gesture = 90 (4500 ms × 12 gestures = 54.0 s total) ===
+  patient 10/48 done, elapsed=732s
+  patient 20/48 done, elapsed=766s
+  patient 30/48 done, elapsed=800s
+  patient 40/48 done, elapsed=841s
+
+=== cal_per_gesture = 120 (6000 ms × 12 gestures = 72.0 s total) ===
+  patient 10/48 done, elapsed=912s
+  patient 20/48 done, elapsed=945s
+  patient 30/48 done, elapsed=979s
+  patient 40/48 done, elapsed=1020s
+
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/cal_size_ablation.csv
+Wrote /Users/anshshetty/Library/Mobile Documents/com~apple~CloudDocs/ExoHand/analysis/physiomio/results/cal_size_ablation_summary.md
+
+Sweep summary:
+ cal_per_gesture  n_sessions  acc_mean  acc_std  f1_macro_mean  f1_rest_mean  f1_close_mean  f1_open_mean  cal_total_s
+              12         328  0.831848 0.104273       0.814005      0.946211       0.820534      0.675270          7.2
+              24         328  0.862622 0.102584       0.848699      0.973651       0.846145      0.726301         14.4
+              36         328  0.869841 0.104877       0.858624      0.969259       0.852086      0.754527         21.6
+              60         328  0.870284 0.104392       0.859000      0.969763       0.852721      0.754516         36.0
+              90         328  0.869762 0.104435       0.858535      0.969405       0.851899      0.754299         54.0
+             120         328  0.870518 0.104405       0.859233      0.969797       0.853063      0.754839         72.0
+
+Total wall: 17.4 min
