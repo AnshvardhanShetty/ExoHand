@@ -1,6 +1,6 @@
 # ExoHand
 
-**Accepted to BrainBodyFM at NeurIPS 2026.**
+**Accepted demonstration at BrainBodyFM (NeurIPS 2026).**
 
 EMG-controlled hand exoskeleton with real-time intent classification, adaptive motor assistance, and a full-stack rehabilitation platform.
 
@@ -10,89 +10,73 @@ EMG-controlled hand exoskeleton with real-time intent classification, adaptive m
 
 ## Overview
 
-ExoHand is a complete EMG-to-actuation system for hand rehabilitation. Surface EMG signals from the forearm are acquired via a Teensy 4.0 microcontroller, classified in real time using a gradient boosting model, and translated into servo commands that drive a 3D-printed exoskeleton hand. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
+ExoHand is a closed-loop hand rehabilitation prototype that turns surface electromyography (sEMG) from the forearm into movement of a 3D-printed, tendon-driven hand exoskeleton. Four sensors capture the user's muscle activity; a locally trained classifier decodes **close / open / rest** and drives the device in real time. A therapist-facing web platform manages patients, tracks progress, and runs structured exercise sessions.
 
-The system achieves **97.3% three-class accuracy** (close / open / rest) with a per-user calibration protocol, measured over 43 leave-one-subject-out folds on the GrabMyo dataset (95% bootstrap CI: [96.7%, 97.9%]).
+The accepted demonstration uses a HistGradientBoosting classifier **trained from scratch on 22 seconds of the user's own signals**, with no pretrained model in the live loop. The guided calibration session takes about two minutes overall; **22 seconds refers to the labelled signal budget**, rather than the entire setup and cueing time. The hardware build costs **under £200** and runs with a Teensy 4.0, a laptop, four sEMG sensors, and two hobby servos.
 
-## Research & Paper
+## NeurIPS 2026 Demonstration
 
-The ExoHand paper has been accepted to **BrainBodyFM at NeurIPS 2026**. The repository includes the research analyses, evaluation results, figures, and supporting paper materials.
+**Accepted as a demonstration at BrainBodyFM — Foundation Models for the Brain and Body — at NeurIPS 2026.**
+
+**Title:** *ExoHand: A £200 Closed-loop Hand Exoskeleton, Calibrated in 22 Seconds*
+
+**Authors:** Anshvardhan Shetty · Adhiraiyan Sasikumar
+
+One participant wears the exoskeleton while a second wears the four-channel forearm sensor sleeve. After calibration, the second participant's hand intent drives the first participant's exoskeleton: closing their hand closes the device, and opening their hand opens it. Attendees swap roles to experience both decoding and assisted movement. This two-person arrangement makes the signal-to-movement path visible; the intended rehabilitation arrangement places sensing and assistance on the same patient.
+
+Acquisition, 20 Hz envelope extraction, inference, and actuation run locally, using live signals. The interface displays the four EMG channels, decoded hand state, rep count, session accuracy, and stability.
+
+## Research & Results
+
+The research behind the demonstration tested whether a large healthy-population EMG corpus transfers to stroke intent decoding. GrabMyo contributes **1.14 million windows from 43 subjects**; the stroke evaluation covers **48 PhysioMio patients** and three intent classes.
+
+| Offline stroke evaluation | Mean accuracy |
+|---|---:|
+| Three-class chance | 33.3% |
+| GrabMyo → stroke, zero-shot | 36.0% |
+| Patient-only classifier, 22 seconds of impaired-arm calibration | **89.6%** |
+
+The zero-shot result was statistically indistinguishable from chance. Adding GrabMyo data at the tested weights did not improve on patient-only calibration. These findings motivated the demonstration's per-user training approach. The offline results use four channels selected per patient to match the live rig's channel count; **89.6% is an offline cohort result**, rather than a measured accuracy for every live attendee.
 
 - [Paper materials](paper/README.md): research documentation, figures, appendix, and hardware verification handoffs.
-- [Canonical results](paper/FINAL_NUMBERS.md): results and provenance for the paper.
-- [Analysis and evaluation](analysis/README.md): scripts and results for calibration, cross-subject transfer, longitudinal evaluation, and deployment checks.
+- [Canonical research results](paper/FINAL_NUMBERS.md): cohort results and provenance.
+- [Leakage-free calibration comparison](analysis/revision/results/C4_leakage_free_summary.md): patient-only training versus adding GrabMyo data.
+- [Analysis and evaluation](analysis/README.md): experiment scripts and reproduction instructions.
 
 ## System Architecture
 
 ```
-EMG Sensors → Teensy 4.0 → Serial USB → Python Runtime → Motor Commands → Servo
-                                              ↕
-                                        Node.js Server ↔ React Dashboard
-                                              ↕
-                                        SQLite Database
+4 sEMG Sensors → Teensy 4.0 → Serial USB → Python Decoder → Motor Commands → 2 Servos
+                                               ↕
+                                         Node.js Server ↔ React Dashboard
+                                               ↕
+                                         SQLite Database
 ```
 
-**Real-time loop:** Read 4-channel EMG at 20 Hz → extract 370 features per window → classify intent → send single-character motor command (`c`/`o`/`r`) — all within 50ms.
+**Real-time loop:** Acquire four-channel EMG → extract envelope and window features → classify close / open / rest → issue motor commands. The acquisition stream runs at 20 Hz (one update every 50 ms); physical actuation and filtering add to the end-to-end response time.
 
 ## ML Pipeline
 
-### Training Data
-Trained on the [GrabMyo dataset](https://physionet.org/content/grabmyo/) — 43 participants, 1.14M samples at 2 kHz, reduced to 4 optimally selected channels targeting flexor and extensor digitorum muscles. Raw session data should be downloaded from PhysioNet and placed in `grabmyo/Session1/`, `Session2/`, `Session3/`.
+### Per-user Calibration
 
-### Feature Engineering (370 features)
-- **Per-channel features** (6 × 4 channels): RMS, MAV, waveform length, zero crossings, slope sign changes, envelope RMS
-- **Temporal features**: Lag values, deltas (velocity), acceleration, rolling means — captures how EMG signals evolve over time
-- **Cross-channel interactions**: Flexor/extensor ratios, pairwise differences, and their temporal derivatives
-- **Per-participant normalization**: Z-score normalization removes inter-subject amplitude variation
+The demonstration fits a scikit-learn HistGradientBoostingClassifier to the user's own cued close, open, and rest signals. Feature scaling is fitted to calibration data. The repository includes a `paper22s` calibration protocol with 12 cued blocks of 1.8 seconds each (21.6 seconds of labelled signal), plus transitions, baseline collection, and instructions.
 
-### Model
-HistGradientBoostingClassifier (scikit-learn) with class balancing, participant-level train/test splits, and EMG-specific data augmentation (gain variation, bias shifts, channel dropout, noise injection).
+The runtime also retains longer calibration protocols: a full initial protocol of about six minutes and a quick abbreviated protocol of about 90 seconds. These are additional runtime options; the accepted demonstration uses the short signal budget described above.
 
-### Accuracy
+### Features
 
-Full results from leave-one-subject-out evaluation (n=43, seed=42, 2000 bootstrap resamples):
+The pipeline uses 370 engineered features, including per-channel RMS, mean absolute value, waveform length, zero crossings, slope sign changes, envelope RMS, temporal lags and derivatives, rolling statistics, and cross-channel interactions.
+
+### Earlier GrabMyo Benchmark
+
+Earlier development evaluated a population model within GrabMyo using 43 leave-one-subject-out folds. These results describe the healthy-subject benchmark and its larger calibration budget; they are separate from the stroke evaluation and the accepted live demonstration.
 
 | Configuration | Accuracy (mean, 95% CI) | Macro-F1 (mean, 95% CI) |
 |---|---|---|
 | Cross-subject baseline (no calibration) | 94.6% [93.3%, 95.8%] | 0.946 [0.932, 0.958] |
-| + Per-user calibration (60 s, 1200 windows, 100× weight) | **97.3% [96.7%, 97.9%]** | **0.972 [0.965, 0.979]** |
-| Δ from calibration (paired) | **+2.7% [+2.0%, +3.6%]** | — |
+| + Per-user calibration (60 s, 1200 windows, 100× weight) | 97.3% [96.7%, 97.9%] | 0.972 [0.965, 0.979] |
 
-Cross-subject standard deviation reduces from **±4.2% [2.7%, 5.9%]** to **±2.1% [1.4%, 2.6%]** — a 2.05× collapse [1.58×, 2.51×]. Paired Wilcoxon signed-rank: **p ≈ 10⁻¹³**, Cliff's δ = +1.0 (every fold improves with calibration).
-
-The mean improvement of +2.7% is distribution-dependent: easy subjects (no-cal > 97%) get near-zero improvement (already at ceiling), while the hardest fold (participant2, no-cal 77.4%) gains +13.7%. **Calibration consistently helps the subjects who need it most**, even when the average effect is modest.
-
-Additional configurations not yet reproduced under this LOSO protocol: instantaneous-features-only baseline, temporal-features-only baseline, binary (movement vs rest) classifier, per-class precision/recall breakdown. Ablations are tracked under Stream 3 of the paper plan.
-
-### Patient Calibration
-
-Two protocols, used at different points in the patient's journey:
-
-- **Initial calibration (~6 minutes, once per patient):** rest baseline, familiarization, sustained holds, quick contractions, and variable-effort phases, with onset trimming and outlier rejection. Run when a patient is registered.
-- **Per-session re-cal (~30 seconds, every session):** the patient holds rest, close, and open for ~5 s each with ~5 s gaps. Refreshes the decision boundary against day-to-day electrode placement and skin-impedance drift. Without per-session re-cal, accuracy degrades from ~0.87 to ~0.50 within a few sessions on PhysioMio's longitudinal data.
-
-The **LOSO evaluation protocol** that produced the 97.3% headline uses 1200 cued windows (~60 s at 50 ms stride) weighted 100× against the GrabMyo base — a deliberately larger calibration than the deployed 30 s re-cal, since the eval target is the largest accuracy lift that a per-user fine-tune produces in principle. Variance collapses 2.05× (±4.2% → ±2.1%) and mean accuracy rises 94.6% → 97.3%.
-
-### Why the protocol assumes a population backbone
-
-The cal=3 collapse is not a methodological footnote; it is the constraint the entire protocol is designed around. A 30-second per-session re-cal is only viable because the population backbone makes 25 windows/gesture sufficient. Without it, deployable cal sizes return classifiers that collapse to majority-class prediction, and the protocol reverts to a 6-minute enrollment per session — operationally non-viable for stroke rehabilitation. **The backbone is therefore not a performance enhancement at the operating point (where it ties patient-only on raw accuracy) but the precondition for the operational protocol to exist.**
-
-We measured this with a cal-size sweep over all 48 PhysioMio patients × {3, 6, 12, 24, 36} cued windows/gesture × {patient-only HGB, GrabMyo+cal HGB}:
-
-| windows/gesture | patient-only (same-session) | GrabMyo + cal (same-session) |
-|---:|---:|---:|
-| **3** | **0.333 (single-class collapse — 12/12 patients predict `close` for 100% of test windows)** | **0.716** |
-| 6 | 0.774 | 0.768 |
-| 12 | 0.837 | 0.827 |
-| 24 | 0.870 | 0.870 |
-| 36 | 0.878 | 0.884 |
-
-The two ends of the curve carry the argument:
-
-- **Left end (cal=3, 1.5 s/gesture).** Patient-only predicts a single class for every test window in every patient sampled. Mechanism: 3 windows × 12 trials × 75% overlap → ~1 independent sample per class, against 370 features — underdetermined by construction, confirmed empirically with single-column confusion matrices. GrabMyo + cal at the same budget reaches 0.72. The protocol assumes a backbone because at deployable cal sizes this is what happens without one.
-- **Right end (cal=24–36, the protocol's operating budget).** Patient-only and GrabMyo+cal converge to ~0.87 — the prior has handed off to the patient data, exactly as the cal-weighting (×100 vs base ×1) is intended to produce. Steady-state accuracy at the operating point no longer requires the prior; the protocol that gets a 30 s re-cal to the operating point does.
-
-Even the 6-minute initial calibration provides only ~30–45 independent samples per class (~10–15 distinct trials × 75%-overlapping windows), below the feature-count threshold. GrabMyo carries the cross-subject variability one patient's data cannot generate, which is what makes 30 s per-session re-cal a viable design rather than a 6-minute fresh enrollment every time the device is put on.
+The repository retains the earlier population-model training and adaptation tools for reproduction. Raw GrabMyo sessions can be downloaded from [PhysioNet](https://physionet.org/content/grabmyo/) and placed in `grabmyo/Session1/`, `Session2/`, and `Session3/`.
 
 ## Web Platform
 
@@ -116,21 +100,17 @@ Five graduated profiles for stroke rehabilitation, from maximum assistance (Leve
 
 ### Mechanical Design
 
-The exoskeleton uses a tendon-driven mechanism inspired by the human hand. Each finger has 3D-printed articulated segments that slip over the patient's fingers, connected by two opposing force systems:
+The demonstration uses two servos on a forearm cuff: one drives the four fingers and the other drives the thumb independently. Each servo is geared 2:1 to give its winches a full 360° of travel.
 
-- **Flexion (closing):** Elastic bands run along the palmar side of each finger, providing passive pull that curls the fingers closed — mimicking flexor tendons.
-- **Extension (opening):** Fishing line routed along the dorsal side connects to a servo motor. When the motor pulls, the line straightens the fingers against the elastic tension — mimicking extensor tendons.
-
-The balance between these two forces gives smooth, controlled movement. Cable routing channels are built into the 3D-printed finger segments to keep the fishing line aligned through each joint. The entire frame is lightweight and slips on like a glove.
-
-The current prototype prioritises function over form — future revisions will focus on a sleeker form factor, cleaner wire management, and a more polished overall build.
+Each finger has its own winch, sized so its circumference matches the fingertip's travel between open and closed positions. This lets fingers of different lengths reach their target positions together. Opposing flexion and extension tendons share the winch: one runs over a dorsal plate to the fingertips, and the other follows the palmar side. Turning the winch reels in one tendon while releasing the other, maintaining controlled tension throughout movement.
 
 ### Electronics
 
-- **Microcontroller**: Teensy 4.0
-- **EMG sensors**: MyoWare 2.0 (4-channel analog, forearm placement)
-- **Actuation**: Servo motor (110° open / 145° rest / 180° closed)
-- **Protocol**: 115200 baud serial, tab-separated EMG values in, single-character commands out
+- **Microcontroller:** Teensy 4.0
+- **EMG sensors:** Four MyoWare 2.0 channels, placed over FCR, ECR, FDS, and EDC
+- **Actuation:** Two hobby servos, with independent finger and thumb drive
+- **Host:** Laptop running local decoding and the interface
+- **Protocol:** 115200 baud serial, four-channel EMG input, and motor commands
 
 Two firmware variants:
 - `teensy_emg/` — EMG acquisition only (peak-to-peak amplitude, 50ms windows)
@@ -143,8 +123,8 @@ Two firmware variants:
 | ML / Signal Processing | Python, scikit-learn, NumPy, SciPy, joblib |
 | Backend | Node.js, Express, TypeScript, WebSocket, better-sqlite3, serialport |
 | Frontend | React 18, Vite, TypeScript, Three.js, React Three Fiber, Recharts, Tailwind CSS |
-| Hardware | Teensy 4.0, MyoWare 2.0, Servo motor |
-| Data | GrabMyo (PhysioNet), SQLite |
+| Hardware | Teensy 4.0, four MyoWare 2.0 sensors, two hobby servos |
+| Data | Per-user calibration, PhysioMio, GrabMyo (research), SQLite |
 
 ## Project Structure
 
@@ -163,8 +143,8 @@ ExoHand/
 ├── data/                        # Data collection & labeling
 │   ├── record_session.py        # Record labeled EMG sessions
 │   └── label_session.py         # Post-hoc session labeling
-├── exohand_model.pkl            # Base pre-trained model (LFS)
-├── exohand_adapted_model.pkl    # Patient-adapted model (LFS)
+├── exohand_model.pkl            # Earlier shipped model artifact (LFS)
+├── exohand_adapted_model.pkl    # Earlier adapted-model artifact (LFS)
 ├── server/                      # Node.js backend
 │   └── src/
 │       ├── index.ts             # Express + WebSocket server
@@ -198,14 +178,16 @@ Flash `exohand_combined/exohand_combined.ino` to a Teensy 4.0 using the Arduino 
 
 ### Python Runtime
 ```bash
-pip install numpy scipy scikit-learn joblib pyserial
-python run_exohand.py --port /dev/tty.usbmodemXXXX --model exohand_model.pkl
+pip install -r requirements.txt
+python runtime/run_exohand.py --port /dev/tty.usbmodemXXXX --model /path/to/calibrated_model.pkl
 ```
+
+Use a saved per-user model for live inference. The earlier population-model artifacts remain available for reproducing the historical benchmark. Calibration protocols are implemented in [`runtime/calibrate_patient.py`](runtime/calibrate_patient.py).
 
 ### Web Platform
 ```bash
 # Server
-cd server && npm install && npm start    # localhost:3001
+cd server && npm install && npm run build && npm start  # localhost:3001
 
 # Client
 cd client && npm install && npm run dev  # localhost:5173
@@ -214,6 +196,7 @@ cd client && npm install && npm run dev  # localhost:5173
 ### Modes
 - **Free mode** (default): Real-time EMG → motor passthrough
 - **Exercise mode** (`--exercise`): Structured reps with state tracking, timeout warnings, and rep counting
-- **Calibrate** (`--calibrate`): Run patient calibration — full 6-minute protocol for first-time setup, ~30-second per-session re-cal for returning patients
+- **Patient calibration** (`--patient-calibrate` / `--patient-recalibrate`): Full or abbreviated calibration through the runtime
+- **Short cued calibration** (`paper22s` in the calibration module): ~22 seconds of labelled signals, with additional time for baseline collection, cueing, and transitions
 
 
